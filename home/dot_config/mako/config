@@ -1,0 +1,14 @@
+# mako notifier config
+border-size=1
+border-color=#808080FF
+background-color=#3C3C3CFF
+text-color=#F0F0F0FF
+icons=1
+icon-location=right
+#default-timeout=30000
+max-visible=2
+layer=top
+anchor=top-right
+history=0
+sort=-time
+font=monospace

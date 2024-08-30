@@ -1,0 +1,86 @@
+/* global */
+@import "/etc/xdg/waybar/style.css";
+
+@define-color coltext          #d8ded3;
+@define-color colfg            #4c5844;
+@define-color colbg            #3e4637;
+@define-color colfocus         #808080;
+@define-color colunfocus       #282e22;
+@define-color colhighlight     #c4b550;
+@define-color coltexthighlight #373737;
+
+* {
+    font-family: "monospace";
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    background-color: @colfg;
+    color: @coltext;
+}
+
+/* workspaces */
+#custom-xsetroot {
+    background-color: @colbg;
+    padding: 0;
+    margin: 0;
+    padding-left: 2px;
+}
+
+#workspaces {
+    background-color: @colbg;
+    color: @colbg;
+    padding: 0;
+    margin: 0;
+}
+
+#workspaces * {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+#workspaces button {
+    padding: 1px;
+    margin: 0;
+}
+
+#workspaces button.active, #workspaces button.active label {
+    color: @coltexthighlight;
+    background-color: @colhighlight;
+}
+
+#workspaces button:hover {
+    box-shadow: none;
+    text-shadow: none;
+    background: @colfg;
+    transition: none;
+}
+
+/* window */
+#window {
+    background-color: @colbg;
+    padding: 0;
+    margin: 0;
+}
+
+/* tray */
+#tray {
+    color: @coltext;
+    background-color: @colbg;
+    padding: 0;
+    margin: 0;
+}
+
+#tray *:first-child {
+    padding-left: 2px
+}
+
+#tray menu *:hover {
+    background-color: @colhighlight;
+}
+
+#tray menu *:hover > label, #tray {
+    color: @coltexthighlight;
+    background-color: @transparent;
+}

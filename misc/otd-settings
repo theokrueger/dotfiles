@@ -1,0 +1,292 @@
+{
+  "Profiles": [
+    {
+      "Tablet": "XP-Pen Artist 15.6",
+      "OutputMode": {
+        "Path": "OpenTabletDriver.Desktop.Output.LinuxArtistMode",
+        "Settings": [],
+        "Enable": true
+      },
+      "Filters": [
+        {
+          "Path": "Pressure_Debounce.Pressure_Debounce",
+          "Settings": [
+            {
+              "Property": "Debounce_timer",
+              "Value": 30.0
+            },
+            {
+              "Property": "Pressure_threshold",
+              "Value": 1.0
+            },
+            {
+              "Property": "Drop_excess",
+              "Value": null
+            },
+            {
+              "Property": "Disable_timer",
+              "Value": null
+            }
+          ],
+          "Enable": false
+        },
+        {
+          "Path": "VoiDPlugins.Filter.PrecisionControl",
+          "Settings": [
+            {
+              "Property": "Scale",
+              "Value": 0.3
+            }
+          ],
+          "Enable": false
+        },
+        {
+          "Path": "TabletDriverFilters.Devocub.Antichatter",
+          "Settings": [
+            {
+              "Property": "Latency",
+              "Value": 2.0
+            },
+            {
+              "Property": "AntichatterStrength",
+              "Value": 3.0
+            },
+            {
+              "Property": "AntichatterMultiplier",
+              "Value": 1.0
+            },
+            {
+              "Property": "AntichatterOffsetX",
+              "Value": null
+            },
+            {
+              "Property": "AntichatterOffsetY",
+              "Value": 1.0
+            },
+            {
+              "Property": "PredictionEnabled",
+              "Value": null
+            },
+            {
+              "Property": "PredictionStrength",
+              "Value": 1.1
+            },
+            {
+              "Property": "PredictionSharpness",
+              "Value": 1.0
+            },
+            {
+              "Property": "PredictionOffsetX",
+              "Value": 3.0
+            },
+            {
+              "Property": "PredictionOffsetY",
+              "Value": 0.3
+            },
+            {
+              "Property": "Frequency",
+              "Value": 1000.0
+            }
+          ],
+          "Enable": false
+        }
+      ],
+      "AbsoluteModeSettings": {
+        "Display": {
+          "Width": 1920.0,
+          "Height": 1080.0,
+          "X": 960.0,
+          "Y": 540.0,
+          "Rotation": 0.0
+        },
+        "Tablet": {
+          "Width": 344.19,
+          "Height": 194.61,
+          "X": 172.095,
+          "Y": 97.305,
+          "Rotation": 0.0
+        },
+        "EnableClipping": true,
+        "EnableAreaLimiting": false,
+        "LockAspectRatio": false
+      },
+      "RelativeModeSettings": {
+        "XSensitivity": 10.0,
+        "YSensitivity": 10.0,
+        "RelativeRotation": 0.0,
+        "RelativeResetDelay": "00:00:00.1000000"
+      },
+      "Bindings": {
+        "TipActivationThreshold": 0.0,
+        "TipButton": {
+          "Path": "OpenTabletDriver.Desktop.Binding.LinuxArtistMode.LinuxArtistModeButtonBinding",
+          "Settings": [
+            {
+              "Property": "Button",
+              "Value": "Pen Button 1"
+            }
+          ],
+          "Enable": true
+        },
+        "EraserActivationThreshold": 0.0,
+        "EraserButton": null,
+        "PenButtons": [
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.LinuxArtistMode.LinuxArtistModeButtonBinding",
+            "Settings": [
+              {
+                "Property": "Button",
+                "Value": "Pen Button 3"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.LinuxArtistMode.LinuxArtistModeButtonBinding",
+            "Settings": [
+              {
+                "Property": "Button",
+                "Value": "Pen Button 2"
+              }
+            ],
+            "Enable": true
+          }
+        ],
+        "AuxButtons": [
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.MultiKeyBinding",
+            "Settings": [
+              {
+                "Property": "Keys",
+                "Value": "Control+Shift+Equal"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.MultiKeyBinding",
+            "Settings": [
+              {
+                "Property": "Keys",
+                "Value": "Control+Minus"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.MultiKeyBinding",
+            "Settings": [
+              {
+                "Property": "Keys",
+                "Value": "Control+Z"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.MultiKeyBinding",
+            "Settings": [
+              {
+                "Property": "Keys",
+                "Value": "Control+Shift+Z"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.KeyBinding",
+            "Settings": [
+              {
+                "Property": "Key",
+                "Value": "Tab"
+              }
+            ],
+            "Enable": true
+          },
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.KeyBinding",
+            "Settings": [
+              {
+                "Property": "Key",
+                "Value": "X"
+              }
+            ],
+            "Enable": true
+          }
+        ],
+        "MouseButtons": [],
+        "MouseScrollUp": null,
+        "MouseScrollDown": null
+      }
+    },
+    {
+      "Tablet": "Wacom CTL-471",
+      "OutputMode": {
+        "Path": "OpenTabletDriver.Desktop.Output.AbsoluteMode",
+        "Settings": [],
+        "Enable": true
+      },
+      "Filters": [],
+      "AbsoluteModeSettings": {
+        "Display": {
+          "Width": 1920.0,
+          "Height": 1080.0,
+          "X": 960.0,
+          "Y": 540.0,
+          "Rotation": 0.0
+        },
+        "Tablet": {
+          "Width": 60.78,
+          "Height": 41.5,
+          "X": 75.64,
+          "Y": 49.65,
+          "Rotation": 0.0
+        },
+        "EnableClipping": true,
+        "EnableAreaLimiting": false,
+        "LockAspectRatio": false
+      },
+      "RelativeModeSettings": {
+        "XSensitivity": 10.0,
+        "YSensitivity": 10.0,
+        "RelativeRotation": 0.0,
+        "RelativeResetDelay": "00:00:00.1000000"
+      },
+      "Bindings": {
+        "TipActivationThreshold": 0.0,
+        "TipButton": {
+          "Path": "OpenTabletDriver.Desktop.Binding.MouseBinding",
+          "Settings": [
+            {
+              "Property": "Button",
+              "Value": "Left"
+            }
+          ],
+          "Enable": true
+        },
+        "EraserActivationThreshold": 0.0,
+        "EraserButton": null,
+        "PenButtons": [
+          null,
+          {
+            "Path": "OpenTabletDriver.Desktop.Binding.MouseBinding",
+            "Settings": [
+              {
+                "Property": "Button",
+                "Value": "Right"
+              }
+            ],
+            "Enable": true
+          }
+        ],
+        "AuxButtons": [],
+        "MouseButtons": [],
+        "MouseScrollUp": null,
+        "MouseScrollDown": null
+      }
+    }
+  ],
+  "LockUsableAreaDisplay": false,
+  "LockUsableAreaTablet": true,
+  "Tools": []
+}

@@ -1,0 +1,13 @@
+# ~/.bashrc
+# run whenever bash is invoked
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# cow fortune
+COWF=/tmp/cowfort
+getfort() {
+  fortune -s | $(test $(($RANDOM % 2)) -eq 1 && echo cowthink || echo cowthink) | lolcat -f
+}
+test -f $COWF && cat $COWF || getfort
+( getfort > $COWF & )

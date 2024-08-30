@@ -1,0 +1,12 @@
+echo "Setting up aliases"
+
+# coloured output
+alias lsa='ls -a --color=auto'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# formatted output
+alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
+
+# custom shortcuts
+alias startw="dbus-run-session sway > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"

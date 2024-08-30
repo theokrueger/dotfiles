@@ -1,0 +1,13 @@
+#!/bin/bash
+echo 'setting pointer settings'
+
+# linsuslap trackpad
+xinput set-prop "SYNA8004:00 06CB:CD8B Touchpad" "Device Accel Profile" 0
+
+# glorious model o-
+xinput set-prop 'SINOWEALTH Wired Gaming Mouse' 'libinput Accel Speed' -0.4 &> /dev/null
+xinput set-prop 'SINOWEALTH Wired Gaming Mouse' 'libinput Accel Profile Enabled' 0, 1 &> /dev/null
+
+# magic trackpad
+xinput set-prop "Apple Wireless Trackpad" "Device Accel Profile" 0
+xinput set-prop "Apple Wireless Trackpad" "Coordinate Transformation Matrix" 2 0 0 0 2 0 0 0 1.5

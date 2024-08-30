@@ -1,0 +1,43 @@
+#!/bin/sh
+echo 'Locking screen'
+swaylock \
+    --ignore-empty-password \
+    --hide-keyboard-layout \
+    --disable-caps-lock-text \
+    --color 3e4637cc \
+    --font monospace \
+    --font-size 24 \
+    --show-failed-attempts \
+    --scaling center \
+#    --image ./lock.png \
+    --indicator-x-position 100 \
+    --indicator-y-position 1000 \
+    --text-color d8ded3 \
+    --bs-hl-color 00000000 \
+    --caps-lock-bs-hl-color 00000000 \
+    --caps-lock-key-hl-color 00000000 \
+    --inside-color 00000000 \
+    --inside-clear-color 00000000 \
+    --inside-caps-lock-color 00000000 \
+    --inside-ver-color 00000000 \
+    --inside-wrong-color 00000000 \
+    --key-hl-color 00000000 \
+    --layout-bg-color 00000000 \
+    --layout-text-color d8ded3 \
+    --line-color 00000000 \
+    --line-clear-color 00000000 \
+    --line-caps-lock-color 00000000 \
+    --line-ver-color 00000000 \
+    --line-wrong-color 00000000 \
+    --ring-color 00000000 \
+    --ring-clear-color 00000000 \
+    --ring-caps-lock-color 00000000 \
+    --ring-ver-color 00000000 \
+    --ring-wrong-color 00000000 \
+    --separator-color 00000000 \
+    --text-clear-color d8ded3 \
+    --text-caps-lock-color d8ded3 \
+    --text-ver-color d8ded3 \
+    --text-wrong-color d8ded3
+
+echo 'Unlocked!'

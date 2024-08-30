@@ -1,0 +1,18 @@
+# input device configuration
+
+input type:pointer {
+  accel_profile  "flat"
+  pointer_accel  "0"
+  dwt            "disabled"
+  natural_scroll "disabled"
+}
+
+input type:touchpad {
+  accel_profile  "flat"
+  pointer_accel  "0"
+  drag           "enabled"
+  drag_lock      "disabled"
+  dwt            "disabled"
+  natural_scroll "disabled"
+  tap            "enabled"
+}

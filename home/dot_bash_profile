@@ -1,0 +1,12 @@
+# ~/.bash_profile
+# file run by login shells
+
+# only run below commands on an interactive shell
+[[ $- != *i* ]] && return
+
+cd ~/
+. ~/.aliases
+. ~/.environment
+. ~/.colours
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc

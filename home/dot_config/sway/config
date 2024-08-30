@@ -1,0 +1,15 @@
+# root sway config
+# Read `man 5 sway` for a complete reference.
+include ./environment
+include ./displays
+include ./keybinds
+include ./input
+include ./bar
+
+# startup apps
+exec_always autotiling
+exec mako
+exec pipewire
+exec pipewire-pulse
+exec otd
+exec ./xdg-desktop-portal.sh
