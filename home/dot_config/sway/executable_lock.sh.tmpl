@@ -8,10 +8,10 @@ swaylock \
     --font monospace \
     --font-size 24 \
     --show-failed-attempts \
-    --scaling center \
+    --scaling stretch \
     --image "$(dirname "$0")/lock.png" \
     --indicator-x-position 100 \
-    --indicator-y-position 1000 \
+    --indicator-y-position $(( {{- .primary_monitor_height }} - 50)) \
     --text-color d8ded3 \
     --bs-hl-color 00000000 \
     --caps-lock-bs-hl-color 00000000 \

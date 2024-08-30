@@ -1,3 +1,5 @@
 sourceDir: ~/backups/code/theokrueger/dotfiles
 data:
   music_directory: ~/backups/mosic
+  primary_monitor_width: 1280
+  primary_monitor_height: 800

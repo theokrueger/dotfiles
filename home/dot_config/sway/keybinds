@@ -29,6 +29,10 @@ bindsym $mod_alt+d       exec $messenger
 bindsym $mod_alt+e       exec $editor
 bindsym $mod_alt+g       exec $file_manager
 
+# lock and sleep
+bindsym $mod+Delete      exec ~/.config/sway/lock.sh
+bindsym $mod_alt+Delete  exec ~/.config/sway/lock.sh & loginctl suspend
+
 # manage windows
 bindsym $mod+q kill
 bindsym $mod+f floating on
@@ -80,23 +84,8 @@ bindsym $mod_alt+9 move container to workspace number 9
 bindsym $mod_alt+0 move scratchpad
 
 # other
-bindsym $mod_alt+c exec swaymsg exit
-
-
-
-
-
-    # Switch the current container between different layout styles
-#    bindsym $mod+s layout stacking
-#    bindsym $mod+w layout tabbed
-#    bindsym $mod+e layout toggle split
-
-
-    # Swap focus between the tiling area and the floating area
-    bindsym $mod+space focus mode_toggle
-
-    # Move focus to the parent container
-    bindsym $mod+a focus parent
+bindsym $mod_alt+c     exec swaymsg exit
+bindsym $mod_alt+space focus mode_toggle
 
 mode "resize" {
     # left will shrink the containers width

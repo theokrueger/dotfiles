@@ -29,7 +29,8 @@
     PACKAGES+="gradience "
 
     # sway + extras (window manager
-    PACKAGES+="sway swayidle swaylock autotiling \
+    PACKAGES+="sway swayidle swaylock swaybg autotiling \
+               wlr-randr wlroots \
                xdg-desktop-portal xdg-desktop-portal-gtk \
                xdg-desktop-portal-hyprland xdg-desktop-portal-wlr "
 
@@ -50,6 +51,9 @@
 
     # emacs (text editor)
     PACKAGES+="emacs "
+
+    # devtools
+    PACKAGES+="git-lfs rustup "
 
     # thunar (file manager)
     PACKAGES+="thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs gvfs-mtp "
