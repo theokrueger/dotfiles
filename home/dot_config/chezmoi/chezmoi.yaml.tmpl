@@ -1,0 +1,14 @@
+sourceDir: ~/backups/code/theokrueger/dotfiles
+data:
+  music_directory: ~/backups/mosic
+  colours:
+    bg: "#222222"
+    fg: "#ff66cc"
+    text: "#eee8d5"
+    text_unfocused: "#93a1a1"
+    border: "#657b83"
+    highlight: "#6c71c4"
+{{- if eq .chezmoi.hostname "thonkpad" }}
+  primary_monitor_width: 1280
+  primary_monitor_height: 800
+{{- end }}

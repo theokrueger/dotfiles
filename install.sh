@@ -32,11 +32,14 @@ exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
 # tools for post-install
 exists "$(which gradience)" "Gradience" "This tool is required post-install and must be manually ran"
 
+# aliases
+CP="cp --reflink=auto --verbose"
+
 # install adw-gtk3
 if [[ -d "$HOME/.local/share/themes/adw-gtk3" ]] || [[ -d "/usr/share/themes/adw-gtk3" ]]; then
     echo "adw-gtk3 is installed!"
 else
-    echo "Installing adw-gtk3"
+    echo "Installing adw-gtk3..."
     mkdir -p "$HOME/.local/share/themes"
 
     ARCHIVE="/tmp/adw-gtk3.tar.xz"
@@ -51,7 +54,7 @@ fi
 if [[ "$("$FLATPAK" list | grep org.gtk.Gtk3theme.adw-gtk3)" !=  "" ]]; then
     echo "adw-gtk flatpak is installed!"
 else
-    echo "Installing adw-gtk3 flatpak"
+    echo "Installing adw-gtk3 flatpak..."
     flatpak install --assumeyes org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 fi
 
@@ -60,26 +63,32 @@ CHEZMOI_CFG_FILE="$HOME/.config/chezmoi/chezmoi.yaml"
 if [[ -f "$CHEZMOI_CFG_FILE" ]]; then
     echo "chezmoi config file exists!"
 else
-    echo "chezmoi config file does not exist, copying it over"
+    echo "chezmoi config file does not exist, copying it over..."
     mkdir -p ~/.config/chezmoi/
-    cp "./home/dot_config/chezmoi/chezmoi.yaml" "$HOME/.config/chezmoi/chezmoi.yaml"
+    cat "./home/dot_config/chezmoi/chezmoi.yaml" | chezmoi execute-template > "$HOME/.config/chezmoi/chezmoi.yaml"
 fi
 "$CHEZMOI" apply
 
 # copy appropriate assets
-#WALLPAPER="./assets/wallpapers/"
+WALLPAPER="./assets/wallpapers/"
+WALLPAPER_OUT="$HOME/.config/sway/bg.png"
 LOCKSCREEN="./assets/lockscreens/"
 LOCKSCREEN_OUT="$HOME/.config/sway/lock.png"
 case "$HOSTNAME" in
     'thonkpad')
         LOCKSCREEN+="pneguin_lockscreen_(1280x800).png"
+        WALLPAPER+="thonkpad_pink_(1280x800).png"
         ;;
     *)
         ;;
 esac
+
+echo "Copying over assets..."
 if [[ -f "$LOCKSCREEN" ]]; then
-    echo "copying $LOCKSCREEN"
-    cp "$LOCKSCREEN" "$LOCKSCREEN_OUT"
+    $CP "$LOCKSCREEN" "$LOCKSCREEN_OUT"
+fi
+if [[ -f "$WALLPAPER" ]]; then
+    $CP "$WALLPAPER" "$WALLPAPER_OUT"
 fi
 
 # finalisation

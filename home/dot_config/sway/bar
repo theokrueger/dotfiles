@@ -1,8 +1,0 @@
-bar {
-  position top
-  status_command ~/.config/sway/status.sh
-  colors {
-    statusline #f8b500
-    background #5e227f
-  }
-}

@@ -4,6 +4,7 @@ echo "Setting up aliases"
 alias lsa='ls -a --color=auto'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+alias cp='cp --reflink=auto --verbose'
 
 # formatted output
 alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'

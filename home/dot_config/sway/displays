@@ -1,2 +1,2 @@
 # display configuration
-
+output "*" bg ~/.config/sway/bg.png fill

@@ -1,0 +1,16 @@
+bar {
+  position top
+  height 18
+  gaps 0
+  font monospace
+  mode dock
+  colors {
+    background "{{- .colours.bg }}"
+    statusline "{{- .colours.text }}"
+    separator  "{{- .colours.border }}"
+    focused_workspace "{{- .colours.border }}" "{{- .colours.fg }}" "{{- .colours.text }}"
+    inactive_workspace "{{- .colours.border }}" "{{- .colours.bg }}" "{{- .colours.text_unfocused }}"
+    
+  }
+  status_command ~/.config/sway/status.sh
+}
