@@ -25,11 +25,8 @@ PACKAGES+="mako "
 # mpd + ncmpcpp (music player)
 PACKAGES+="mpc mpd ncmpcpp ueberzugpp tmux "
 
-# gradience (gtk3 theme customiser)
-PACKAGES+="gradience "
-
 # sway + extras (window manager
-PACKAGES+="sway swayidle swaylock swaybg autotiling \
+PACKAGES+="sway swayidle swaylock swaybg autotiling jq \
                wlr-randr wlroots \
                xdg-desktop-portal xdg-desktop-portal-gtk \
                xdg-desktop-portal-hyprland xdg-desktop-portal-wlr "
@@ -57,6 +54,9 @@ PACKAGES+="git-lfs rustup "
 
 # thunar (file manager)
 PACKAGES+="thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs gvfs-mtp "
+
+# gtk theme (colours yayyy!!)
+PACKAGES+="adw-gtk-theme "
 
 # bash completions (shell)
 PACKAGES+="bash-completion "

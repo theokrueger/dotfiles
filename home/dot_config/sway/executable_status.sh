@@ -111,8 +111,7 @@ update_track() {
 
 # combined
 clock=0
-
-while true; do
+print_status() {
     update_time
     update_track
     if [[ $((clock % 5)) == 0 ]]; then
@@ -126,13 +125,20 @@ while true; do
     echo \
         "$(add_sep "$cur_track")" \
         "$cur_storage_use" \
-        $sep \
-        $cur_memory \
-        $sep \
-        $(add_sep "$cur_brightness") \
-        $(add_sep "$cur_battery") \
-        $cur_time
+        "$sep" \
+        "$cur_memory" \
+        "$sep" \
+        "$(add_sep "$cur_brightness")" \
+        "$(add_sep "$cur_battery")" \
+        "$cur_time"
 
     clock=$((clock + 1))
+}
+
+update_focused_window_loop &
+while true; do
+    print_status
     sleep 1
 done
+
+

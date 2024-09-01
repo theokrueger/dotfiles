@@ -1,11 +1,11 @@
 # Fonts
-font = monospace
-font-size = 10
+font = {{- .font.family }}
+font-size = {{- .font.size }}
 hint-font = true
 
 # Theme
-text-color = #d8ded3
-background-color = #4c5844
+text-color = {{- .colours.text }}
+background-color = {{- .colours.bg }}
 
 prompt-background-padding = 0
 prompt-background-corner-radius = 0
@@ -16,12 +16,12 @@ input-background-corner-radius = 0
 default-result-background-padding = 0
 default-result-background-corner-radius = 0
 
-selection-color = #d8ded3
-selection-background = #5a6a60
+selection-color = {{- .colours.text_focused }}
+selection-background = {{ .colours.fg }}
 selection-background-padding = 4
 selection-background-corner-radius = 0
 
-selection-match-color = #FFFFFF
+selection-match-color = {{- .colours.highlight }}
 
 text-cursor-style = bar
 
@@ -35,7 +35,7 @@ min-input-width = 120
 
 # Window theming
 width = 100%
-height = 16
+height = {{- .bar_height }}
 outline-width = 0
 outline-color = #00000000
 border-width = 0

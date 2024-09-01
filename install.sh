@@ -29,9 +29,6 @@ exists "$WGET" "wget"
 GSETTINGS="$(which gsettings)"
 exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
 
-# tools for post-install
-exists "$(which gradience)" "Gradience" "This tool is required post-install and must be manually ran"
-
 # aliases
 CP="cp --reflink=auto --verbose"
 
@@ -91,5 +88,3 @@ if [[ -f "$WALLPAPER" ]]; then
     $CP "$WALLPAPER" "$WALLPAPER_OUT"
 fi
 
-# finalisation
-echo "Please open gradience and apply the preset theme named 'custom'"

@@ -1,0 +1,16 @@
+# style configuration for sway
+
+# colour and font
+#font "{{- .font.family }}" "{{- .font.size }}"
+client.focused           "{{- .colours.fg }}"        "{{- .colours.fg }}"        "{{- .colours.text_focused }}"
+client.focused_inactive  "{{- .colours.bg }}"        "{{- .colours.bg }}"        "{{- .colours.text_unfocused }}"
+client.focused_tab_title "{{- .colours.bg}}"         "{{- .colours.fg }}"        "{{- .colours.fg }}"
+client.unfocused         "{{- .colours.bg }}"        "{{- .colours.bg }}"        "{{- .colours.text }}"
+client.urgent            "{{- .colours.highlight }}" "{{- .colours.highlight }}" "{{- .colours.text_focused }}"
+
+# hide titlebar
+font pango:monospace 0.001
+default_border none
+default_floating_border none
+titlebar_padding 1
+titlebar_border_thickness 0

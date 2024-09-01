@@ -8,6 +8,7 @@ set $left h
 set $down j
 set $up k
 set $right l
+set $resize_rate 20px
 
 # applications
 set $terminal      alacritty
@@ -92,19 +93,20 @@ mode "resize" {
     # right will grow the containers width
     # up will shrink the containers height
     # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+    bindsym $left resize shrink width $resize_rate
+    bindsym $down resize grow height $resize_rate
+    bindsym $up resize shrink height $resize_rate
+    bindsym $right resize grow width $resize_rate
 
     # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
+    bindsym Left resize shrink width $resize_rate
+    bindsym Down resize grow height $resize_rate
+    bindsym Up resize shrink height $resize_rate
+    bindsym Right resize grow width $resize_rate
 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym Space mode  "default"
 }
 bindsym $mod+r mode "resize"

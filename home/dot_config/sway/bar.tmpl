@@ -1,6 +1,6 @@
 bar {
   position top
-  height 18
+  height "{{- .bar_height }}"
   gaps 0
   font monospace
   mode dock
@@ -8,7 +8,7 @@ bar {
     background "{{- .colours.bg }}"
     statusline "{{- .colours.text }}"
     separator  "{{- .colours.border }}"
-    focused_workspace "{{- .colours.border }}" "{{- .colours.fg }}" "{{- .colours.text }}"
+    focused_workspace "{{- .colours.border }}" "{{- .colours.fg }}" "{{- .colours.text_focused }}"
     inactive_workspace "{{- .colours.border }}" "{{- .colours.bg }}" "{{- .colours.text_unfocused }}"
     
   }

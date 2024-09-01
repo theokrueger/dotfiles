@@ -4,6 +4,7 @@ include ./environment
 include ./displays
 include ./keybinds
 include ./input
+include ./style
 include ./bar
 
 # startup apps
