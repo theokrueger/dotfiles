@@ -25,11 +25,17 @@ PACKAGES+="mako "
 # mpd + ncmpcpp (music player)
 PACKAGES+="mpc mpd ncmpcpp ueberzugpp tmux "
 
-# sway + extras (window manager
+# sway + extras (window manager)
 PACKAGES+="sway swayidle swaylock swaybg autotiling jq \
-               wlr-randr wlroots \
-               xdg-desktop-portal xdg-desktop-portal-gtk \
-               xdg-desktop-portal-hyprland xdg-desktop-portal-wlr "
+               wlr-randr wlroots "
+
+# dbus portals
+PACKAGES+="xdg-desktop-portal xdg-desktop-portal-gtk \
+               xdg-desktop-portal-hyprland xdg-desktop-portal-wlr \
+               xwaylandvideobridge "
+
+# printer support
+PACKAGES+="cups cups-pdf "
 
 # pipewire (audio support)
 PACKAGES+="pipewire pipewire-pulse wireplumber pipewire-alsa "
@@ -67,6 +73,28 @@ PACKAGES+="adb android-bash-completion "
 # misc utilities
 PACKAGES+="fastfetch "
 
+# openrc init daemon
+openrc_post_install() {
+    if [[ "$(which openrc)" == "" ]]; then
+        echo "OpenRC not installed, skipping OpenRC setup"
+        return
+    fi
+
+    OPENRC_PACKAGES=""
+    declare -a OPENRC_SERVICES
+
+    # printer support (openrc)
+    OPENRC_PACKGES+="cups-openrc "
+    OPENRC_SERVICES+=("cupsd default")
+
+    paru -S $OPENRC_PACKAGES
+
+    for service in "${OPENRC_SERVICES[@]}"; do
+        sudo rc-update add $service
+    done
+}
+
 echo "Installing user packages:"
 echo $PACKAGES
 paru -S $PACKAGES
+openrc_post_install

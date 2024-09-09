@@ -11,3 +11,8 @@ getfort() {
 }
 test -f $COWF && cat $COWF || getfort
 ( getfort > $COWF & )
+
+# settings files
+. ~/.aliases
+. ~/.environment
+. ~/.colours

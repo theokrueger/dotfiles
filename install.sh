@@ -62,7 +62,7 @@ if [[ -f "$CHEZMOI_CFG_FILE" ]]; then
 else
     echo "chezmoi config file does not exist, copying it over..."
     mkdir -p ~/.config/chezmoi/
-    cat "./home/dot_config/chezmoi/chezmoi.yaml" | chezmoi execute-template > "$HOME/.config/chezmoi/chezmoi.yaml"
+    cat "./home/dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$HOME/.config/chezmoi/chezmoi.yaml"
 fi
 "$CHEZMOI" apply
 
@@ -75,6 +75,10 @@ case "$HOSTNAME" in
     'thonkpad')
         LOCKSCREEN+="pneguin_lockscreen_(1280x800).png"
         WALLPAPER+="thonkpad_pink_(1280x800).png"
+        ;;
+    'linsuslap')
+        LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
+        WALLPAPER+="linsuslap_pink_(1920x1080).png"
         ;;
     *)
         ;;

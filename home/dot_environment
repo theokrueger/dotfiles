@@ -1,5 +1,3 @@
-echo "Setting up environment vars"
-
 # default applications
 export EDITOR='emacs -nw'
 

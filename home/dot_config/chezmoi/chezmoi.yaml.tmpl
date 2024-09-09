@@ -13,6 +13,10 @@ data:
     text_focused: "#333333"
     border: "#657b83"
     highlight: "#7c81d4"
+{{- if eq .chezmoi.hostname "linsuslap" }}
+  primary_monitor_width: 1920
+  primary_monitor_height: 1080
+{{- end }}
 {{- if eq .chezmoi.hostname "thonkpad" }}
   primary_monitor_width: 1280
   primary_monitor_height: 800

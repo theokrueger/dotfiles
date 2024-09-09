@@ -15,7 +15,7 @@ IS_LAPTOP=$(
 sep='|'
 add_sep() {
     if [[ "$1" != "" ]]; then
-        echo "$1 $sep "
+        printf "%s" " $1 $sep"
     fi
 }
 
@@ -33,17 +33,17 @@ update_battery() {
     battery_status=$(
         case $(cat /sys/class/power_supply/BAT*/status) in
             'Charging')
-                echo '^'
+                printf "%s" '^'
                 ;;
             'Discharging')
                 if [[ $battery_cap -le 15 ]]; then
                     # will hang on swaynag, intentional design
                     swaynag -m "battery is LOW!!!!!"
                 fi
-                echo 'v'
+                printf "%s" 'v'
                 ;;
             *)
-                echo '='
+                printf "%s" '='
                 ;;
         esac
                   )
@@ -78,14 +78,14 @@ update_memory() {
 
 # storage usage. ex: sda 42%
 STORAGE_DRIVES=$(df -h | awk '{print $1}' | grep /dev/) # list all drives that are under /dev/
-STORAGE_LENGTH=$(echo "$STORAGE_DRIVES" | sed 's/.*\///' | awk '{print length, $0}' | sort -nr | head -n 1 | awk '{print $1;}') # get length of the longest drive name
-STORAGE_NUM=$(echo $STORAGE_DRIVES | wc -w) # count number of drives in list
+STORAGE_LENGTH=$(printf "%s\n" "$STORAGE_DRIVES" | sed 's/.*\///' | awk '{print length, $0}' | sort -nr | head -n 1 | awk '{print $1;}') # get length of the longest drive name
+STORAGE_NUM=$(printf "%s\n" $STORAGE_DRIVES | wc -w) # count number of drives in list
 STORAGE_DRIVES=( $STORAGE_DRIVES ) # convert list of drives into array
 
 cur_storage_use=''
 update_storage_use() {
     drive=${STORAGE_DRIVES[ $((clock / 10 % STORAGE_NUM)) ]}
-    drive_short=$(echo "$drive" | sed 's/.*\///')
+    drive_short=$(printf "%s" "$drive" | sed 's/.*\///')
 
     cur_storage_use=$(
         printf "%*s %02d%%" \
@@ -99,11 +99,11 @@ update_storage_use() {
 cur_track=''
 update_track() {
     buf=$(mpc 2> /dev/null)
-    status=$(echo "$buf" | awk 'FNR == 2 {print $1}')
+    status=$(printf "%s" "$buf" | awk 'FNR == 2 {print $1}')
     if [[ "$status" == '[playing]' ]]; then
-        cur_track="$(echo "$buf" | awk 'FNR == 1 {print}') \
-         $(echo "$buf"| awk 'FNR == 2 {print $3}') \
-         [$(echo "$buf" | awk 'FNR == 3 {print $2}')]"
+        cur_track="$(printf "%s" "$buf" | awk 'FNR == 1 {print}') \
+         $(printf "%s" "$buf"| awk 'FNR == 2 {print $3}') \
+         [$(printf "%s" "$buf" | awk 'FNR == 3 {print $2}')]"
     else
         cur_track=''
     fi
@@ -122,20 +122,19 @@ print_status() {
             update_storage_use
         fi
     fi
-    echo \
+    printf "%s%s%s%s%s%s%s%s\n" \
         "$(add_sep "$cur_track")" \
-        "$cur_storage_use" \
-        "$sep" \
-        "$cur_memory" \
-        "$sep" \
+        " $cur_storage_use" \
+        " $sep" \
+        " $cur_memory" \
+        " $sep" \
         "$(add_sep "$cur_brightness")" \
         "$(add_sep "$cur_battery")" \
-        "$cur_time"
+        " $cur_time"
 
     clock=$((clock + 1))
 }
 
-update_focused_window_loop &
 while true; do
     print_status
     sleep 1

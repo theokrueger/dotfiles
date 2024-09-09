@@ -1,0 +1,34 @@
+shell = "/bin/bash"
+live_config_reload = false
+ipc_socket = false
+
+[env]
+TERM = "alacritty"
+
+[window]
+decorations = "None"
+opacity = 1
+dynamic_padding = false
+
+[scrolling]
+history = 15000
+multiplier = 3
+
+[font]
+size = 11.25
+
+
+[colors]
+cursor = { text = "{{- .colours.bg }}", cursor = "{{- .colours.fg }}" }
+selection = { text = "{{- .colours.bg }}", cursor = "{{- .colours.fg }}" }
+
+[colors.primary]
+foreground = "{{- .colours.text }}"
+background = "{{- .colours.bg }}"
+dim_foreground = "{{- .colours.text_unfocused }}"
+bright_foreground = "{{- .colours.text_focused }}"
+
+[bell]
+animation = "EaseOutQuad"
+duration = 13
+color = "{{- .colours.fg }}"

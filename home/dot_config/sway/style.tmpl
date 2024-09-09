@@ -2,11 +2,11 @@
 
 # colour and font
 #font "{{- .font.family }}" "{{- .font.size }}"
-client.focused           "{{- .colours.fg }}"        "{{- .colours.fg }}"        "{{- .colours.text_focused }}"
-client.focused_inactive  "{{- .colours.bg }}"        "{{- .colours.bg }}"        "{{- .colours.text_unfocused }}"
-client.focused_tab_title "{{- .colours.bg}}"         "{{- .colours.fg }}"        "{{- .colours.fg }}"
-client.unfocused         "{{- .colours.bg }}"        "{{- .colours.bg }}"        "{{- .colours.text }}"
-client.urgent            "{{- .colours.highlight }}" "{{- .colours.highlight }}" "{{- .colours.text_focused }}"
+client.focused  "{{- .colours.fg }}" "{{- .colours.fg }}" "{{- .colours.text_focused }}" "{{- .colours.fg }}" "{{- .colours.fg }}"
+#client.focused_inactive  "{{- .colours.fg }}" "{{- .colours.fg }}" "{{- .colours.text_focused }}" "{{- .colours.fg }}" "{{- .colours.fg }}"
+#client.focused_tab_title  "{{- .colours.fg }}" "{{- .colours.fg }}" "{{- .colours.text_focused }}" "{{- .colours.fg }}" "{{- .colours.fg }}"
+client.unfocused  "{{- .colours.border }}" "{{- .colours.border }}" "{{- .colours.text_unfocused }}" "{{- .colours.border }}" "{{- .colours.border }}"
+client.urgent  "{{- .colours.highlight }}" "{{- .colours.highlight }}" "{{- .colours.text_focused }}" "{{- .colours.highlight }}" "{{- .colours.highlight }}"
 
 # hide titlebar
 font pango:monospace 0.001
@@ -14,3 +14,6 @@ default_border none
 default_floating_border none
 titlebar_padding 1
 titlebar_border_thickness 0
+
+# border style
+default_border pixel 1

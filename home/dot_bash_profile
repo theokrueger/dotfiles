@@ -5,8 +5,5 @@
 [[ $- != *i* ]] && return
 
 cd ~/
-. ~/.aliases
-. ~/.environment
-. ~/.colours
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc

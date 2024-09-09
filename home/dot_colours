@@ -1,6 +1,35 @@
-echo "Setting up tty colours"
+USE_COLOUR=true
+
+# PS1 stolen from gentoo livecd
+if [[ ${NO_COLOR} ]]; then
+  USE_COLOUR=false
+fi
+
+[[ ! $USE_COLOUR ]] && return
+
+# For direxpand to be missing indicates that bash is lacking readline support.
+if [[ ! $USE_COLOUR ]] || [[ ! $(shopt -p direxpand 2>/dev/null) ]]; then
+    # Define a prompt without color.
+    PS1='\u@\h \w \$ '
+elif (( EUID == 0 )); then
+    # If root, omit the username and print the hostname in red.
+    PS1='\[\e[01;31m\]\h\[\e[01;34m\] \w \$\[\e[00m\] '
+else
+    # Otherwise, print the username and hostname in green.
+    PS1='\[\e[01;32m\]\u@\h\[\e[01;34m\] \w \$\[\e[00m\] '
+fi
+
+# set dircolors
+if hash dircolors 2>/dev/null; then
+    eval "$(dircolors -b -- ~/.dir_colors)"
+fi
+
+unset -v 
+
+
+
 # custom colours
-if [ "$TERM" = "linux" ]; then
+if [[ $USE_COLOUR ]] && [[ "$TERM" = "linux" ]]; then
     echo -en "\e]P0222222" # black
     echo -en "\e]P8222222" # darkgrey
     echo -en "\e]P1803232" # darkred
@@ -19,3 +48,5 @@ if [ "$TERM" = "linux" ]; then
     echo -en "\e]PFdedede" # white
 #    clear                  # for background artefacting
 fi
+
+unset -v USE_COLOR

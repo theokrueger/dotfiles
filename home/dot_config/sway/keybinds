@@ -110,3 +110,11 @@ mode "resize" {
     bindsym Space mode  "default"
 }
 bindsym $mod+r mode "resize"
+
+# drag windows around
+tiling_drag enable
+floating_modifier $mod normal
+
+# focus makes sense
+focus_follows_mouse always
+mouse_warping container

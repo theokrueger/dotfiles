@@ -1,13 +1,16 @@
-echo "Setting up aliases"
-
 # coloured output
 alias lsa='ls -a --color=auto'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias cp='cp --reflink=auto --verbose'
+alias diff='diff --color=auto'
+alias dir='dir --color=auto'
+alias vdir='dir --colo=auto'
 
 # formatted output
 alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
+
+# CoW is good
+alias cp='cp --reflink=auto --verbose'
 
 # custom shortcuts
 alias startw="dbus-run-session sway > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
