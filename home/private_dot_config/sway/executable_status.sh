@@ -6,6 +6,9 @@ IS_LAPTOP=$(
         'thonkpad')
             true
             ;;
+        'linsuslap')
+            true
+            ;;
         *)
             false
             ;;
@@ -51,29 +54,36 @@ update_battery() {
 }
 
 # backlight brightness. ex: *63%
-thonkpad_max=15
-cur_brightness=''
+cur_brightness=""
+backlight_max=0
+backlight_level_file=""
+case $HOSTNAME in
+    'thonkpad')
+        backlight_max=$(cat /sys/class/backlight/acpi_video0/max_brightness)
+        backlight_level_file="/sys/class/backlight/acpi_video0/brightness"
+        ;;
+    'linsuslap')
+        backlight_max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+        backlight_level_file="/sys/class/backlight/intel_backlight/brightness"
+        ;;
+    *)
+        ;;
+esac
+
 update_brightness() {
     if [[ $IS_LAPTOP ]]; then return; fi
-    case $HOSTNAME in
-        'thonkpad')
-            level=$(cat /sys/class/backlight/acpi_video0/brightness)
-            if [[ $level == $thonkpad_max ]]; then
-                cur_brightness='*MAX'
-            else
-                cur_brightness=$(printf "*%02i%%" "$((level * 100 / thonkpad_max))")
-            fi
-            ;;
-        *)
-            ;;
-    esac
+    level=$(cat "$backlight_level_file")
+    if [[ $level == $backlight_max ]]; then
+        cur_brightness='*MAX'
+    else
+        cur_brightness=$(printf "*%02i%%" "$((level * 100 / backlight_max))")
+    fi
 }
 
 # memory usage. ex: 1.2Gi
 cur_memory=''
 update_memory() {
-    avail=$(head -n 3 /proc/meminfo | tail -n 1 | awk '{print $2}')
-    cur_memory=$(printf "#%.1fG" "$(bc -l <<< "$avail/1024/1024")")
+    cur_memory=$(printf "#%s" "$(free -h | awk 'FNR == 2 {print $3}')")
 }
 
 # storage usage. ex: sda 42%

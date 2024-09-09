@@ -70,6 +70,9 @@ PACKAGES+="bash-completion "
 # adb (android debugging + file xfer)
 PACKAGES+="adb android-bash-completion "
 
+# zeroconf
+PACKAGES+="avahi nss-mdns "
+
 # misc utilities
 PACKAGES+="fastfetch "
 
@@ -86,6 +89,10 @@ openrc_post_install() {
     # printer support (openrc)
     OPENRC_PACKGES+="cups-openrc "
     OPENRC_SERVICES+=("cupsd default")
+
+    # zeroconf
+    OPENRC_PACKAGES+="avahi-openrc "
+    OPENRC_SERVICE+=("avahi-daemon default")
 
     paru -S $OPENRC_PACKAGES
 

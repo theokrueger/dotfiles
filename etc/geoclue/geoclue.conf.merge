@@ -1,18 +1,18 @@
 [agent]
-# desktop IDs to recognise
 whitelist=geoclue-demo-agent;gnome-shell;io.elementary.desktop.agent-geoclue2;sm.puri.Phosh;lipstick;sway
 
 [wifi]
 enable=true
-
-# URL to a WiFi geolocation service compatible with the Ichnaea API
-# (https://ichnaea.readthedocs.io/en/latest/api/geolocate.html).
-# An API key can be set by using the 'key' URL parameter.
-#url=https://example.com/v1/geolocate?key=YOUR_KEY
+# some random postition url i found
 url=https://api.positon.xyz/v1/geolocate?key=74600654-2aec-11ef-aa95-3b7218da6865
 submit-data=false
 
 [firefox]
+allowed=true
+system=false
+users=
+
+[firefox-esr]
 allowed=true
 system=false
 users=

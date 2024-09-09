@@ -1,0 +1,2 @@
+# put this before resolve and dns in the hosts: section
+mdns_minimal [NOTFOUND=return]
