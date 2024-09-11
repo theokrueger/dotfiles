@@ -31,8 +31,8 @@ bindsym $mod_alt+e       exec $editor
 bindsym $mod_alt+g       exec $file_manager
 
 # lock and sleep
-bindsym $mod+Delete      exec ~/.config/sway/lock.sh
-bindsym $mod_alt+Delete  exec ~/.config/sway/lock.sh & loginctl suspend
+bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
+bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & loginctl suspend
 
 {{- if eq .chezmoi.hostname "linsuslap" }}
 # brightness

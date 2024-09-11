@@ -6,7 +6,7 @@
 	<submenu></submenu>
 	<unique-id>1724767770717390-1</unique-id>
 	<command>alacritty --working-directory &quot;$(if [ -d %f ]; then echo %f; else echo %d; fi)&quot;</command>
-	<description>Example for a custom action</description>
+	<description>Open a terminal in a given folder</description>
 	<range></range>
 	<patterns>*</patterns>
 	<startup-notify/>

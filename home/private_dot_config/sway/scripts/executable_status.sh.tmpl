@@ -1,20 +1,5 @@
 #!/bin/bash
 # status message for swaybar
-
-IS_LAPTOP=$(
-    case $HOSTNAME in
-        'thonkpad')
-            true
-            ;;
-        'linsuslap')
-            true
-            ;;
-        *)
-            false
-            ;;
-    esac
-    )
-
 sep='|'
 add_sep() {
     if [[ "$1" != "" ]]; then
@@ -31,7 +16,9 @@ update_time() {
 # battery charge. ex: =50%
 cur_battery=''
 update_battery() {
-    if [[ $IS_LAPTOP ]]; then return; fi
+    {{- if ne .chassis "laptop" }}
+    return # return here because device is not a laptop
+    {{- end }}
     battery_cap=$(cat /sys/class/power_supply/BAT*/capacity)
     battery_status=$(
         case $(cat /sys/class/power_supply/BAT*/status) in
@@ -71,7 +58,9 @@ case $HOSTNAME in
 esac
 
 update_brightness() {
-    if [[ $IS_LAPTOP ]]; then return; fi
+    {{- if ne .chassis "laptop" }}
+    return # return here because device is not a laptop
+    {{- end }}
     level=$(cat "$backlight_level_file")
     if [[ $level == $backlight_max ]]; then
         cur_brightness='*MAX'

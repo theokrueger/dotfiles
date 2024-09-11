@@ -13,4 +13,5 @@ exec mako
 exec pipewire
 exec pipewire-pulse
 exec otd
-exec ./xdg-desktop-portal.sh
+exec ~/.config/sway/scripts/xdg-desktop-portal.sh
+exec_always ~/.config/sway/scripts/window-title-as-workspace.sh

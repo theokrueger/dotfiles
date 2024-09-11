@@ -13,4 +13,6 @@ alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
 alias cp='cp --reflink=auto --verbose'
 
 # custom shortcuts
+{{- if eq .window_manager "sway" }}
 alias startw="dbus-run-session sway > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
+{{- end }}

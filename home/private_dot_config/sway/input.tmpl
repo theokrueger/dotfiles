@@ -1,18 +1,25 @@
 # input device configuration
 
+# trackpoints
 input type:pointer {
   accel_profile  "flat"
-  pointer_accel  "0"
+{{- if eq .chezmoi.hostname "linsuslap" }}
+  pointer_accel  "0.25"
+{{- else }}
+  pointer_accel "0"
+{{- end }}
   dwt            "disabled"
   natural_scroll "disabled"
 }
 
+# touchpads
 input type:touchpad {
   accel_profile  "flat"
   pointer_accel  "0"
   drag           "enabled"
   drag_lock      "disabled"
   dwt            "disabled"
-  natural_scroll "disabled"
+  natural_scroll "enabled"
   tap            "enabled"
 }
+

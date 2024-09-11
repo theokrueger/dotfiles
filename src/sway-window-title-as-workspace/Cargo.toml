@@ -1,0 +1,18 @@
+[package]
+name = "sway-window-title-as-workspace"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+swayipc = "3.0.2"
+smithay-client-toolkit = "0.19.2"
+wayland-client = "0.31.6"
+substring = "1.4.5"
+semaphore = "0.4.0"
+
+[profile.release]
+opt-level = 3
+strip = true
+debug = false
+panic = "abort"
+lto = true
