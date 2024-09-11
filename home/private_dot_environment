@@ -20,4 +20,4 @@ export AWT_TOOLKIT='MToolkit'
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # paths
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin"

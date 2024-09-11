@@ -7,6 +7,10 @@ if [[ "$(which pacman)" != '' ]]; then
     # artix
     ./package_installers/pacman.sh
 fi
+if [[ "$(which cargo)" != '' ]]; then
+    # rust
+    ./package_installers/cargo.sh
+fi
 
 # check if a path exists, then print some info
 exists() {
