@@ -1,7 +1,7 @@
 #!/bin/bash
-# build and install sway window title
+# build and install sway executable statusbar
 cd "$(dirname "$0")"
-EXEC_NAME="sway-window-title-as-workspace"
+EXEC_NAME="sway-bar-status"
 OUT_DIR="$HOME/.config/sway/scripts/"
 
 killall "$EXEC_NAME"

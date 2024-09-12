@@ -98,5 +98,5 @@ fi
 
 echo "Running scripts in src/"
 . "./src/sway-window-title-as-workspace/install.sh"
-
+. "./src/sway-bar-status/install.sh"
 echo "Please manually update files in etc folder"

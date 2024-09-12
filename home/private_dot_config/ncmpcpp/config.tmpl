@@ -1,3 +1,4 @@
+# chezmoi:template:left-delimiter="[[" right-delimiter="]]"
 ##############################################################
 ## This is an example configuration file. Copy it to        ##
 ## $XDG_CONFIG_HOME/ncmpcpp/config or $HOME/.ncmpcpp/config ##
@@ -18,7 +19,7 @@ ncmpcpp_directory = ~/.config/ncmpcpp
 ## MPD clients (eg. ncmpc) also use that location.
 ##
 #
-lyrics_directory = {{- .music_directory }}/lyrics/
+lyrics_directory = [[- .music_directory ]]/lyrics/
 #
 ##### connection settings #####
 #
