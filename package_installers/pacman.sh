@@ -70,6 +70,9 @@ PACKAGES+="bash-completion "
 # adb (android debugging + file xfer)
 PACKAGES+="adb android-bash-completion "
 
+# keepassxc (password manager)
+PACKAGES+="keepassxc "
+
 # zeroconf
 PACKAGES+="avahi nss-mdns "
 
