@@ -15,3 +15,4 @@ exec pipewire-pulse
 exec otd
 exec ~/.config/sway/scripts/xdg-desktop-portal.sh
 exec_always ~/.config/sway/scripts/window-title-as-workspace.sh
+exec swayidle -w timeout 300 '~/.config/sway/scripts/lock.sh' timeout 360 'swaymsg "output * dpms off"' timeout 420 'loginctl suspend' resume 'swaymsg "output * dpms on"' before-sleep '~/.config/sway/scripts/lock.sh'

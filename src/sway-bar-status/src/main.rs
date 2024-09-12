@@ -91,11 +91,15 @@ impl Status {
         for drive in glob(format!("{}/*", DRIVES_PATH).as_str()).unwrap() {
             match drive {
                 Ok(d) => {
-                    let len = d.as_path().to_str().unwrap().len();
-                    if len > drives_max_length {
-                        drives_max_length = len
+                    let dstr = d.as_path().to_str().unwrap();
+                    if !dstr.to_ascii_lowercase().contains("swap") {
+                        // filter out swapfile
+                        let len = dstr.len();
+                        if len > drives_max_length {
+                            drives_max_length = len
+                        }
+                        drives_vec.push(d);
                     }
-                    drives_vec.push(d);
                 }
                 Err(_) => unreachable!(),
             }
@@ -194,7 +198,7 @@ impl Status {
         if mem_active_mb > 999.0 {
             self.memory = format!("#{:.01}Gi", mem_active_mb / 1024.0);
         } else {
-            self.memory = format!("#{}Mi", mem_active_mb);
+            self.memory = format!("#{:.0}Mi", mem_active_mb);
         }
     }
 

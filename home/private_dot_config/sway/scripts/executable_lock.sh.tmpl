@@ -1,18 +1,19 @@
 #!/bin/sh
 echo 'Locking screen'
 swaylock \
+    --daemonize \
     --ignore-empty-password \
     --hide-keyboard-layout \
     --disable-caps-lock-text \
-    --color 3e4637cc \
+    --color {{ "" }}{{- .colours.bg | replaceAllRegex "#" "" }} \
     --font monospace \
     --font-size 24 \
     --show-failed-attempts \
     --scaling stretch \
-    --image "$(dirname "$0")/lock.png" \
+    --image "$(dirname "$0")/../lock.png" \
     --indicator-x-position 100 \
     --indicator-y-position $(( {{- .primary_monitor_height }} - 50)) \
-    --text-color d8ded3 \
+    --text-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
     --bs-hl-color 00000000 \
     --caps-lock-bs-hl-color 00000000 \
     --caps-lock-key-hl-color 00000000 \
@@ -23,7 +24,7 @@ swaylock \
     --inside-wrong-color 00000000 \
     --key-hl-color 00000000 \
     --layout-bg-color 00000000 \
-    --layout-text-color d8ded3 \
+    --layout-text-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
     --line-color 00000000 \
     --line-clear-color 00000000 \
     --line-caps-lock-color 00000000 \
@@ -35,9 +36,8 @@ swaylock \
     --ring-ver-color 00000000 \
     --ring-wrong-color 00000000 \
     --separator-color 00000000 \
-    --text-clear-color d8ded3 \
-    --text-caps-lock-color d8ded3 \
-    --text-ver-color d8ded3 \
-    --text-wrong-color d8ded3
+    --text-clear-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
+    --text-caps-lock-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
+    --text-ver-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
+    --text-wrong-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }}
 
-echo 'Unlocked!'
