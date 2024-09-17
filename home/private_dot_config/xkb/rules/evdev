@@ -1,0 +1,5 @@
+! option   = symbols
+  linsuslap:basic  = +linsuslap(basic)
+  thonkpad:basic  = +thonkpad(basic)
+
+! include %S/evdev

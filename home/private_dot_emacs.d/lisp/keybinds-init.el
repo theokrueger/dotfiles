@@ -1,11 +1,18 @@
 ;; keybinds-init.el
 ;; provides custom keybinds / functions
 
+;; launch the terminal
+(global-set-key (kbd "C-<return>") (lambda () (interactive) (term "/bin/bash")))
+
 ;; window navigation
-(global-set-key (kbd "M-S-<up>")    'windmove-up)
-(global-set-key (kbd "M-S-<down>")  'windmove-down)
-(global-set-key (kbd "M-S-<left>")  'windmove-left)
-(global-set-key (kbd "M-S-<right>") 'windmove-right)
+(global-set-key (kbd "M-s-<up>")    'windmove-up)
+(global-set-key (kbd "M-s-<down>")  'windmove-down)
+(global-set-key (kbd "M-s-<left>")  'windmove-left)
+(global-set-key (kbd "M-s-<right>") 'windmove-right)
+(global-set-key (kbd "M-s-k") 'windmove-up)
+(global-set-key (kbd "M-s-j") 'windmove-down)
+(global-set-key (kbd "M-s-h") 'windmove-left)
+(global-set-key (kbd "M-s-l") 'windmove-right)
 
 ;; rename file (C-x C-S-s)
 (defun rename-this-file-and-buffer (new-name)

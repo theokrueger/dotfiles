@@ -1,0 +1,10 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+        include "us(basic)"
+        name[Group1] = "us qwerty with some keys swapped";
+
+        // unbind lgui, bind caps to lgui, and fn+f12 to caps
+        replace key <CAPS> {[ Super_L ]};
+        replace key <LWIN> {[ Print ]};
+        replace key <PRSC> {[ Caps_Lock ]};
+};

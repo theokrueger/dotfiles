@@ -1,7 +1,7 @@
 ;; gui-init.el
-;; settings related to the emacs X window
+;; settings related to the emacs GUI window
 
-;; C-z wont minimise under X11
+;; C-z wont minimise under GUI
 (defun maybe-suspend-frame ()
   "suspend frame unless running under window system"
   (interactive)
@@ -15,6 +15,8 @@
   tool-bar-mode nil    ;; disable fat buttons
   scroll-bar-mode nil) ;; disable scrollbar
 (set-scroll-bar-mode nil)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 
 ;; disable gui popups
 (setq-default

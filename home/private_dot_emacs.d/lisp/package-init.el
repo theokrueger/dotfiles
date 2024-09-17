@@ -3,7 +3,7 @@
 
 ;; package inits
 (require 'package)
-(setq package-enable-at-startup nil)
+(setq-default package-enable-at-startup nil)
 (add-to-list 'package-archives
   '("melpa" . "https://melpa.org/packages/") t) ;; melpa stable
 (package-initialize)
@@ -14,7 +14,7 @@
   "installs a package if not installed, otherwise loads package."
   (unless (package-installed-p package)
     (unless (or package-archive-contents package-contents-refreshed)
-      (setq package-contents-refreshed t)
+      (setq-default package-contents-refreshed t)
       (package-refresh-contents))
     (package-install package))
   (require package))

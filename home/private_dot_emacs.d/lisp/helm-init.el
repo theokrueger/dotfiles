@@ -66,7 +66,7 @@
   helm-idle-delay                    0.01) ;; no delay
 
 ;; history
-(setq helm-M-x-always-save-history t)
+(setq-default helm-M-x-always-save-history t)
 
 ;; appearance
 (setq-default

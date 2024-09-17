@@ -19,6 +19,7 @@
 (add-hook 'rust-mode-hook #'lsp-deferred)
 (setq-default lsp-rust-server "rust-analyzer")
 
+;; load lsp
 (lsp-deferred)
 
 ;; dont touch this

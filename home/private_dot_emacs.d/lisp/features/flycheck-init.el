@@ -1,7 +1,7 @@
 ;; flycheck-init.el
 ;; flycheck install and settings
 
-(package-require 'flycheck)
+(reauire-package 'flycheck)
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 

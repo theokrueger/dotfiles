@@ -5,7 +5,7 @@
 (setq-default display-time-default-load-average nil)
 (setq-default display-time-24hr-format t)
 (setq-default display-time-day-and-date t)
-(setq-default display-time-format "%H:%M %a %b %d")
+(setq-default display-time-format "[%a] %F %H:%M:%S")
 (display-time-mode 1)
 
 ;; measure init time benchmark

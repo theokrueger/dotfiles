@@ -23,7 +23,7 @@ PACKAGES+="chezmoi "
 PACKAGES+="mako "
 
 # mpd + ncmpcpp (music player)
-PACKAGES+="mpc mpd ncmpcpp ueberzugpp tmux "
+PACKAGES+="mpc mpd ncmpcpp ueberzugpp tmux openslide "
 
 # sway + extras (window manager)
 PACKAGES+="sway swayidle swaylock swaybg autotiling jq \
@@ -53,7 +53,7 @@ PACKAGES+="firefox-esr "
 PACKAGES+="element-desktop "
 
 # emacs (text editor)
-PACKAGES+="emacs "
+PACKAGES+="emacs-wayland jansson "
 
 # devtools
 PACKAGES+="git-lfs rustup "
