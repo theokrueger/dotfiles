@@ -1,13 +1,16 @@
-;; init.el
-;; early init settings
+;;; init.el --- init settings
+;;; Commentary:
+;;; TODO
+
+;;; Code:
 
 ;; debug
-(setq-default debug-on-error t) ;; debug traces
+(setq-default debug-on-error nil) ;; debug traces
 
 ;; prereqs
 (let ((minver "28.2"))
   (if (version< emacs-version minver)
-    (error "Emacs is too old. Upgrade to emacs %s to use this config." minver)))
+    (error "Emacs is too old.  Upgrade to Emacs %s to use this config" minver)))
 
 ;; unset `file-name-handler-alist` for performance
 (defvar fnh-alist-old (default-toplevel-value 'file-name-handler-alist))
@@ -38,7 +41,6 @@
 (require 'lang-common-init)      ;; global language settings
 (require 'cxx-init)              ;; c/c++ settings
 (require 'lisp-init)             ;; lisp settings
-(require 'lua-init)              ;; lua settings
 (require 'rust-init)             ;; rust settings
 (require 'yaml-init)             ;; yaml settings
 (require 'lsp-mode-init)         ;; language server protocol
@@ -50,24 +52,19 @@
 (require 'tui-init)              ;; TUI settings
 (require 'themes-init)           ;; colour / theme settings
 
-;; feature inits
-(require 'tabs-init)             ;; top tab bar
-(require 'sidebar-init)          ;; sidebar settings
-(require 'helm-init)             ;; helm settings
-;;(require 'flycheck-init)         ;; flycheck settings
-(require 'undo-tree-init)        ;; undo tree settings
-
 ;; interaction inits
 (require 'keybinds-init)         ;; custom keybinds
 (require 'desktop-init)          ;; desktop save/loading, backups
 (require 'time-init)             ;; measure startup time
 
-;; register for emacsclient
-(add-hook 'after-init-hook
-  (lambda ()
-    (require 'server)
-    (unless (server-running-p)
-      (server-start))))
+;; feature inits
+(require 'tabs-init)             ;; top tab bar
+(require 'helm-init)             ;; helm settings
+(require 'flycheck-init)         ;; flycheck settings
+(require 'company-init)          ;; company settings
+(require 'undo-tree-init)        ;; undo tree settings
+(require 'pdf-mode-init)         ;; PDF viewer
+(require 'format-all-init)       ;; Code auto-formatter
 
 ;; user defined posthooks
 (require 'user-posthook)
@@ -79,11 +76,5 @@
 
 (require 'first-time-setup)    ;; commands to be run on first startup only!!
 
-;; revert `file-name-handler-alist` for performance
-(setq-default file-name-handler-alist
-  ;; merge instead of overwrite
-  (delete-dups (append file-name-handler-alist fnh-alist-old)))
-(makunbound 'fnh-alist-old)
-
-;; dont touch this
 (provide 'init)
+;;; init.el ends here

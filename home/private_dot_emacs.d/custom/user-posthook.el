@@ -1,7 +1,9 @@
-;; user-posthook.el
-;; put your posthooks here, to be loaded after the rest of packages, right before settings
+;;; user-posthook.el --- user defined posthooks
+;;; Commentary:
+;;; Put your posthooks here, to be loaded after the rest of packages, right before settings
 
+;;; Code:
+;; todo
 
-
-;; dont touch this
 (provide 'user-posthook)
+;;; user-posthook.el ends here

@@ -1,10 +1,13 @@
-;; cxx-init.el
-;; c/c++/cxx settings
+;;; cxx-init.el --- c/c++/cxx settings
+;;; Commentary:
+;;; none
 
-(setq
+;;; Code:
+(setq-default
   c-default-style "linux" ;; top 1 c style
   c-basic-offset 8        ;; 8space tabs
   )
 
-;; dont touch this
+
 (provide 'cxx-init)
+;;; cxx-init.el ends here

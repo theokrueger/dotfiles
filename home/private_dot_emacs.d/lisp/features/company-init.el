@@ -1,0 +1,17 @@
+;;; company-init.el --- company install and settings
+;;; Commentary:
+;;; none
+
+;;; Code:
+
+(require-package 'company)
+(use-package company
+  :defer t
+  :commands company-mode
+  :config
+  (setq-default company-idle-delay 0.5)
+  :hook
+  (prog-mode . company-mode))
+
+(provide 'company-init)
+;;; company-init.el ends here

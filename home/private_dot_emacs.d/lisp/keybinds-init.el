@@ -1,5 +1,9 @@
-;; keybinds-init.el
-;; provides custom keybinds / functions
+;;; keybinds-init.el --- custom keybinds / functions
+;;; Commentary:
+;;; Does not include package-specific binds (such as helm-M-x).
+;;; Those are defined in relevant feature or language files
+
+;;; Code:
 
 ;; launch the terminal
 (global-set-key (kbd "C-<return>") (lambda () (interactive) (term "/bin/bash")))
@@ -19,7 +23,7 @@
   "Renames both current buffer and file it's visiting to NEW-NAME."
   (interactive "sNew name: ")
   (let ((name (buffer-name))
-        (filename (buffer-file-name)))
+         (filename (buffer-file-name)))
     (unless filename
       (error "Buffer '%s' is not visiting a file!" name))
     (progn
@@ -29,5 +33,5 @@
       (rename-buffer new-name))))
 (global-set-key (kbd "C-x C-S-s") 'rename-this-file-and-buffer)
 
-;; dont touch this
 (provide 'keybinds-init)
+;;; keybinds-init.el ends here

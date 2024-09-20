@@ -1,14 +1,17 @@
-;; util-init.el
-;; utility functions
+;;; util-init.el --- utility functions used by other files
+;;; Commentary:
+;;; This file contains general use functions used in other files
 
-;; exist funcs
+;;; Code:
+
+;; does [x] exist functions
 (defun window-exist-p (window)
-  "return t if window exists."
+  "Return t if WINDOW exists."
   (and window (window-live-p window)))
 
 (defun buffer-exist-p (buffer)
-  "return t if buffer exists."
+  "Return t if BUFFER exists."
   (and buffer (buffer-live-p buffer)))
 
-;; dont touch this
 (provide 'util-init)
+;;; util-init.el ends here

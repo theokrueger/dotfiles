@@ -1,26 +1,42 @@
-;; lsp-mode.e;
-;; settings related to language server protocol
+;;; lsp-mode.el --- settings related to language server protocol
+;;; Commentary:
+;;; none
+
+;;; Code:
 
 (require-package 'lsp-mode)
+(use-package lsp-mode
+  :defer t
+  :commands (
+              lsp
+              lsp-deferred)
+  :hook (prog-mode . lsp-deferred)
+  :init
+  ;; lsp settings
+  (setq-default
+    lsp-log-io nil         ;; ensure logging off
+    lsp-auto-configure nil ;; no auto configure lsp ui and such
+    lsp-idle-delay 0.500)
+  ;; lsp-ui settings
+  (setq-default
+    lsp-ui-peek-always-show t
+    lsp-ui-sideline-show-hover t
+    lsp-ui-doc-enable nil
+    lsp-ui-doc-position "at-point"
+    lsp-ui-doc-delay 1.0)
+  :bind
+  ("C-x n" . lsp-ui-imenu)
+  )
+
 (require-package 'lsp-ui)
+(use-package lsp-ui
+  :defer t
+  :commands lsp-ui-mode)
+
 (require-package 'helm-lsp)
-;; settings
-(setq-default
-  lsp-log-io nil         ;; ensure logging off
-  lsp-auto-configure nil ;; no auto configure lsp ui and such
-  lsp-idle-delay 0.500)  ;; wait .5s for performance reasons
+(use-package helm-lsp
+  :defer t
+  :commands helm-lsp-workspace-symbol)
 
-;; lua
-;; requires https://github.com/Alloyed/lua-lsp
-(require-package 'luarocks)
-(add-hook 'lua-mode-hook #'lsp-deferred)
-
-;; rust
-(add-hook 'rust-mode-hook #'lsp-deferred)
-(setq-default lsp-rust-server "rust-analyzer")
-
-;; load lsp
-(lsp-deferred)
-
-;; dont touch this
 (provide 'lsp-mode-init)
+;;; lsp-mode-init.el ends here

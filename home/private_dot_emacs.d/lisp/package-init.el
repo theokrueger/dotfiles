@@ -1,5 +1,8 @@
-;; package-init.el
-;; settings and functions related to packages
+;;; package-init.el --- settings and functions related to packages
+;;; Commentary:
+;;; none
+
+;;; Code:
 
 ;; package inits
 (require 'package)
@@ -8,17 +11,15 @@
   '("melpa" . "https://melpa.org/packages/") t) ;; melpa stable
 (package-initialize)
 
-;; better require for remote packages
+;; helper to install packages if not installed
 (defvar package-contents-refreshed nil)
 (defun require-package (package)
-  "installs a package if not installed, otherwise loads package."
+  "Install a PACKAGE from remote if not installed."
   (unless (package-installed-p package)
     (unless (or package-archive-contents package-contents-refreshed)
       (setq-default package-contents-refreshed t)
       (package-refresh-contents))
-    (package-install package))
-  (require package))
+    (package-install package)))
 
-
-;; dont touch this
 (provide 'package-init)
+;;; package-init.el ends here

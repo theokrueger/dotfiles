@@ -1,7 +1,10 @@
-;; user-prehook.el
-;; put your prehooks here, to be loaded before anything else
+;;; user-prehook.el --- user defined prehooks
+;;; Commentary:
+;;; Put your prehooks here, to be loaded before anything else
+
+;;; Code:
+;; todo
 
 
-
-;; dont touch this
 (provide 'user-prehook)
+;;; user-prehook.el ends here

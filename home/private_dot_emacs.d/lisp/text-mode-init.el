@@ -1,11 +1,15 @@
-;; text-mode-init.el
-;; general text editor settings
+;;; text-mode-init.el --- general text editor settings
+;;; Commentary:
+;;; none
+
+;;; Code:
 
 ;; line numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
 (let ((undisp (lambda () (display-line-numbers-mode nil))))
   (dolist (mode '(term-mode-hook
+                   pdf-mode-hook
                    eshell-mode-hook))
     (add-hook mode undisp))) ;; dont display linenumbers in these modes
 
@@ -31,5 +35,5 @@
 ;; trailing whitespace
 (setq-default show-trailing-whitespace t)
 
-;; dont touch this
 (provide 'text-mode-init)
+;;; text-mode-init.el ends here

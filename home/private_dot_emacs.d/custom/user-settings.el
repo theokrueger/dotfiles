@@ -1,7 +1,10 @@
-;; user-settings.el
-;; put your settings here, to be loaded last
+;;; user-settings.el --- User-defined settings
+;;; Commentary:
+;;; Put your settings here, to be loaded last
 
 
+;;; Code:
+;; todo
 
-;; dont touch this
 (provide 'user-settings)
+;;; user-settings.el ends here

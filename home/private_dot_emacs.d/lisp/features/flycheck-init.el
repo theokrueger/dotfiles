@@ -1,9 +1,15 @@
-;; flycheck-init.el
-;; flycheck install and settings
+;;; flycheck-init.el --- flycheck install and settings
+;;; Commentary:
+;;; none
 
-(reauire-package 'flycheck)
+;;; Code:
 
-(add-hook 'after-init-hook #'global-flycheck-mode)
+(require-package 'flycheck)
+(use-package flycheck
+  :defer t
+  :hook (
+          (prog-mode . flycheck-mode))
+  )
 
-;; dont touch this
 (provide 'flycheck-init)
+;;; flycheck-init.el ends here

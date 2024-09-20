@@ -1,20 +1,30 @@
-;; prog-mode-init.el
-;; settings for all programming modes
+;;; prog-mode-init.el --- settings for all programming modes
+;;; Commentary:
+;;; none
 
-;; indentation
+;;; Code:
+
+;; indentation settings
 (setq-default
   indent-tabs-mode nil ;; spaces over tabs
   default-tab-width 8 ;; 8space tabs
   tab-width 8)
 
-
 ;; rainbow delimiters
 (require-package 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(use-package rainbow-delimiters
+  :defer t
+  :commands rainbow-delimiters-mode
+  :hook (prog-mode-hook . rainbow-delimiters-mode)
+  )
 
 ;; indent highlighting
 (require-package 'highlight-indent-guides)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(use-package highlight-indent-guides
+  :defer t
+  :commands highlight-indent-guides-mode
+  :hook (prog-mode-hook . highlight-indent-guides-mode)
+  )
 
-;; dont touch this
 (provide 'prog-mode-init)
+;;; prog-mode-init.el ends here

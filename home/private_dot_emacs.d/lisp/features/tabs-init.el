@@ -1,5 +1,8 @@
-;; tabs-init.el
-;; settings for top tab bar
+;;; tabs-init.el --- settings for top tab bar
+;;; Commentary:
+;;; none
+
+;;; Code:
 
 ;; defaults
 (setq-default
@@ -22,9 +25,9 @@
   (global-set-key (kbd (concat "C-t C-" num))
     (lambda () (interactive) (tab-bar-select-tab 'num))))
 
-
 (tab-bar-mouse-move-tab 1)
-;; dont touch this
+
 (tab-bar-mode 1)
 
 (provide 'tabs-init)
+;;; tabs-init.el ends here

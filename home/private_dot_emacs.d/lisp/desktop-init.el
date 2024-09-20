@@ -1,5 +1,8 @@
-;; desktop-init.el
-;; save and load project based desktop files
+;;; desktop-init.el --- backups of state and files
+;;; Commentary:
+;;; TODO
+
+;;; Code:
 
 ;; backup management
 ;; https://www.emacswiki.org/emacs/BackupDirectory
@@ -12,13 +15,5 @@
    kept-old-versions 2
    version-control t)       ;; use versioned backups
 
-;; do not save these modes (faster loadtime)
-;;(add-to-list 'desktop-modes-not-to-save 'dired-mode)
-;;(add-to-list 'desktop-modes-not-to-save 'Info-mode)
-;;(add-to-list 'desktop-modes-not-to-save 'org-mode)
-;;(add-to-list 'desktop-modes-not-to-save 'info-lookup-mode)
-;;(add-to-list 'desktop-modes-not-to-save 'fundamental-mode)
-
-;; dont touch this
 (provide 'desktop-init)
-
+;;; desktop-init.el ends here
