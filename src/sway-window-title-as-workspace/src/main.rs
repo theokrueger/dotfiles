@@ -44,6 +44,7 @@ fn main() -> Fallible<()> {
             Event::Window(w) => {
                 let cur_name: String =
                     format!("{}", w.container.name.unwrap_or_else(|| "_".to_owned()))
+                        .replace(&['\'', '\"', '(', ')', '\\', '$'][..], "")
                         .substring(0, MAX_TITLE_LENGTH)
                         .into();
                 ipc_connection.run_command(format!(
