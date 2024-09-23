@@ -1,18 +1,10 @@
 ;;; helm-init.el --- settings related to helm
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'helm)
 (use-package helm
-  :defer t
-  :commands (
-              helm-mode
-              helm-info-emacs
-              helm-find
-              helm-M-x
-              )
+  :demand t
   :config
   (require-package 'helm-descbinds)
   (setq-default
@@ -21,6 +13,7 @@
     recentf-max-menu-items  25
     recentf-max-saved-items 25
     helm-M-x-always-save-history t
+    recentf-exclude '("/tmp/" "/ssh:" 'package-user-dir)
     ;; fuzzy matching
     helm-M-x-fuzzy-match        t
     helm-buffers-fuzzy-matching t
@@ -40,13 +33,6 @@
     helm-autoresize-min-heigh  10 ;; in %
     )
 
-  ;; save recentf
-  (require 'advice)
-  (advice-add 'recentf-save-list :around
-    (lambda (orig-fun)
-      (let ((save-silently t)) orig-fun)))
-  (run-at-time nil (eval-when-compile (* 5 60)) 'recentf-save-list) ;; 5 minute autosave
-  (recentf-mode 1)
   ;; allow tab completion in helm
   (define-key helm-map (kbd "TAB")   #'helm-execute-persistent-action)
   (define-key helm-map (kbd "<tab>") #'helm-execute-persistent-action)
@@ -80,6 +66,7 @@
   ("C-x r p"   . helm-projects-history)
   ("C-r"       . helm-imenu)
   ("C-s"       . helm-occur)
+  ("C-M-s"     . helm-regexp)
   )
 
 (provide 'helm-init)

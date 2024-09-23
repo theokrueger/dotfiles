@@ -1,7 +1,5 @@
 ;;; format-all-init.el --- settings related to formatt-all package
 ;;; Commentary:
-;;; none
-
 ;;; Code
 
 (require-package 'format-all)

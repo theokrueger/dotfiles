@@ -1,7 +1,6 @@
 ;;; gui-init.el --- settings related to the emacs GUI window
 ;;; Commentary:
 ;;; Overlap between gui and tui settings belong in gui settings
-
 ;;; Code:
 
 ;; C-z wont minimise under GUI
@@ -20,6 +19,11 @@
 (set-scroll-bar-mode nil) ;; disalbe scrollbar
 (tool-bar-mode -1)        ;; disable fat buttons
 (menu-bar-mode -1)        ;; disable altbar
+
+;; disable mouse menus (they are annoying)
+(bind-key* "C-<down-mouse-1>" 'no-operation)
+(bind-key* "C-<down-mouse-2>" 'no-operation)
+(bind-key* "C-<down-mouse-3>" 'no-operation)
 
 ;; disable gui popups
 (setq-default

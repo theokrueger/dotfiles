@@ -1,7 +1,5 @@
-;;; lsp-mode.el --- settings related to language server protocol
+;;; lsp-mode-init.el --- settings related to language server protocol
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'lsp-mode)
@@ -10,7 +8,7 @@
   :commands (
               lsp
               lsp-deferred)
-  :hook (prog-mode . lsp-deferred)
+  ;;  :hook (prog-mode . lsp-deferred)
   :init
   ;; lsp settings
   (setq-default

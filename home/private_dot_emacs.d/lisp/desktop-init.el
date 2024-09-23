@@ -1,7 +1,5 @@
 ;;; desktop-init.el --- backups of state and files
 ;;; Commentary:
-;;; TODO
-
 ;;; Code:
 
 ;; backup management

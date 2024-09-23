@@ -1,7 +1,5 @@
 ;;; themes-init.el --- settings relating to colour theme
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 ;; load themes
@@ -9,7 +7,9 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "lisp/themes/"))
 
 ;; default theme of choice
-(load-theme 'lightblue)
+(if window-system
+  (load-theme 'lightblue)    ;; GUI theme
+  (load-theme 'leuven-dark)) ;; TUI theme
 
 (provide 'themes-init)
-;;; themes0init.el ends here
+;;; themes-init.el ends here

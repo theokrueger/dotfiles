@@ -1,7 +1,5 @@
 ;;; undo-tree-init.el --- undo-tree install and settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'undo-tree)

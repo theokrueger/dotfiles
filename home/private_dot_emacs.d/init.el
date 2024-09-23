@@ -1,7 +1,5 @@
 ;;; init.el --- init settings
 ;;; Commentary:
-;;; TODO
-
 ;;; Code:
 
 ;; debug
@@ -18,7 +16,7 @@
 
 ;; load paths
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "lang" (concat user-emacs-directory "/lisp")))
+(add-to-list 'load-path (expand-file-name "modes" (concat user-emacs-directory "/lisp")))
 (add-to-list 'load-path (expand-file-name "themes" (concat user-emacs-directory "/lisp")))
 (add-to-list 'load-path (expand-file-name "features" (concat user-emacs-directory "/lisp")))
 (add-to-list 'load-path (expand-file-name "extern" user-emacs-directory))
@@ -33,18 +31,8 @@
 ;; user defined prehooks
 (require 'user-prehook)
 
-;; text mode inits
-(require 'text-mode-init)        ;; global text editing settings
-(require 'prog-mode-init)        ;; settings for all programming modes
-
 ;; lang inits
-(require 'lang-common-init)      ;; global language settings
-(require 'cxx-init)              ;; c/c++ settings
-(require 'lisp-init)             ;; lisp settings
-(require 'rust-init)             ;; rust settings
-(require 'yaml-init)             ;; yaml settings
-(require 'lsp-mode-init)         ;; language server protocol
-(require 'latex-init)            ;; latex settings
+(require 'modes-common-init)     ;; global mode settings
 
 ;; interface inits
 (require 'inhibit-messages-init) ;; suppress fanfare
@@ -58,19 +46,11 @@
 (require 'time-init)             ;; measure startup time
 
 ;; feature inits
-(require 'tabs-init)             ;; top tab bar
-(require 'helm-init)             ;; helm settings
-(require 'flycheck-init)         ;; flycheck settings
-(require 'company-init)          ;; company settings
-(require 'undo-tree-init)        ;; undo tree settings
-(require 'pdf-mode-init)         ;; PDF viewer
-(require 'format-all-init)       ;; Code auto-formatter
+(require 'features-common-init)  ;; feature settings
 
-;; user defined posthooks
 (require 'user-posthook)
 
 ;; user defined settings
-(require 'user-settings)
 (setq-default custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 

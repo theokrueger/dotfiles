@@ -1,7 +1,6 @@
 ;;; performance-init.el --- settings relating to performance of emacs
 ;;; Commentary:
 ;;; Designed to reduce startup time, does not focus on memory usage too hard
-
 ;;; Code:
 
 ;; garbage collector settings

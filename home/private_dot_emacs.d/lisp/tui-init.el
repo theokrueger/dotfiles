@@ -1,7 +1,6 @@
 ;;; tui-init.el --- settings related to the emacs TUI
 ;;; Commentary:
 ;;; settings that overlap between TUI and GUI belong in GUI settings
-
 ;;; Code:
 
 ;; terminal mouse support

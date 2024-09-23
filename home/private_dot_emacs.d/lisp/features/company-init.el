@@ -1,7 +1,5 @@
 ;;; company-init.el --- company install and settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'company)

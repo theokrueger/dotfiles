@@ -1,14 +1,14 @@
 ;;; flycheck-init.el --- flycheck install and settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'flycheck)
 (use-package flycheck
   :defer t
-  :hook (
-          (prog-mode . flycheck-mode))
+  :commands (flycheck-mode flyspell-mode)
+  :hook
+  (prog-mode . flycheck-mode)
+  (text-mode . flyspell-mode)
   )
 
 (provide 'flycheck-init)

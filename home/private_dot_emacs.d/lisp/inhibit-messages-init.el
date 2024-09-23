@@ -1,20 +1,21 @@
 ;;; inhibit-messages-init.el --- suppress annoying startup messages and default flair
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 ;; no minibuffer startup message
-(setq-default inhibit-startup-echo-area-message t)
 (defun display-startup-echo-area-message ()
+  "Do nothing."
   (lambda ()))
 
-;; no splash message
-(setq-default inhibit-startup-message t) ;; (older)
-(setq-default inhibit-splash-screen t)
 
-;; initial screen
-(setq-default initial-scratch-message (concat ";; *scratch*\n;; Created: " (current-time-string))) ;; scratch message
+;; settings
+(setq-default
+  inhibit-startup-echo-area-message t
+  ;; no splash message
+  inhibit-startup-message t ;; (older)
+  inhibit-splash-screen t
+  ;; initial screen
+  initial-scratch-message (concat ";; *scratch*\n;; Created: " (current-time-string))) ;; scratch message
 
 (provide 'inhibit-messages-init)
-;;; inhibit-message-init.el ends here
+;;; inhibit-messages-init.el ends here

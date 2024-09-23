@@ -1,8 +1,11 @@
 ;;; early-init.el --- special early init settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
+
+;; add melpa-stable
+(require 'package)
+(add-to-list 'package-archives
+  '("melpa" . "https://melpa.org/packages/") t)
 
 ;; speeds up LSP significantly
 (setenv "LSP_USE_PLISTS" "true")

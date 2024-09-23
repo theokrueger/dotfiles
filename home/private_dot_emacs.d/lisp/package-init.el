@@ -1,15 +1,9 @@
 ;;; package-init.el --- settings and functions related to packages
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 ;; package inits
-(require 'package)
 (setq-default package-enable-at-startup nil)
-(add-to-list 'package-archives
-  '("melpa" . "https://melpa.org/packages/") t) ;; melpa stable
-(package-initialize)
 
 ;; helper to install packages if not installed
 (defvar package-contents-refreshed nil)

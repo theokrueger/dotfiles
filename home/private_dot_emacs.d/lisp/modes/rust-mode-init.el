@@ -1,7 +1,5 @@
-;;; rust-init.el --- rust settings
+;;; rust-mode-init.el --- rust settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 ;; rust-mode
@@ -9,12 +7,12 @@
 (use-package rust-mode
   :defer t
   :commands rust-mode
-  :hook (rust-mode-hook . lsp)
+  :hook (rust-mode . lsp-deferred)
   :config
-  (require-package 'cargo)
   (setq-default
     ;; rust-mode settings
     rust-format-on-save t
+    rust-indent-offset 8
     ;; lsp settings
     lsp-rust-server "rust-analyzer"
     lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial"
@@ -25,17 +23,20 @@
     lsp-rust-analyzer-display-reborrow-hints nil)
   )
 
-;; lsp for rust
+;; cargo minor mode
+(require-package 'cargo)
+(use-package cargo
+  :defer t
+  :commands cargo-minor-mode
+  )
 
 ;; flycheck for rust
 (require-package 'flycheck-rust)
 (use-package flycheck-rust
   :defer t
-  :hook (
-          (rust-mode-hook . flycheck-mode)
-          (rust-mode-hook . flycheck-rust-setup)
-          )
+  :commands flycheck-rust-setup
+  :hook (rust-mode . flycheck-rust-setup)
   )
 
-(provide 'rust-init)
-;;; rust-init.el ends here
+(provide 'rust-mode-init)
+;;; rust-mode-init.el ends here

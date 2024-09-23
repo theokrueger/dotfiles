@@ -1,7 +1,5 @@
-;;; compile-init.el --- settings related to bytecode and native compilation]
+;;; compile-init.el --- settings related to bytecode and native compilation
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (setq-default

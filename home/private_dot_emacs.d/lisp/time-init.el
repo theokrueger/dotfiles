@@ -1,7 +1,6 @@
 ;;; time-init.el --- settings related to time
 ;;; Commentary:
 ;;; Changes clock format and measures startup time
-
 ;;; Code:
 
 ;; display time mode in mode line

@@ -1,7 +1,5 @@
-;;; yaml-init.el --- yaml mode settings
+;;; yaml-mode-init.el --- yaml mode settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 (require-package 'yaml-mode)
@@ -13,5 +11,5 @@
   )
 
 
-(provide 'yaml-init)
-;;; yaml-init.el ends here
+(provide 'yaml-mode-init)
+;;; yaml-mode-init.el ends here

@@ -1,7 +1,5 @@
 ;;; text-mode-init.el --- general text editor settings
 ;;; Commentary:
-;;; none
-
 ;;; Code:
 
 ;; line numbers
@@ -13,27 +11,35 @@
                    eshell-mode-hook))
     (add-hook mode undisp))) ;; dont display linenumbers in these modes
 
-;; wrapping
-(setq-default truncate-lines nil) ;; enable line wrapping
-
 ;; highlight line mode
 (global-hl-line-mode 1)
 
 ;; save place in files
 (save-place-mode 1)
 
-;; search function
-(setq-default
-  case-fold-search t          ;; case-insensitive search
-  search-highlight t          ;; highlight matches
-  search-whitespace-regexp t) ;; search inc whitespace
-
 ;; reload unmodified buffers when file changed
 (global-auto-revert-mode 1)
-(setq-default global-auto-revert-non-file-buffers t) ;; reload others buffer types too
 
-;; trailing whitespace
-(setq-default show-trailing-whitespace t)
+;; remove trailing whitespaces
+(require-package 'whitespace-cleanup-mode)
+(use-package whitespace-cleanup-mode
+  :defer t
+  :commands whitespace-cleanup-mode
+  :hook (text-mode . whitespace-cleanup-mode)
+  )
+
+;; settings
+(setq-default
+  ;; enable line wrapping
+  truncate-lines nil
+  ;; search function
+  case-fold-search t         ;; case-insensitive search
+  search-highlight t         ;; highlight matches
+  search-whitespace-regexp t ;; search inc whitespace
+  ;; reload buffers on file change
+  global-auto-revert-non-file-buffers t
+  ;; show trailing whitespace
+  show-trailing-whitespace t)
 
 (provide 'text-mode-init)
 ;;; text-mode-init.el ends here
