@@ -19,7 +19,6 @@
 (require 'latex-mode-init) ;; latex settings
 (require 'lisp-mode-init)  ;; lisp settings
 (require 'org-mode-init)   ;; org mode settings
-(require 'pdf-mode-init)   ;; pdf viewer settings
 (require 'rust-mode-init)  ;; rust settings
 (require 'yaml-mode-init)  ;; yaml settings
 
