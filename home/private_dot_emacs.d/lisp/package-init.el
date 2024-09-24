@@ -9,6 +9,7 @@
 (defvar package-contents-refreshed nil)
 (defun require-package (package)
   "Install a PACKAGE from remote if not installed."
+  (interactive)
   (unless (package-installed-p package)
     (unless (or package-archive-contents package-contents-refreshed)
       (setq-default package-contents-refreshed t)

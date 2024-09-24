@@ -1,6 +1,6 @@
 ;;; gui-init.el --- settings related to the emacs GUI window
 ;;; Commentary:
-;;; Overlap between gui and tui settings belong in gui settings
+;;; Overlap between GUI and TUI settings belong in GUI settings
 ;;; Code:
 
 ;; C-z wont minimise under GUI

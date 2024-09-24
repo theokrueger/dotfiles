@@ -9,8 +9,6 @@
   tab-stop-list (number-sequence 8 160 8)
   tab-width 8
   standard-indent 8)
-(add-hook 'text-mode-hook
-  (lambda() (setq indent-line-function 'insert-tab)))
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; rainbow delimiters
@@ -58,9 +56,13 @@
   )
 
 ;; folding
-(add-hook 'prog-mode-hook #'hs-minor-mode)
-(bind-key* "C-c f" 'hs-toggle-hiding)
-(bind-key* "C-c F" 'hs-hide-all)  
+(use-package hideshow
+  :defer t
+  :hook (prog-mode . hs-minor-mode)
+  :bind-keymap
+  ("C-c f" . hs-toggle-hiding)
+  ("C-c F" . hs-hide-all)
+  )
 
 
 (provide 'prog-mode-init)
