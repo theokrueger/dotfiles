@@ -6,6 +6,8 @@
 {{- $primaryMonWidth  := 1920 }}
 {{- $primaryMonHeight := 1080 }}
 {{- $windowManager := "" }}
+{{- $kbLayout := "qwerty" }}
+
 # macos
 {{- if eq .chezmoi.os "darwin" }}
   # general macos config
@@ -16,31 +18,40 @@
   {{- else }}
     {{- $chassisType = "desktop" }}
   {{- end }}
+
 # linux
 {{- else if eq .chezmoi.os "linux" }}
    # general linux config
   {{- $windowManager = "sway" }}
+
   # systemd
   {{- if stat "/usr/bin/hostnamectl" }}
     # laptop or desktop?
     {{- $chassisType = (output "hostnamectl" "--json=short" | mustFromJson).Chassis }}
+
   # OpenRC / other
   {{- else }}
+
     # laptop or desktop?
     {{- if stat "/sys/class/power_supply/BAT0/present" }}
       {{- $chassisType = "laptop" }}
     {{- else }}
       {{- $chassisType = "desktop" }}      
     {{- end }}
+
     # hostname-based configuration
     {{- if eq .chezmoi.hostname "thonkpad" }}
       {{- $primaryMonWidth  = 1280 }}
       {{- $primaryMonHeight = 800 }}
+
     {{- else if eq .chezmoi.hostname "linsuslap" }}
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
+      {{- $kbLayout = "workman-p" }}
     {{- end }}
+
   {{- end }}
+
 # windows
 {{- else if eq .chezmoi.os "windows" }}
   # general windows config
@@ -55,6 +66,7 @@ edit.command: emacs -nw
 encryption: "gpg"
 gpg:
   symmetric: true
+
 data:
   music_directory: ~/backups/mosic
   bar_height: 20
@@ -69,8 +81,10 @@ data:
     text_focused: "#333333"
     border: "#657b83"
     highlight: "#7c81d4"
+
   # automatically set vars
   window_manager: {{ $windowManager }}
   chassis: {{ $chassisType }}
   primary_monitor_width: {{ $primaryMonWidth }}
   primary_monitor_height: {{ $primaryMonHeight }}
+  keyboard_layout : {{ $kbLayout }}

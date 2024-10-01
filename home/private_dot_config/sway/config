@@ -2,8 +2,8 @@
 # Read `man 5 sway` for a complete reference.
 include ./environment
 include ./displays
-include ./keybinds
 include ./input
+include ./keybinds
 include ./style
 include ./bar
 

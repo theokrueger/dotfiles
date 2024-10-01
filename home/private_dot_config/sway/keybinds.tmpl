@@ -21,6 +21,18 @@ set $file_manager  thunar
 set $game_launcher steam
 set $music_gui     alacritty -e ~/.config/ncmpcpp/ncmpcpp.sh
 
+# workman-p support thru bindcode
+set $one   10
+set $two   11
+set $three 12
+set $four  13
+set $five  14
+set $six   15
+set $seven 16
+set $eight 17
+set $nine  18
+set $zero  19
+
 # launch apps
 bindsym $mod+p           exec $menu_binary
 bindsym $mod_alt+p       exec $menu_desktop
@@ -82,26 +94,26 @@ bindsym $mod+Up     focus up
 bindsym $mod+Right  focus right
 
 # workspaces
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+3 workspace number 3
-bindsym $mod+4 workspace number 4
-bindsym $mod+5 workspace number 5
-bindsym $mod+6 workspace number 6
-bindsym $mod+7 workspace number 7
-bindsym $mod+8 workspace number 8
-bindsym $mod+9 workspace number 9
-bindsym $mod+0 scratchpad show
-bindsym $mod_alt+1 move container to workspace number 1
-bindsym $mod_alt+2 move container to workspace number 2
-bindsym $mod_alt+3 move container to workspace number 3
-bindsym $mod_alt+4 move container to workspace number 4
-bindsym $mod_alt+5 move container to workspace number 5
-bindsym $mod_alt+6 move container to workspace number 6
-bindsym $mod_alt+7 move container to workspace number 7
-bindsym $mod_alt+8 move container to workspace number 8
-bindsym $mod_alt+9 move container to workspace number 9
-bindsym $mod_alt+0 move scratchpad
+bindcode $mod+$one   workspace number 1
+bindcode $mod+$two   workspace number 2
+bindcode $mod+$three workspace number 3
+bindcode $mod+$four  workspace number 4
+bindcode $mod+$five  workspace number 5
+bindcode $mod+$six   workspace number 6
+bindcode $mod+$seven workspace number 7
+bindcode $mod+$eight workspace number 8
+bindcode $mod+$nine  workspace number 9
+bindcode $mod+$zero  scratchpad show
+bindcode $mod_alt+$one   move container to workspace number 1
+bindcode $mod_alt+$two   move container to workspace number 2
+bindcode $mod_alt+$three move container to workspace number 3
+bindcode $mod_alt+$four  move container to workspace number 4
+bindcode $mod_alt+$five  move container to workspace number 5
+bindcode $mod_alt+$six   move container to workspace number 6
+bindcode $mod_alt+$seven move container to workspace number 7
+bindcode $mod_alt+$eight move container to workspace number 8
+bindcode $mod_alt+$nine  move container to workspace number 9
+bindcode $mod_alt+$zero  move scratchpad
 
 # other
 bindsym $mod_alt+c     exec swaymsg exit

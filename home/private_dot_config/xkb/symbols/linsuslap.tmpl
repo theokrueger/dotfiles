@@ -1,6 +1,11 @@
 default partial alphanumeric_keys
-xkb_symbols "basic" {
+xkb_symbols "workman-p" {
+        {{- if eq .keyboard_layout "workman-p" }}
+        include "workman-p"
+        {{- else }}
         include "us(basic)"
+        {{- end }}
+        
         name[Group1] = "us qwerty with some keys swapped";
 
         // unbind lgui, bind caps to lgui, and fn+f12 to caps

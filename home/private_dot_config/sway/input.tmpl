@@ -24,6 +24,8 @@ input type:touchpad {
 }
 
 # keyboad layouts
-input type:keyboard {
-  xkb_layout "{{ .chezmoi.hostname }}"
+
+## integrated linsuslap keyboard
+input 1:1:AT_Translated_Set_2_keyboard {
+  xkb_layout "linsuslap"
 }

@@ -1,6 +1,6 @@
 default partial alphanumeric_keys modifier_keys xkb_symbols "basic" {
         include "us(basic)"
-        name[Group1] = "us qwerty with some keys swapped";
+        name[Group1] = "workman with some keys swapped";
 
         // Swap back with pgup (commented because it does not work
         //replace key <I166> {[ Prior ]};
