@@ -3,7 +3,7 @@
 use std::sync::{Arc, Mutex};
 use std::thread;
 use substring::Substring;
-use swayipc::{Connection, Event, EventType, Fallible};
+use swayipc::{Connection, Event, EventType, Fallible, WorkspaceChange};
 
 mod wl_window;
 use wl_window::create_blank_window;
@@ -39,7 +39,7 @@ fn main() -> Fallible<()> {
     }
 
     // loop
-    for event in Connection::new()?.subscribe([EventType::Window])? {
+    for event in Connection::new()?.subscribe([EventType::Window, EventType::Workspace])? {
         match event? {
             Event::Window(w) => {
                 let cur_name: String =
@@ -53,6 +53,14 @@ fn main() -> Fallible<()> {
                 ))?;
                 last_name = cur_name;
             }
+            Event::Workspace(w) => match w.change {
+                WorkspaceChange::Focus => {
+                    ipc_connection
+                        .run_command(format!("rename workspace '[{}]' to '[_]'", last_name))?;
+                    last_name = "_".into();
+                }
+                _ => (),
+            },
             _ => unreachable!(),
         }
     }
