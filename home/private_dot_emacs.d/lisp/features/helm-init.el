@@ -3,10 +3,10 @@
 ;;; Code:
 
 (require-package 'helm)
+(require-package 'helm-descbinds)
 (use-package helm
   :demand t
   :config
-  (require-package 'helm-descbinds)
   (setq-default
     completion-styles '(flex)
     ;; recent saving

@@ -18,6 +18,13 @@
   (interactive)
   )
 
+;; read file to string
+(defun file-to-string (filename)
+  "Return the contents of FILENAME as a string."
+  (with-temp-buffer
+    (insert-file-contents filename)
+    (buffer-string)))
+
 ;; package to globally bind a key
 (require-package 'bind-key)
 (use-package bind-key

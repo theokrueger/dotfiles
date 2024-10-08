@@ -21,6 +21,8 @@
 (add-to-list 'load-path (expand-file-name "features" (concat user-emacs-directory "/lisp")))
 (add-to-list 'load-path (expand-file-name "extern" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "templates" user-emacs-directory))
+(add-to-list 'load-path (expand-file-name "org-latex-classes" (concat user-emacs-directory "/templates")))
 
 ;; special init
 (require 'performance-init)      ;; performance settings
@@ -48,6 +50,10 @@
 ;; feature inits
 (require 'features-common-init)  ;; feature settings
 
+;; templates init
+(require 'templates-common-init) ;; templates
+
+;; user settings init
 (require 'user-posthook)
 
 ;; user defined settings
