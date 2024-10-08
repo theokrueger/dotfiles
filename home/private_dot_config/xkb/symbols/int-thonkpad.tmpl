@@ -1,6 +1,11 @@
 default partial alphanumeric_keys modifier_keys xkb_symbols "basic" {
-        include "us(basic)"
-        name[Group1] = "workman with some keys swapped";
+        {{- if eq .keyboard_layout "workman" }}
+        include "qwerty-mod(workman)"
+        {{- else }}
+        include "qwerty-mod(basic)"
+        {{- end }}
+
+        name[Group1] = "special keys swapped";
 
         // Swap back with pgup (commented because it does not work
         //replace key <I166> {[ Prior ]};
@@ -9,9 +14,4 @@ default partial alphanumeric_keys modifier_keys xkb_symbols "basic" {
         // swap forward with pagedown (commented bbecause it does not work)
         //replace key <I167> {[ Super_L ]};
         //replace key <PGDN> {[ XF86Forward ]};
-
-        // unbind lgui, bind caps to lgui, and compose to caps
-        replace key <CAPS> {[ Super_L ]};
-        replace key <LWIN> {[ none ]};
-        replace key <COMP> {[ Caps_Lock ]};
 };

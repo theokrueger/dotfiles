@@ -31,7 +31,6 @@
 
   # OpenRC / other
   {{- else }}
-
     # laptop or desktop?
     {{- if stat "/sys/class/power_supply/BAT0/present" }}
       {{- $chassisType = "laptop" }}
@@ -43,13 +42,14 @@
     {{- if eq .chezmoi.hostname "thonkpad" }}
       {{- $primaryMonWidth  = 1280 }}
       {{- $primaryMonHeight = 800 }}
+      {{- $kbLayout = "workman" }}
 
     {{- else if eq .chezmoi.hostname "linsuslap" }}
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
-      {{- $kbLayout = "workman-p" }}
-    {{- end }}
+      {{- $kbLayout = "workman" }}
 
+    {{- end }}
   {{- end }}
 
 # windows
@@ -87,4 +87,4 @@ data:
   chassis: {{ $chassisType }}
   primary_monitor_width: {{ $primaryMonWidth }}
   primary_monitor_height: {{ $primaryMonHeight }}
-  keyboard_layout : {{ $kbLayout }}
+  keyboard_layout: {{ $kbLayout }}
