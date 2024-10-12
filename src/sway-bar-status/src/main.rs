@@ -54,20 +54,21 @@ struct Status {
 impl Status {
     fn new() -> Status {
         // select the first battery
-        let mut has_bat = true;
+        let mut has_bat = false;
         let mut bat_selection = "".to_string();
         for battery in glob("/sys/class/power_supply/BAT*").unwrap() {
             match battery {
                 Ok(path) => {
                     bat_selection = format!("{}", path.display());
+                    has_bat = true;
                     break;
                 }
-                Err(_) => has_bat = false,
+                Err(_) => (),
             }
         }
 
         // select the first backlight
-        let mut has_bl = true;
+        let mut has_bl = false;
         let mut bl_selection = "".to_string();
         let mut bl_max: u32 = 0;
         for backlight in glob("/sys/class/backlight/*").unwrap() {
@@ -79,9 +80,10 @@ impl Status {
                             .unwrap();
                     max.pop();
                     bl_max = max.parse::<u32>().unwrap();
+                    has_bl = true;
                     break;
                 }
-                Err(_) => has_bl = false,
+                Err(_) => (),
             }
         }
 
@@ -131,8 +133,12 @@ impl Status {
             track: String::new(),
         };
         status.update_time();
-        status.update_battery();
-        status.update_backlight();
+        if has_bat {
+            status.update_battery();
+        }
+        if has_bl {
+            status.update_backlight();
+        }
         status.update_memory();
         status.update_drives(0);
         status.update_track();
