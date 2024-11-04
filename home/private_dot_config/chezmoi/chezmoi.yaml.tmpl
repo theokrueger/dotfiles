@@ -42,12 +42,16 @@
     {{- if eq .chezmoi.hostname "thonkpad" }}
       {{- $primaryMonWidth  = 1280 }}
       {{- $primaryMonHeight = 800 }}
-      {{- $kbLayout = "workman" }}
+      {{- $kbLayout = "qwerty" }}
 
     {{- else if eq .chezmoi.hostname "linsuslap" }}
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
-      {{- $kbLayout = "workman" }}
+      {{- $kbLayout = "qwerty" }}
+
+    {{- else if eq .chezmoi.hostname "gen2desk" }}
+      {{- $primaryMonWidth  = 1920 }}
+      {{- $primaryMonHeight = 1080 }}
 
     {{- end }}
   {{- end }}

@@ -1,2 +1,4 @@
 # display configuration
 output "*" bg ~/.config/sway/bg.png fill
+
+output "Dell Inc. DELL S2522HG F4FQ1C3" mode 1920x1080@239.757Hz

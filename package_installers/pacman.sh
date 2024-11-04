@@ -76,6 +76,9 @@ PACKAGES+="keepassxc "
 # zeroconf
 PACKAGES+="avahi nss-mdns "
 
+# IME (tcitx)
+PACKAGES+="fcitx-im "
+
 # misc utilities
 PACKAGES+="fastfetch "
 

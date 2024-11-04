@@ -2,7 +2,8 @@
 # install script for dotfiles
 cd "$(dirname "$0")"
 
-# install required packages per host
+# install required packages
+chmod +x ./package_installers/*.sh
 if [[ "$(which pacman)" != '' ]]; then
     # artix
     ./package_installers/pacman.sh
@@ -10,6 +11,10 @@ fi
 if [[ "$(which cargo)" != '' ]]; then
     # rust
     ./package_installers/cargo.sh
+fi
+if [[ "$(which pip)" != '' ]]; then
+    # pip
+    ./package_installers/pip.sh
 fi
 
 # check if a path exists, then print some info
@@ -66,7 +71,7 @@ if [[ -f "$CHEZMOI_CFG_FILE" ]]; then
 else
     echo "chezmoi config file does not exist, copying it over..."
     mkdir -p ~/.config/chezmoi/
-    cat "./home/dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$HOME/.config/chezmoi/chezmoi.yaml"
+    cat "./home/private_dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$HOME/.config/chezmoi/chezmoi.yaml"
 fi
 "$CHEZMOI" apply
 
@@ -76,6 +81,10 @@ WALLPAPER_OUT="$HOME/.config/sway/bg.png"
 LOCKSCREEN="./assets/lockscreens/"
 LOCKSCREEN_OUT="$HOME/.config/sway/lock.png"
 case "$HOSTNAME" in
+    'gen2desk')
+        LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
+        WALLPAPER+="gen2desk_pink_(1920x1080).png"
+        ;;
     'thonkpad')
         LOCKSCREEN+="pneguin_lockscreen_(1280x800).png"
         WALLPAPER+="thonkpad_pink_(1280x800).png"
@@ -95,9 +104,5 @@ fi
 if [[ -f "$WALLPAPER" ]]; then
     $CP "$WALLPAPER" "$WALLPAPER_OUT"
 fi
-
-echo "Running scripts in src/"
-"./src/sway-window-title-as-workspace/install.sh"
-"./src/sway-bar-status/install.sh"
 
 echo "Please manually update files in etc folder"

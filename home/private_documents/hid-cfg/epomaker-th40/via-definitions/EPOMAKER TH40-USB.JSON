@@ -1,0 +1,120 @@
+{
+	"name": "EPOMAKER TH40",
+	"vendorId": "0x320F",
+	"productId": "0x5055",
+	"lighting": {
+		"extends": "qmk_rgblight",
+		"underglowEffects": [
+		  [ "OFF_MODE", 0 ],
+		  [ "WAVE_MODE", 0 ],
+		  [ "COLOUR_CLOUD_MODE", 0 ],
+		  [ "VORTEX_MODE", 0 ],
+		  [ "MIX_COLOUR_MODE", 0 ],
+		  [ "BREATHE_MODE", 0 ],
+		  [ "LIGHT_MODE", 0 ],
+		  [ "SLOWLY_OFF_MODE", 0 ],
+		  [ "STONE_MODE", 0 ],
+		  [ "LASER_MODE", 0 ],
+		  [ "STARRY_MODE", 0 ],
+		  [ "FLOWERS_OPEN_MODE", 0 ],
+		  [ "TRAVERSE_MODE", 0 ],
+		  [ "WAVE_BAR_MODE", 0 ],
+		  [ "METEOR_MODE", 0 ],
+		  [ "RAIN_MODE", 0 ],
+		  [ "SCAN_MODE", 0 ],
+		  [ "TRIGGER_COLOUR_MODE", 0 ],
+		  [ "CENTER_SPREAD_MODE", 0 ]
+		]
+	},
+	"matrix": { "rows": 6, "cols": 12 },
+	"customKeycodes": [
+		{"name": "2.4G MODE", "title": "Keyboard data output 2.4G", "shortName": "2.4G MODE"},
+		{"name": "Bluetooth 1", "title": "Bluetooth working connection 1", "shortName": "BT 1"},
+		{"name": "Bluetooth 2", "title": "Bluetooth working connection 2", "shortName": "BT 2"},
+		{"name": "Bluetooth 3", "title": "Bluetooth working connection 3", "shortName": "BT 3"},
+		{"name": "LOCK WIN KEY", "title": "lock win key", "shortName": "LOCK WIN"},
+		{"name": "KEY SCAN DELAY", "title": "KEY SCAN DELAY", "shortName": "KSDELAY"},
+		{"name": "MAC WIN MODE CHANGE", "title": "mac win system mode change", "shortName": "MAC WIN"},
+		{"name": "DESKTOP LIGHT LOW", "title": "desktop lihgt low", "shortName": "DESKTOP LIGHT LOW"},
+		{"name": "DESKTOP LIGHT HIGH", "title": "desktop lihgt high", "shortName": "DESKTOP LIGHT HIGH"}
+	],
+	"layouts": {
+		"keymap": [
+			[
+				{ "c":"#777777" },
+				{ "w":1.5,  "h":1.0,  "x":0.0 },  "0,0",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,4",
+				{ "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,8",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,10",
+				{ "c":"#777777" },
+				{ "w":1.5,  "h":1.0,  "x":0.0 },  "0,11"
+			],
+
+			[
+				{ "w":1.75, "h":1.0,  "x":0.0 },  "1,0",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,4",
+				{ "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,8",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,9",
+				{ "c":"#777777" },
+				{ "w":2.25, "h":1.0,  "x":0.0 },  "1,11"
+			],
+
+			[
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "2,0",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,4",
+				{ "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,8",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,10",
+				{ "c":"#777777" },
+				{ "w":1.75,	"h":1.0,  "x":0.0 },  "2,11"
+			],
+
+			[
+				{ "c":"#aaaaaa" },
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "3,0",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,1",
+				{ "c":"#cccccc" },
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "3,2",
+				{ "c":"#777777" },
+				{ "w":2.2,	"h":1.0,  "x":0.0 },  "3,4",
+				{ "c":"#cccccc" },
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,5",
+				{ "c":"#777777" },
+				{ "w":2.8,  "h":1.0,  "x":0.0 },  "3,7",
+				{ "c":"#aaaaaa" },
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "3,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "3,10",
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "3,11"
+			]
+		]
+	}
+}
