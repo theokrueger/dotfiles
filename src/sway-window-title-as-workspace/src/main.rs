@@ -3,7 +3,7 @@
 use std::sync::{Arc, Mutex};
 use std::thread;
 use substring::Substring;
-use swayipc::{Connection, Event, EventType, Fallible, WorkspaceChange};
+use swayipc::{Connection, Event, EventType, Fallible, WindowChange, WorkspaceChange};
 
 mod wl_window;
 use wl_window::create_blank_window;
@@ -42,11 +42,18 @@ fn main() -> Fallible<()> {
     for event in Connection::new()?.subscribe([EventType::Window, EventType::Workspace])? {
         match event? {
             Event::Window(w) => {
-                let cur_name: String =
-                    format!("{}", w.container.name.unwrap_or_else(|| "_".to_owned()))
-                        .replace(&['\'', '\"', '(', ')', '\\', '$'][..], "")
-                        .substring(0, MAX_TITLE_LENGTH)
-                        .into();
+                // ensure window title doesnt get updated when it shouldn't
+                let mut cur_name: String = "_".into();
+                match w.change {
+                    WindowChange::Close | WindowChange::Urgent => (),
+                    _ => {
+                        cur_name =
+                            format!("{}", w.container.name.unwrap_or_else(|| "_".to_owned()))
+                                .replace(&['\'', '\"', '(', ')', '\\', '$'][..], "")
+                                .substring(0, MAX_TITLE_LENGTH)
+                                .into();
+                    },
+                }
                 ipc_connection.run_command(format!(
                     "rename workspace '[{}]' to '[{}]'",
                     last_name, cur_name
