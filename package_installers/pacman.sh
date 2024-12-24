@@ -76,8 +76,14 @@ PACKAGES+="keepassxc "
 # zeroconf
 PACKAGES+="avahi nss-mdns "
 
-# IME (tcitx)
+# IME (fcitx)
 PACKAGES+="fcitx-im "
+
+# CAD (freecad, kicad, flatcam, autoleveller)
+PACKAGES+="freecad \
+  kicad kicad-library kicad-library-3d \
+  flatcam-git \
+  jre8-openjdk "
 
 # misc utilities
 PACKAGES+="fastfetch "

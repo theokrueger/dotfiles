@@ -83,17 +83,19 @@ LOCKSCREEN_OUT="$HOME/.config/sway/lock.png"
 case "$HOSTNAME" in
     'gen2desk')
         LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
-        WALLPAPER+="gen2desk_pink_(1920x1080).png"
+        WALLPAPER+="hostname/gen2desk_pink_(1920x1080).png"
         ;;
     'thonkpad')
         LOCKSCREEN+="pneguin_lockscreen_(1280x800).png"
-        WALLPAPER+="thonkpad_pink_(1280x800).png"
+        WALLPAPER+="hostname/thonkpad_pink_(1280x800).png"
         ;;
     'linsuslap')
         LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
-        WALLPAPER+="linsuslap_pink_(1920x1080).png"
+        WALLPAPER+="hostname/linsuslap_pink_(1920x1080).png"
         ;;
     *)
+        LOCKSCREEN="/dev/null"
+        WALLPAPER="/dev/null"
         ;;
 esac
 

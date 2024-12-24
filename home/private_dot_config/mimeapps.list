@@ -1,3 +1,10 @@
 [Added Associations]
 application/x-shellscript=emacs.desktop;
+text/x-python3=emacs.desktop;
+text/markdown=emacs.desktop;
+application/json=emacs.desktop;
+text/plain=emacs.desktop;
+application/xml=emacs.desktop;
+
 image/png=gimp.desktop;
+
