@@ -1,4 +1,4 @@
-;;; templates-common-init.el --- load templates for various modes
+;;; templates-common-init.el --- load templates for various modes -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

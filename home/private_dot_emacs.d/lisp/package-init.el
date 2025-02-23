@@ -1,4 +1,4 @@
-;;; package-init.el --- settings and functions related to packages
+;;; package-init.el --- settings and functions related to packages -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

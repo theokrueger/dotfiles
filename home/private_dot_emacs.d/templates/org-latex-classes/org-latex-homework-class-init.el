@@ -1,4 +1,4 @@
-;;; org-latex-homework-class-init.el --- homework template
+;;; org-latex-homework-class-init.el --- homework template -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -40,6 +40,9 @@
 \\rfoot{}
 
 \\pagestyle{fancy}
+
+% indent first line after [sub]section
+\\usepackage{indentfirst}
 
 % user-defined extra commands
 [EXTRA]

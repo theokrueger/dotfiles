@@ -1,4 +1,4 @@
-;;; yaml-mode-init.el --- yaml mode settings
+;;; yaml-mode-init.el --- yaml mode settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

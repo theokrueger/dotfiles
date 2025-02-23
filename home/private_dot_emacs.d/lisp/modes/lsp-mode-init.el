@@ -1,4 +1,4 @@
-;;; lsp-mode-init.el --- settings related to language server protocol
+;;; lsp-mode-init.el --- settings related to language server protocol -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

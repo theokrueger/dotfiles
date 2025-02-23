@@ -1,4 +1,4 @@
-;;; python-mode-init.el --- settings related to python programming mode
+;;; python-mode-init.el --- settings related to python programming mode -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 (setq-default

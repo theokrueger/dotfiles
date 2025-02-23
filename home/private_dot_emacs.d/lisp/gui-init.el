@@ -1,4 +1,4 @@
-;;; gui-init.el --- settings related to the emacs GUI window
+;;; gui-init.el --- settings related to the emacs GUI window -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Overlap between GUI and TUI settings belong in GUI settings
 ;;; Code:

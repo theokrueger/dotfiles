@@ -1,4 +1,4 @@
-;;; flycheck-init.el --- flycheck install and settings
+;;; flycheck-init.el --- flycheck install and settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

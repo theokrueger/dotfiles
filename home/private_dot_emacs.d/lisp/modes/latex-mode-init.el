@@ -1,4 +1,4 @@
-;;; latex-mode-init.el --- latex mode settings
+;;; latex-mode-init.el --- latex mode settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 ;; todo

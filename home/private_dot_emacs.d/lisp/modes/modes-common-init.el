@@ -1,4 +1,4 @@
-;;; modes-common-init.el --- common language configuration
+;;; modes-common-init.el --- common language configuration -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -11,6 +11,15 @@
     )
   )
 
+;; tree-sitter
+(require-package 'treesit-auto)
+(use-package treesit-auto
+  :custom
+  (treesit-auto-install t)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
 ;; loads
 (require 'text-mode-init)  ;; text mode settings
 (require 'prog-mode-init)  ;; prog mode settings
@@ -21,6 +30,7 @@
 (require 'org-mode-init)   ;; org mode settings
 (require 'rust-mode-init)  ;; rust settings
 (require 'yaml-mode-init)  ;; yaml settings
+(require 'pest-mode-init)  ;; pest settings
 
 (provide 'modes-common-init)
 ;;; modes-common-init.el ends here

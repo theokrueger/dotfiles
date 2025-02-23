@@ -1,4 +1,4 @@
-;;; compile-init.el --- settings related to bytecode and native compilation
+;;; compile-init.el --- settings related to bytecode and native compilation -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

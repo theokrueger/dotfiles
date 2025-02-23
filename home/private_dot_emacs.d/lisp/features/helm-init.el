@@ -1,4 +1,4 @@
-;;; helm-init.el --- settings related to helm
+;;; helm-init.el --- settings related to helm -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

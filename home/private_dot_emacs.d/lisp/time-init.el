@@ -1,4 +1,4 @@
-;;; time-init.el --- settings related to time
+;;; time-init.el --- settings related to time -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Changes clock format and measures startup time
 ;;; Code:

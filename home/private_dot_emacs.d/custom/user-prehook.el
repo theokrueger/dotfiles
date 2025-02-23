@@ -1,4 +1,4 @@
-;;; user-prehook.el --- user defined prehooks
+;;; user-prehook.el --- user defined prehooks -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Put your prehooks here, to be loaded before anything else
 ;;; Code:

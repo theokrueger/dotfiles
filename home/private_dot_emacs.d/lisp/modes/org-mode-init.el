@@ -1,4 +1,4 @@
-;;; org-mode-init.el --- org-mode install and settings
+;;; org-mode-init.el --- org-mode install and settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

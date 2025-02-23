@@ -1,4 +1,4 @@
-;;; features-common-init.el --- init all features
+;;; features-common-init.el --- init all features -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -7,7 +7,6 @@
 (require 'lsp-mode-init)         ;; flycheck settings
 (require 'flycheck-init)         ;; flycheck settings
 (require 'company-init)          ;; company settings
-(require 'undo-tree-init)	 ;; undo tree settings
 (require 'format-all-init)	 ;; Code auto-formatter
 
 (provide 'features-common-init)

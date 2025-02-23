@@ -1,4 +1,4 @@
-;;; tabs-init.el --- settings for top tab bar
+;;; tabs-init.el --- settings for top tab bar -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

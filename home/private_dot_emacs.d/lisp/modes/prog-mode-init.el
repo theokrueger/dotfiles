@@ -1,4 +1,4 @@
-;;; prog-mode-init.el --- settings for all programming modes
+;;; prog-mode-init.el --- settings for all programming modes -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

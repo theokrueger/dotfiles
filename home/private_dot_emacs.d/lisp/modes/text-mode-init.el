@@ -1,4 +1,4 @@
-;;; text-mode-init.el --- general text editor settings
+;;; text-mode-init.el --- general text editor settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

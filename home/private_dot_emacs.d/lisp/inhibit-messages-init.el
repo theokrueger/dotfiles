@@ -1,4 +1,4 @@
-;;; inhibit-messages-init.el --- suppress annoying startup messages and default flair
+;;; inhibit-messages-init.el --- suppress annoying startup messages and default flair -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

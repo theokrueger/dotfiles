@@ -1,4 +1,4 @@
-;;; keybinds-init.el --- custom keybinds / functions
+;;; keybinds-init.el --- custom keybinds / functions -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Does not include package-specific binds (such as helm-M-x).
 ;;; Those are defined in relevant feature or language files

@@ -1,4 +1,4 @@
-;;; cxx-mode-init.el --- c/c++/cxx settings
+;;; cxx-mode-init.el --- c/c++/cxx settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

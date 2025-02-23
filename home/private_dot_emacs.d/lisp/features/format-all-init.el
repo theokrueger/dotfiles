@@ -1,4 +1,4 @@
-;;; format-all-init.el --- settings related to formatt-all package
+;;; format-all-init.el --- settings related to formatt-all package -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code
 

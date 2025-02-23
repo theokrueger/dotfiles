@@ -1,4 +1,4 @@
-;;; init.el --- init settings
+;;; init.el --- init settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -25,9 +25,9 @@
 (add-to-list 'load-path (expand-file-name "org-latex-classes" (concat user-emacs-directory "/templates")))
 
 ;; special init
-(require 'performance-init)      ;; performance settings
 (require 'package-init)          ;; package settings
 (require 'util-init)             ;; utility functions
+(require 'performance-init)      ;; performance settings
 (require 'compile-init)          ;; bytecode compilation for speedup
 
 ;; user defined prehooks

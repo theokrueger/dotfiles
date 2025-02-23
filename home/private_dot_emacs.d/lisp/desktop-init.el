@@ -1,4 +1,4 @@
-;;; desktop-init.el --- backups of state and files
+;;; desktop-init.el --- backups of state and files -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

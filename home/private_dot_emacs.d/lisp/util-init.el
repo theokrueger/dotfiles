@@ -1,4 +1,4 @@
-;;; util-init.el --- utility functions used by other files
+;;; util-init.el --- utility functions used by other files -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; This file contains general use functions used in other files
 ;;; Code:

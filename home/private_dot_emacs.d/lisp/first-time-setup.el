@@ -1,4 +1,4 @@
-;; first-time-setup.el --- settings and configurations that only need to be run during first time setup of .emacs.d
+;; first-time-setup.el --- settings and configurations that only need to be run during first time setup of .emacs.d -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Compiles all .el files to .elc and machine compiles them as well
 ;;; Code:

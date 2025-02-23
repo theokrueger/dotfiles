@@ -1,4 +1,4 @@
-;;; org-latex-classes-init.el --- load templates for org latex
+;;; org-latex-classes-init.el --- load templates for org latex -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Loaded by org-mode-init.el
 ;;; Code:

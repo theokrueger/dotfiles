@@ -1,4 +1,4 @@
-;;; user-posthook.el --- user defined posthooks
+;;; user-posthook.el --- user defined posthooks -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Put your posthooks here, to be loaded after the rest of packages, right before settings
 ;;; Code:

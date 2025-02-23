@@ -1,4 +1,4 @@
-;;; company-init.el --- company install and settings
+;;; company-init.el --- company install and settings -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

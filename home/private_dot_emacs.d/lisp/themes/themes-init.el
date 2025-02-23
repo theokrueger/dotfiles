@@ -1,4 +1,4 @@
-;;; themes-init.el --- settings relating to colour theme
+;;; themes-init.el --- settings relating to colour theme -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 

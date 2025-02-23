@@ -1,4 +1,4 @@
-;;; lisp-mode-init.el --- settings for elisp
+;;; lisp-mode-init.el --- settings for elisp -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
