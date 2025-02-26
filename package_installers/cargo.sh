@@ -14,6 +14,9 @@ git config --global --replace-all credential.helper 'keepassxc --git-groups'
 echo "Installing SSGen"
 cargo install ssgen
 
+echo "Installed pesta for emacs pest-mode"
+cargo install pesta
+
 echo "Installing Sway utilities from local repo"
 for NAME in \
     "../src/sway-bar-status/install.sh" \

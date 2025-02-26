@@ -21,6 +21,9 @@
     org-latex-subtitle-format "\\subtitle{%s}"
     org-latex-title-command "\\maketitle")
 
+  ;; modify default classes
+  (require 'org-latex-article-class-init)
+
   ;; add custom classes
   (require 'org-latex-homework-class-init)
   )

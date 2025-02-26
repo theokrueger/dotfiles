@@ -41,6 +41,9 @@ exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
 # aliases
 CP="cp --reflink=auto --verbose"
 
+# ensure flathub is added
+flatpak remote-add --if-not-exists --user flathub "https://dl.flathub.org/repo/flathub.flatpakrepo"
+
 # install adw-gtk3
 if [[ -d "$HOME/.local/share/themes/adw-gtk3" ]] || [[ -d "/usr/share/themes/adw-gtk3" ]]; then
     echo "adw-gtk3 is installed!"
@@ -92,6 +95,10 @@ case "$HOSTNAME" in
     'linsuslap')
         LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
         WALLPAPER+="hostname/linsuslap_pink_(1920x1080).png"
+        ;;
+    'yogurt')
+        LOCKSCREEN+="pneguin_lockscreen_(1920x1080).png"
+        WALLPAPER+="hostname/yogurt_pink_(1920x1080).png"
         ;;
     *)
         LOCKSCREEN="/dev/null"

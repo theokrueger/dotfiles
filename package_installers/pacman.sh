@@ -2,6 +2,7 @@
 # installer for basic pacman packages
 
 PACKAGES=""
+POST_INSTALL=""
 echo "Performing full system upgrade..."
 doas pacman -Syyu base-devel git
 
@@ -18,6 +19,13 @@ fi
 
 # chezmoi (dotfiles manager, heart of this script)
 PACKAGES+="chezmoi "
+
+# flatpak (flatpak package installer)
+PACKAGES+="flatpak flatpak-builder flatseal "
+# flatpak already adds official repo as default
+
+# system utils
+PACKAGES+="wget "
 
 # mako (notification daemon)
 PACKAGES+="mako "
@@ -57,6 +65,7 @@ PACKAGES+="emacs-wayland jansson "
 
 # devtools
 PACKAGES+="git-lfs rustup "
+POST_INSTALL+="rustup toolchain install stable;"
 
 # thunar (file manager)
 PACKAGES+="thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs gvfs-mtp "
@@ -66,6 +75,9 @@ PACKAGES+="adw-gtk-theme "
 
 # bash completions (shell)
 PACKAGES+="bash-completion "
+
+# bashrc greetings
+PACKAGES+="fortune-mod lolcat cowsay "
 
 # adb (android debugging + file xfer)
 PACKAGES+="adb android-bash-completion "
@@ -91,7 +103,7 @@ PACKAGES+="fastfetch "
 # openrc init daemon
 openrc_post_install() {
     if [[ "$(which openrc)" == "" ]]; then
-        echo "OpenRC not installed, skipping OpenRC setup"
+        echo "OpenRC not installed; skipping OpenRC setup"
         return
     fi
 
@@ -106,6 +118,7 @@ openrc_post_install() {
     OPENRC_PACKAGES+="avahi-openrc "
     OPENRC_SERVICE+=("avahi-daemon default")
 
+    echo "Installing OpenRC Packages:"
     paru -S $OPENRC_PACKAGES
 
     for service in "${OPENRC_SERVICES[@]}"; do
@@ -117,3 +130,6 @@ echo "Installing user packages:"
 echo $PACKAGES
 paru -S $PACKAGES
 openrc_post_install
+echo "Running Post Install Steps"
+echo "$POST_INSTALL"
+$POST_INSTALL
