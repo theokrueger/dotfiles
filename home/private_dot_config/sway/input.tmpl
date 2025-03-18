@@ -27,7 +27,9 @@ input type:touchpad {
 
 ## integrated linsuslap keyboard
 input 1:1:AT_Translated_Set_2_keyboard {
-  {{- if eq .keyboard_layout "workman" }}
+  {{- if eq .keyboard_layout "colemak_dh" }}
+  xkb_layout "qwerty-mod(colemak_dh)"
+  {{- else if eq .keyboard_layout "workman" }}
   xkb_layout "qwerty-mod(workman)"
   {{- else }}
   xkb_layout "qwerty-mod(basic)"

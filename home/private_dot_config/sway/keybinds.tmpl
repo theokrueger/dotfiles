@@ -14,12 +14,17 @@ set $resize_rate 20px
 set $terminal      alacritty
 set $menu_binary   tofi-run  | xargs swaymsg exec --
 set $menu_desktop  tofi-drun | xargs swaymsg exec --
-set $browser       firefox-esr
+set $browser       librewolf
 set $messenger     element-desktop
 set $editor        emacs
 set $file_manager  thunar
 set $game_launcher steam
 set $music_gui     alacritty -e ~/.config/ncmpcpp/ncmpcpp.sh
+set $music_volup   mpc volume +5   
+set $music_voldn   mpc volume -5
+set $music_toggle  mpc toggle
+set $music_next    mpc next
+set $music_prev    mpc prev
 
 # workman-p support thru bindcode
 set $one   10
@@ -64,6 +69,12 @@ bindsym XF86AudioRaiseVolume exec $volup
 bindsym XF86AudioLowerVolume exec $voldown
 bindsym XF86AudioMute        exec $volmute
 
+# media playpause
+bindsym $mod_alt_alt+Up         exec $music_volup
+bindsym $mod_alt_alt+Down       exec $music_voldn
+bindsym $mod_alt_alt+Left       exec $music_prev
+bindsym $mod_alt_alt+Right      exec $music_next
+bindsym $mod_alt_alt+apostrophe exec $music_toggle
 
 # manage windows
 bindsym $mod+q kill

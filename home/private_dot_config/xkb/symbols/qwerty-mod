@@ -14,6 +14,14 @@ xkb_symbols "basic" {
 };
 
 partial alphanumeric_keys
+xkb_symbols "colemak_dh" {
+        include "us(colemak_dh)"
+        include "qwerty-mod(swap-caps)"
+
+        name[Group1] = "qwerty to colemak";
+};
+
+partial alphanumeric_keys
 xkb_symbols "workman" {
         include "workman"
         include "qwerty-mod(swap-caps)"
