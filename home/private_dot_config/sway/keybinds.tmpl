@@ -17,9 +17,9 @@ set $menu_desktop  tofi-drun | xargs swaymsg exec --
 set $browser       librewolf
 set $messenger     element-desktop
 set $editor        emacs
-set $file_manager  thunar
+set $file_manager  $terminal -e ~/.config/nnn/nnn.sh
 set $game_launcher steam
-set $music_gui     alacritty -e ~/.config/ncmpcpp/ncmpcpp.sh
+set $music_gui     $terminal -e ~/.config/ncmpcpp/ncmpcpp.sh
 set $music_volup   mpc volume +5   
 set $music_voldn   mpc volume -5
 set $music_toggle  mpc toggle
