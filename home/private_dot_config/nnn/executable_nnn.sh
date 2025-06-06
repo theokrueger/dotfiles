@@ -10,6 +10,6 @@ fi
 export NNN_TRASH=1
 export NNN_COLORS="2136"
 export NNN_OPTS="adEx"
-export NNN_PLUG="g:preview-tui"
+export NNN_PLUG="g:preview-tui;c:rsynccp"
 export NNN_TERMINAL="alacritty"
 nnn

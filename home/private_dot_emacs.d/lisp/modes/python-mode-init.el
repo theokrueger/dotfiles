@@ -2,8 +2,8 @@
 ;;; Commentary:
 ;;; Code:
 (setq-default
-  ;; 8 space tabs
-  python-indent-offset 8
+  ;; 4 space tabs because of black
+  python-indent-offset 4
   ;; python version
   pythol-shell-interpreter "python3")
 

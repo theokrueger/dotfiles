@@ -8,11 +8,11 @@ killall xdg-desktop-portal-wlr
 killall xdg-desktop-portal
 echo 'killed all xdg-desktop'
 sleep 1
-/usr/libexec/xdg-desktop-portal-gtk &
+/usr/lib/xdg-desktop-portal-gtk &
 echo 'xdg-desktop-portal-gtk started'
 sleep 1
-/usr/libexec/xdg-desktop-portal-hyprland &
+/usr/lib/xdg-desktop-portal-hyprland &
 echo 'xdg-desktop-portal-hyprland started'
 sleep 2
-/usr/libexec/xdg-desktop-portal &
+/usr/lib/xdg-desktop-portal &
 echo 'xdg-desktop-portal started'

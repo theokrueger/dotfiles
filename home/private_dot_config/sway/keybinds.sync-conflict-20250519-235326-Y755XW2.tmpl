@@ -1,0 +1,162 @@
+# keybinds file
+
+# variables
+set $mod Mod4
+set $mod_alt Mod4+Shift
+set $mod_alt_alt Mod4+Control
+set $left h
+set $down j
+set $up k
+set $right l
+set $resize_rate 20px
+
+# applications
+set $terminal      alacritty
+set $menu_binary   tofi-run  | xargs swaymsg exec --
+set $menu_desktop  tofi-drun | xargs swaymsg exec --
+set $browser       librewolf
+set $messenger     element-desktop
+set $editor        emacs
+set $file_manager  thunar
+set $game_launcher steam
+set $music_gui     alacritty -e ~/.config/ncmpcpp/ncmpcpp.sh
+set $music_volup   mpc volume +5   
+set $music_voldn   mpc volume -5
+set $music_toggle  mpc toggle
+set $music_next    mpc next
+set $music_prev    mpc prev
+
+# workman-p support thru bindcode
+set $one   10
+set $two   11
+set $three 12
+set $four  13
+set $five  14
+set $six   15
+set $seven 16
+set $eight 17
+set $nine  18
+set $zero  19
+
+# launch apps
+bindsym $mod+p           exec $menu_binary
+bindsym $mod_alt+p       exec $menu_desktop
+bindsym $mod_alt+Return  exec $terminal
+bindsym $mod_alt+f       exec $browser
+bindsym $mod_alt+r       exec $game_launcher
+bindsym $mod_alt+d       exec $messenger
+bindsym $mod_alt+e       exec $editor
+bindsym $mod_alt+g       exec $file_manager
+bindsym $mod_alt+m       exec $music_gui
+
+# lock and sleep
+bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
+bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & loginctl suspend
+
+{{- if eq .chassis "laptop" }}
+# brightness
+set $brightnessup   light -T 1.15 && light -A 3%
+set $brightnessdown light -T 0.85 && light -U 3%
+bindsym XF86MonBrightnessUp   exec $brightnessup
+bindsym XF86MonBrightnessDown exec $brightnessdown
+{{- end }}
+
+# volume
+set $volup   pactl set-sink-volume @DEFAULT_SINK@ +5%
+set $voldown pactl set-sink-volume @DEFAULT_SINK@ -5%
+set $volmute pactl set-sink-mute   @DEFAULT_SINK@ toggle
+bindsym XF86AudioRaiseVolume exec $volup
+bindsym XF86AudioLowerVolume exec $voldown
+bindsym XF86AudioMute        exec $volmute
+
+# media playpause
+bindsym $mod_alt_alt+Up         exec $music_volup
+bindsym $mod_alt_alt+Down       exec $music_voldn
+bindsym $mod_alt_alt+Left       exec $music_prev
+bindsym $mod_alt_alt+Right      exec $music_next
+bindsym $mod_alt_alt+apostrophe exec $music_toggle
+
+# manage windows
+bindsym $mod+q kill
+bindsym $mod+f floating on
+bindsym $mod+t floating off
+bindsym $mod+m fullscreen
+
+bindsym $mod_alt+$left  move left
+bindsym $mod_alt+$down  move down
+bindsym $mod_alt+$up    move up
+bindsym $mod_alt+$right move right
+bindsym $mod_alt+Left   move left
+bindsym $mod_alt+Down   move down
+bindsym $mod_alt+Up     move up
+bindsym $mod_alt+Right  move right
+
+bindsym $mod+b splith
+bindsym $mod+v splitv
+
+# focus
+bindsym $mod+$left  focus left
+bindsym $mod+$down  focus down
+bindsym $mod+$up    focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left   focus left
+bindsym $mod+Down   focus down
+bindsym $mod+Up     focus up
+bindsym $mod+Right  focus right
+
+# workspaces
+bindcode $mod+$one   workspace number 1
+bindcode $mod+$two   workspace number 2
+bindcode $mod+$three workspace number 3
+bindcode $mod+$four  workspace number 4
+bindcode $mod+$five  workspace number 5
+bindcode $mod+$six   workspace number 6
+bindcode $mod+$seven workspace number 7
+bindcode $mod+$eight workspace number 8
+bindcode $mod+$nine  workspace number 9
+bindcode $mod+$zero  scratchpad show
+bindcode $mod_alt+$one   move container to workspace number 1
+bindcode $mod_alt+$two   move container to workspace number 2
+bindcode $mod_alt+$three move container to workspace number 3
+bindcode $mod_alt+$four  move container to workspace number 4
+bindcode $mod_alt+$five  move container to workspace number 5
+bindcode $mod_alt+$six   move container to workspace number 6
+bindcode $mod_alt+$seven move container to workspace number 7
+bindcode $mod_alt+$eight move container to workspace number 8
+bindcode $mod_alt+$nine  move container to workspace number 9
+bindcode $mod_alt+$zero  move scratchpad
+
+# other
+bindsym $mod_alt+c     exec swaymsg exit
+bindsym $mod_alt+space focus mode_toggle
+
+mode "resize" {
+    # left will shrink the containers width
+    # right will grow the containers width
+    # up will shrink the containers height
+    # down will grow the containers height
+    bindsym $left resize shrink width $resize_rate
+    bindsym $down resize grow height $resize_rate
+    bindsym $up resize shrink height $resize_rate
+    bindsym $right resize grow width $resize_rate
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width $resize_rate
+    bindsym Down resize grow height $resize_rate
+    bindsym Up resize shrink height $resize_rate
+    bindsym Right resize grow width $resize_rate
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym Space mode  "default"
+}
+bindsym $mod+r mode "resize"
+
+# drag windows around
+tiling_drag enable
+floating_modifier $mod normal
+
+# focus makes sense
+focus_follows_mouse always
+mouse_warping container
