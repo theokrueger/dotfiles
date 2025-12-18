@@ -46,11 +46,13 @@
 
     # hostname-based configuration
     {{- if eq .chezmoi.hostname "thonkpad" }}
-      {{- $primaryMonWidth  = 1280 }}
-      {{- $primaryMonHeight = 800 }}
+      {{- $primaryMonWidth  = 1920 }}
+      {{- $primaryMonHeight = 1080 }}
       {{- $kbLayout = "colemak_dh" }}
-      {{- $lockscreen = "pneguin/1280x800.png" }}
-      {{- $staticBG = "hostname/pink/thonkpad_1280x800.png" }}
+      {{- $lockscreen = "pneguin/1920x1080.png" }}
+      {{- $staticBG = "hostname/pink/thonkpad_1920x1080.png" }}
+      {{- $animatedBGEnabled = true }}
+      {{- $animatedBGFolder = "gentoo-penguin" }}
 
     {{- else if eq .chezmoi.hostname "linsuslap" }}
       {{- $primaryMonWidth  = 1920 }}
