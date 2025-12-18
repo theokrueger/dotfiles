@@ -17,7 +17,7 @@ set $menu_desktop  tofi-drun | xargs swaymsg exec --
 set $browser       librewolf
 set $messenger     element-desktop
 set $editor        emacs
-set $file_manager  $terminal -e ~/.config/nnn/nnn.sh
+set $file_manager  thunar
 set $game_launcher steam
 set $music_gui     $terminal -e ~/.config/ncmpcpp/ncmpcpp.sh
 set $music_volup   mpc volume +5   
@@ -51,7 +51,7 @@ bindsym $mod_alt+m       exec $music_gui
 
 # lock and sleep
 bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
-bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & loginctl suspend
+bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl suspend
 
 {{- if eq .chassis "laptop" }}
 # brightness

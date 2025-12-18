@@ -4,7 +4,7 @@
 PACKAGES=""
 POST_INSTALL=""
 echo "Performing full system upgrade..."
-doas pacman -Syyu base-devel git
+doas pacman -Syyu base-devel git cargo
 
 # install paru AUR helper
 if [[ "$(which paru)" == '' ]]; then

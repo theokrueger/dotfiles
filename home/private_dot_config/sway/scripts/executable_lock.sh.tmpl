@@ -10,7 +10,7 @@ swaylock \
     --font-size 24 \
     --show-failed-attempts \
     --scaling stretch \
-    --image "$(dirname "$0")/../lock.png" \
+    --image "{{- .lockscreen | replaceAllRegex "~" "$$HOME" }}" \
     --indicator-x-position 100 \
     --indicator-y-position $(( {{- .primary_monitor_height }} - 50)) \
     --text-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \

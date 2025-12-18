@@ -1,0 +1,64 @@
+#!/bin/bash
+# rotate thru bgs in folder
+{{- if not .animated_background.enabled }}
+# animated backgrounds are not enabled so just exit immediately
+exit
+{{- end }}
+
+
+IFS=$'\n'
+cd "{{- .animated_background.folder | replaceAllRegex "~" "$$HOME" }}"
+
+# delay in seconds between image changes
+DELAY={{- .animated_background.delay }}
+# should images be displayed in order or shuffled
+SHUFFLE=true
+# swaybg -m <flag>
+MODE="fill"
+# partially transparent overlay
+OVERLAY="{{- .animated_background.overlay | replaceAllRegex "~" "$$HOME" }}"
+# overlay fitment mode
+OVERLAY_MODE="fill"
+
+# load override settings
+source ./animation-settings
+DELAY="$((DELAY - 1))"
+if [[ $DELAY -lt 0 ]]; then
+    echo "Delay too short! Miminum 1"
+    exit
+fi
+
+killall swaybg
+trap graceful_exit SIGINT
+function graceful_exit ()
+{
+    echo "Shutting down..."
+    killall swaybg
+    exit
+}
+
+OVERLAY_PID=-1
+BG_PID=-1
+if [[ "$OVERLAY" != "" ]]; then
+    swaybg -i "$OVERLAY" -m "$OVERLAY_MODE" &
+    OVERLAY_PID=$!
+    sleep 1
+fi
+
+FILES=( *.png )
+FILES=( $(printf "%s\n" "${FILES[@]}" | sort -) )
+
+while true; do
+    if [[ "$SHUFFLE" == "true" ]]; then
+        FILES=( $(shuf -e "${FILES[@]}") )
+    fi
+
+    for bg in "${FILES[@]}"; do
+        swaybg -i "$bg" -m "$MODE" &
+        new_pid=$!
+        sleep 1
+        kill $BG_PID
+        BG_PID=$new_pid
+        sleep $DELAY
+    done
+done

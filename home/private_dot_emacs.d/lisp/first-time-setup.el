@@ -16,8 +16,7 @@
     ;; block until native compilation has finished
     (message
       "Awaiting native compilation completion")
-    (while (or comp-files-queue
-             (> (comp-async-runnings) 0))
+    (while comp-files-queue
       (sleep-for 1))
     (message "Native compilation completed")
 

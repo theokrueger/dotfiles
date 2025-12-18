@@ -1,5 +1,5 @@
 # chezmoi:template:left-delimiter="[[" right-delimiter="]]"
-##############################################################
+x/##############################################################
 ## This is an example configuration file. Copy it to        ##
 ## $XDG_CONFIG_HOME/ncmpcpp/config or $HOME/.ncmpcpp/config ##
 ## and set up your preferences.                             ##
@@ -143,9 +143,9 @@ song_library_format = {%n - }{%t}|{%f}
 #
 alternative_header_first_line_format = $b$1$aqqu$/a$9 {%t}|{%f} $1$atqq$/a$9$/b
 #
-alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}}|{%D}
+alternative_header_second_line_format = {{$5$b%a$/b$9}{ - $7%b$9}{ ($8y$9)}}|{%D}
 #
-current_item_prefix = $(yellow)$r
+current_item_prefix = $(magenta)$r
 #
 current_item_suffix = $/r$(end)
 #
@@ -215,7 +215,7 @@ browser_sort_format = {%A - }{%t}|{%f} {%l}
 ##   available.
 ##
 #
-song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_columns_list_format = (20)[blue]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
 #
 ##### various settings #####
 #
@@ -270,7 +270,7 @@ execute_on_song_change = "~/.config/ncmpcpp/cover_obs.sh"
 ## Note: You can specify third character which will be used to build 'empty'
 ## part of progressbar.
 ##
-progressbar_look = =|
+progressbar_look = -|
 #
 ## Available values: database, playlist.
 ##
@@ -278,7 +278,7 @@ progressbar_look = =|
 #
 ## Available values: classic, alternative.
 ##
-#user_interface = classic
+user_interface = alternative
 #
 #data_fetching_delay = yes
 #
@@ -426,7 +426,7 @@ tags_separator = ", "
 #
 #media_library_sort_by_mtime = no
 #
-#enable_window_title = yes
+enable_window_title = yes
 #
 ##
 ## Note: You can choose default search mode for search engine. Available modes
@@ -444,11 +444,11 @@ tags_separator = ", "
 #
 #search_engine_default_search_mode = 1
 #
-#external_editor = nano
+external_editor = emacs -nw
 #
 ## Note: set to yes if external editor is a console application.
 ##
-#use_console_editor = yes
+use_console_editor = yes
 #
 ##### colors definitions #####
 ##
@@ -480,50 +480,37 @@ tags_separator = ", "
 ## are used there is a possibility that you'll be able to use only colors with
 ## transparent background.
 #
-#colors_enabled = yes
+colors_enabled = yes
 #
-#empty_tag_color = cyan
+empty_tag_color = cyan
 #
-#header_window_color = default
+header_window_color = default
 #
-#volume_color = default
+volume_color = default
 #
-#state_line_color = default
+state_line_color = default
 #
-#state_flags_color = default:b
+state_flags_color = default:b
 #
-#main_window_color = yellow
+main_window_color = 206
 #
-#color1 = white
+color1 = white
 #
-#color2 = green
+color2 = 206
 #
-#progressbar_color = black:b
+progressbar_color = black:b
 #
-#progressbar_elapsed_color = green:b
+progressbar_elapsed_color = green:b
 #
-#statusbar_color = default
+statusbar_color = default
 #
-#statusbar_time_color = default:b
+statusbar_time_color = default:b
 #
-#player_state_color = default:b
+player_state_color = default:b
 #
-#alternative_ui_separator_color = black:b
+alternative_ui_separator_color = black:b
 #
 window_border_color = white
 #
-#active_window_border = red
+active_window_border = 206
 #
-
-visualizer_data_source = /tmp/mpd.fifo
-visualizer_output_name = 'Visualizer'
-visualizer_in_stereo = no
-visualizer_type = spectrum
-visualizer_fps = 30
-visualizer_autoscale = yes
-visualizer_color = yellow
-visualizer_spectrum_smooth_look = yes
-visualizer_spectrum_dft_size = 3
-visualizer_spectrum_gain = 10
-visualizer_spectrum_hz_min = 20
-visualizer_spectrum_hz_max = 10000

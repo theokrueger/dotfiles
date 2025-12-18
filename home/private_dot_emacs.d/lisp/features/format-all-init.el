@@ -11,8 +11,8 @@
   (setq-default format-all-formatters
     `(
        ("Assembly" asmfmt)
-       ("C" (clang-format ,(expand-file-name (format "--style=file:%s/extern/c-linux.clang-format" user-emacs-directory))))
-       ("C++" (clang-format ,(expand-file-name (format "--style=file:%s/extern/c-linux.clang-format" user-emacs-directory))))
+       ("C" (clang-format ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))))
+       ("C++" (clang-format ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))))
        ("CSS" prettier)
        ("Emacs Lisp" emacs-lisp)
        ("JavaScript" prettier)

@@ -1,4 +1,7 @@
 # display configuration
-output "*" bg ~/.config/sway/bg.png fill
 
-output "Dell Inc. DELL S2522HG F4FQ1C3" mode 1920x1080@239.757Hz
+# desktop displays
+output "Dell Inc. DELL S2522HG F4FQ1C3" mode 1920x1080@239.757Hz pos 0 0 adaptive_sync off
+output "UGD Artist 156    0x00000001" mode 1920x1080@60.000Hz pos 0 1080
+output "Acer Technologies Acer XFA240" mode 1920x1080@144.00Hz pos 0 0 adaptive_sync off
+

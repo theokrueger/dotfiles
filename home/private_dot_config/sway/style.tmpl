@@ -17,3 +17,11 @@ titlebar_border_thickness 0
 
 # border style
 default_border pixel 1
+
+# background
+{{- if .animated_background.enabled }}
+# folder "{{- .animated_background.folder }}"
+exec ~/.config/sway/scripts/animated-bg.sh
+{{- else }}
+output "*" bg {{ .static_background }} fill
+{{- end }}

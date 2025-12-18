@@ -7,6 +7,12 @@
 {{- $primaryMonHeight := 1080 }}
 {{- $windowManager := "" }}
 {{- $kbLayout := "qwerty" }}
+{{- $lockscreen := "default.png" }}
+{{- $staticBG := "default.png" }}
+{{- $animatedBGEnabled := false }}
+{{- $animatedBGFolder := "" }}
+{{- $animatedBGDelay := 360 }}
+{{- $animatedBGOverlay := "" }}
 
 # macos
 {{- if eq .chezmoi.os "darwin" }}
@@ -35,23 +41,32 @@
     {{- if stat "/sys/class/power_supply/BAT0/present" }}
       {{- $chassisType = "laptop" }}
     {{- else }}
-      {{- $chassisType = "desktop" }}      
+      {{- $chassisType = "desktop" }}
     {{- end }}
 
     # hostname-based configuration
     {{- if eq .chezmoi.hostname "thonkpad" }}
       {{- $primaryMonWidth  = 1280 }}
       {{- $primaryMonHeight = 800 }}
-      {{- $kbLayout = "qwerty" }}
+      {{- $kbLayout = "colemak_dh" }}
+      {{- $lockscreen = "pneguin/1280x800.png" }}
+      {{- $staticBG = "hostname/pink/thonkpad_1280x800.png" }}
 
     {{- else if eq .chezmoi.hostname "linsuslap" }}
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
       {{- $kbLayout = "colemak_dh" }}
+      {{- $lockscreen = "pneguin/1920x1080.png" }}
+      {{- $staticBG = "hostname/pink/linsuslap_1920x1080.png" }}
+      {{- $animatedBGEnabled = true }}
+      {{- $animatedBGFolder = "gentoo-penguin" }}
 
     {{- else if eq .chezmoi.hostname "gen2desk" }}
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
+      {{- $kbLayout = "qwerty" }}
+      {{- $lockscreen = "pneguin/1920x1080.png" }}
+      {{- $staticBG = "hostname/pink/gen2desk_1920x1080.png" }}
 
     {{- end }}
   {{- end }}
@@ -92,3 +107,11 @@ data:
   primary_monitor_width: {{ $primaryMonWidth }}
   primary_monitor_height: {{ $primaryMonHeight }}
   keyboard_layout: {{ $kbLayout }}
+
+  lockscreen: ~/.local/share/assets/lockscreens/{{- $lockscreen }}
+  static_background: ~/.local/share/assets/wallpapers/{{- $staticBG }}
+  animated_background:
+    enabled: {{ $animatedBGEnabled }}
+    folder: ~/.local/share/assets/wallpapers/{{- $animatedBGFolder -}}/
+    delay: {{ $animatedBGDelay }}
+    overlay: ~/.local/share/assets/wallpapers/{{- $animatedBGOverlay }}

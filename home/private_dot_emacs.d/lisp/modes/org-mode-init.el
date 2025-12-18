@@ -16,16 +16,27 @@
   :init
   ;; values that need to be set before org is loaded
   (setq-default
+    org-confirm-babel-evaluate nil ;; don't confirm org code eval
     org-list-allow-alphabetical t ;; allow lists starting with a. b. c. etc
+    )
+  (org-babel-do-load-languages
+    'org-babel-load-languages
+    '(
+       (emacs-lisp . t)
+       (C . t)
+       (python . t)
+       (shell . t)
+       (java . t)
+       (lua . t)
+       (js . t)
+       (org . t)
+       (plantuml . t)
+       (latex . t)
+       )
     )
   :config
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode)) ;; associate .org files with org mode
   (setq-default
-    org-babel-load-languages '(
-                                (emacs-lisp . t)
-                                (C . t)
-                                (asm . t)
-                                )
     org-hide-emphasis-markers t)
   )
 

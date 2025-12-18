@@ -6,6 +6,7 @@ include ./input
 include ./keybinds
 include ./style
 include ./bar
+include ./rules
 
 # startup apps
 exec_always autotiling

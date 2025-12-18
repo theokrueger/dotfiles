@@ -25,8 +25,8 @@ send-keys 8
 send-keys u
 
 # resize image and vizualizer pane to fit image
-resize-pane -t 0 -y 14 -x 29
-resize-pane -t 1 -y 14
+resize-pane -t 0 -y 16 -x 32
+resize-pane -t 1 -y 16
 
 # hook for keeping the image pane size constant
 set-hook client-resized 'resize-pane -t 0 -x 49 -y 21'

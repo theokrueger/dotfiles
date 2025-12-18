@@ -12,7 +12,15 @@ alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
 # CoW is good
 alias cp='cp --reflink=auto --verbose'
 
+# flatpak
+alias flatpak-update="doas flatpak update --assumeyes; flatpak update --assumeyes"
+
+# gentoo/portage
+alias gen2-sync="doas /bin/bash -c 'emerge-webrsync && doas emaint sync -A'"
+alias gen2-update="doas emerge --ask --update --changed-use --deep --with-bdeps=y --keep-going --quiet-build y --getbinpkg --binpkg-respect-use=y @world"
+
 # custom shortcuts
 {{- if eq .window_manager "sway" }}
 alias startw="dbus-run-session sway > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
 {{- end }}
+alias calc='bc -il ~/.bcrc'
