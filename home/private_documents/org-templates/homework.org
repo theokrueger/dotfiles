@@ -1,0 +1,63 @@
+#+TITLE: Homework Number Goes Here
+#+SUBTITLE: Class Goes Here
+#+AUTHOR: Author Goes Here
+#+EMAIL: Email Goes Here
+#+DATE: \today
+#+LANGUAGE: en
+#+LATEX_CLASS: homework
+#+OPTIONS: num:nil ':t toc:nil
+
+#+LATEX: \newpage
+* Problem
+
+This is some text[fn:ex].
+
+[fn:ex] with a footnote
+
+** Subproblem
+- This
+- Is
+- A(n)
+  - (Indented)
+    - [Superindented]
+      - {You really shouldn't indent this far}
+- List
+
+*** Sub-subproblem
+| Table | Example |
+|-------+---------|
+|     1 |       4 |
+|     2 |       5 |
+|     3 |       6 |
+
+* Another Problem
+
+#+NAME: fn1
+#+BEGIN_SRC python :cache yes :results output :var n=4
+  # this is some source code
+  print("hi " + str(n))
+#+END_SRC
+
+Running the code at compile time:
+
+#+CALL: fn1(n=5)
+
+$$y=mx+b$$
+
+# this will error out because the image does not exist, obviously
+[[./image.png]]
+
+
+#+BEGIN_SRC plantuml :results verbatim
+  @startuml
+  hide empty description
+  "one" as one
+  "two" as two
+  "three" as three
+
+  (Input) -r--> one
+  one -r--> two
+  two -r--> three
+  three -r--> (Output)
+  @enduml
+#+END_SRC

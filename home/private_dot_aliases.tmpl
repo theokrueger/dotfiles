@@ -5,6 +5,7 @@ alias grep='grep --color=auto'
 alias diff='diff --color=auto'
 alias dir='dir --color=auto'
 alias vdir='dir --colo=auto'
+alias rm='trash'
 
 # formatted output
 alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
@@ -21,6 +22,15 @@ alias gen2-update="doas emerge --ask --update --changed-use --deep --with-bdeps=
 
 # custom shortcuts
 {{- if eq .window_manager "sway" }}
-alias startw="dbus-run-session sway > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
+
+alias startw="dbus-run-session sway --unsupported-gpu > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
 {{- end }}
+
+{{- if eq .chezmoi.hostname "thonkpad" }}
+# thonkpad monitor powersave
+alias slowrefresh="wlr-randr --output eDP-1 --custom-mode 1920x1080@60Hz"
+alias fastrefresh="wlr-randr --output eDP-1 --custom-mode 1920x1080@144Hz"
+{{- end }}
+
 alias calc='bc -il ~/.bcrc'
+

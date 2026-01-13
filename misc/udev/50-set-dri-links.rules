@@ -1,0 +1,3 @@
+# thonkpad only
+KERNEL=="card*", SUBSYSTEM=="drm", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x1f91", SYMLINK+="dri/by-name/dgpu"
+KERNEL=="card*", SUBSYSTEM=="drm", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x3e9b", SYMLINK+="dri/by-name/igpu"

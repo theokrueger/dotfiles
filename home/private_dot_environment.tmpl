@@ -15,9 +15,17 @@ if [[ -z "$XDG_RUNTIME_DIR" ]]; then
     export XDG_RUNTIME_DIR=$(mktemp -d /tmp/$(id -u)-runtime-dir.XXX)
 fi
 
+# theme settings
+export QT_QPA_PLATFORMTHEME="qt6ct"
+
 # sway compatibility with some apps
 export AWT_TOOLKIT='MToolkit'
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # paths
 export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet/tools"
+
+{{- if eq .chezmoi.hostname "thonkpad" }}
+# thonkpad run sway on igpu
+export WLR_DRM_DEVICES="/dev/dri/by-name/igpu"
+{{- end }}

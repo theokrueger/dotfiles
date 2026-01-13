@@ -16,6 +16,8 @@ exec pipewire-pulse
 exec wireplumber
 exec otd
 exec mpd
+exec /usr/libexec/polkit-gnome-authentication-agent-1
+exec emacs --daemon
 
 exec ~/.config/sway/scripts/xdg-desktop-portal.sh
 exec_always ~/.config/sway/scripts/window-title-as-workspace.sh

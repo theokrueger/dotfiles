@@ -31,6 +31,7 @@
     helm-autoresize-mode       t
     helm-autoresize-max-height 30 ;; in %
     helm-autoresize-min-heigh  10 ;; in %
+    helm-M-x-show-short-doc    t
     )
 
   ;; allow tab completion in helm

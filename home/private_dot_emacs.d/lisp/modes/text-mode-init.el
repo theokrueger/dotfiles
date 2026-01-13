@@ -30,6 +30,8 @@
 
 ;; settings
 (setq-default
+  ;; navigation
+  sentence-end-double-space nil
   ;; enable line wrapping
   truncate-lines nil
   ;; search function

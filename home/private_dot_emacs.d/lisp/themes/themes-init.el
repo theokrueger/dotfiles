@@ -7,8 +7,8 @@
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "lisp/themes/"))
 
 ;; default theme of choice
-(if window-system
-  (load-theme 'lightblue)    ;; GUI theme
+(if (or window-system (daemonp))
+  (load-theme 'lightblue)    ;; GUI theme (also used if daemon as it is preferred theme)
   (load-theme 'leuven-dark)) ;; TUI theme
 
 (provide 'themes-init)

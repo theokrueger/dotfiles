@@ -16,7 +16,7 @@
   menu-bar-mode nil       ;; disable altbar
   tool-bar-mode nil       ;; disable fat buttons
   scroll-bar-mode nil)    ;; disable scrollbar
-(set-scroll-bar-mode nil) ;; disalbe scrollbar
+(set-scroll-bar-mode nil) ;; disable scrollbar
 (tool-bar-mode -1)        ;; disable fat buttons
 (menu-bar-mode -1)        ;; disable altbar
 

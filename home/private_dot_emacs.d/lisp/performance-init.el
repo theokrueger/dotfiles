@@ -25,7 +25,7 @@
 (gcmh-mode 1)
 
 ;; few messages
-(setq-default message-log-max 200)
+(setq-default message-log-max 1000)
 ;;(kill-buffer "*Messages*") ;; uncomment and set message-log-max to nil for no messages buffer
 
 (provide 'performance-init)

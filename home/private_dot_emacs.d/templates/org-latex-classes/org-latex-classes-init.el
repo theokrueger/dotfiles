@@ -26,6 +26,7 @@
 
   ;; add custom classes
   (require 'org-latex-homework-class-init)
+  (require 'org-latex-memo-class-init)
   )
 
 (provide 'org-latex-classes-init)

@@ -12,6 +12,14 @@ getfort() {
 test -f $COWF && cat $COWF || getfort
 ( getfort > $COWF & )
 
+# bash settings
+bind -s 'set completion-ignore-case on'
+shopt -s histappend
+shopt -s no_empty_cmd_completion
+shopt -s dirspell
+shopt -s dotglob
+shopt -s direxpand
+
 # settings files
 . ~/.aliases
 . ~/.environment
