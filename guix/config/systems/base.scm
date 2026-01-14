@@ -1,7 +1,7 @@
 ;; base system module for guix system
-
 (define-module (config systems base)
   #:use-module (gnu)
+
   #:use-module (guix)
 
   #:use-module (gnu system nss)
@@ -12,18 +12,20 @@
              %system-base-packages))
 
 (use-service-modules
+  admin
   ssh
   avahi
   mcron
+  networking
   )
 (use-package-modules
   base
   idutils
   ntp
   guile-xyz
+  linux
   ssh
   admin
-  kfbwypeukg
   lsof
   bash
   emacs
@@ -38,11 +40,11 @@
 ;; bootloader
 (define-public %system-base-bootloader-configuration
   (bootloader-configuration
-      (targets '("/dev/vda"))
-      (bootloader grub-efi-bootloader)
-      (keyboard-layout keyboard-layout)
-      (terminal-outputs '(console serial))
-      (serial-speed 115200)))
+    (targets (list "/boot/efi"))
+    (bootloader grub-efi-bootloader)
+    (keyboard-layout (keyboard-layout "us" "altgr-intl"))
+    (terminal-outputs '(console serial))
+    (serial-speed 115200)))
 
 ;; services
 (define-public %system-base-services
@@ -50,7 +52,7 @@
             (service unattended-upgrade-service-type
               (unattended-upgrade-configuration
                 (schedule "30 01 * * 0")
-                (services-to-restart '(mcron ntp avahi))))
+                (services-to-restart '(mcron ntp))))
             (service openssh-service-type)
             (service dhcpcd-service-type)
             (service ntp-service-type)
@@ -69,6 +71,8 @@
     ntp mcron openssh
     ;; sys
     htop lsof bash-completion
+    ;; fs
+    btrfs-progs ;; dosfstools is included in base
     ;; text
     emacs
     ;; cli
@@ -93,11 +97,16 @@
                           (target (file-system-label "SWAP")))
                     ))
 
-    (file-systems (cons (file-system
-                          (device (file-system-label "ROOT"))
-                          (mount-point "/")
-                          (type "btrfs"))
-                    %base-file-systems))
+  (file-systems (cons*
+                  (file-system
+                    (mount-point "/boot/efi")
+                    (device (file-system-label "EFI"))
+                    (type "vfat"))
+                  (file-system
+                    (device (file-system-label "ROOT"))
+                    (mount-point "/")
+                    (type "ext4"))
+                  %base-file-systems))
 
     (users (cons (user-account
                    (name "me")

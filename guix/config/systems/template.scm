@@ -6,6 +6,9 @@
   #:use-module (config systems base)
 )
 
+;; (use-service-modules xyz)
+;; (use-package-modules xyz)
+
 (operating-system
   ;; basic
   (inherit %system-base-os)
@@ -21,11 +24,17 @@
                         (target (file-system-label "SWAP")))
                   ))
 
-  (file-systems (cons (file-system
-                        (device (file-system-label "ROOT"))
-                        (mount-point "/")
-                        (type "btrfs"))
-                  %base-file-systems))
+  (file-systems (cons*
+                  (file-system
+                    (mount-point "/boot/efi")
+                    (device (file-system-label "EFI"))
+                    (type "vfat"))
+                  (file-system
+                    (device (file-system-label "ROOT"))
+                    (mount-point "/")
+                    (type "ext4"))
+
+                    %base-file-systems))
 
   ;; packages
   (packages (append (list
