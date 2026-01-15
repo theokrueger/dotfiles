@@ -56,15 +56,11 @@ impl Status {
         // select the first battery
         let mut has_bat = false;
         let mut bat_selection = "".to_string();
-        for battery in glob("/sys/class/power_supply/BAT*").unwrap() {
-            match battery {
-                Ok(path) => {
-                    bat_selection = format!("{}", path.display());
-                    has_bat = true;
-                    break;
-                }
-                Err(_) => (),
-            }
+        for path in glob("/sys/class/power_supply/BAT*").unwrap().filter_map(Result::ok)
+                        .chain(glob("/sys/class/power_supply/macsmc-battery/").unwrap().filter_map(Result::ok)) {
+                bat_selection = format!("{}", path.display());
+                has_bat = true;
+                break;
         }
 
         // select the first backlight

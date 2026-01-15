@@ -9,7 +9,7 @@ swaylock \
     --font monospace \
     --font-size 24 \
     --show-failed-attempts \
-    --scaling stretch \
+    --scaling fill \
     --image "{{- .lockscreen | replaceAllRegex "~" "$$HOME" }}" \
     --indicator-x-position 100 \
     --indicator-y-position $(( {{- .primary_monitor_height }} - 50)) \
