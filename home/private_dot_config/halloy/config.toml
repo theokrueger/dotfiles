@@ -1,0 +1,23 @@
+# Halloy config.
+#
+# For a complete list of available options,
+# please visit https://halloy.chat/configuration.html
+
+theme = "intellij-light"
+
+[servers.liberachat]
+server = "irc.libera.chat"
+channels = [
+    "#gentoo",
+    "#gentoo-arm",
+    "#gentoo-wiki"
+]
+nickname = "theokrueger"
+nick_password_file = "~/.local/share/keyrings/liberachat"
+
+[buffer.chathistory]
+infinite_scroll = true
+
+
+[platform_specific]
+linux.decorations = false
