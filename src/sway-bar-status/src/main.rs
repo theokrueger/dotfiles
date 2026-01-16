@@ -3,8 +3,12 @@
 //! simple statusbar for sway written in rust
 //! this file is full of disgusting safety violations ;D
 
+mod config;
+use config::Config;
+
 use glob::glob;
 use std::{
+    collections::HashMap,
     fs::{self, File},
     io::{stdout, BufRead, BufReader, Write},
     path::PathBuf,
@@ -46,21 +50,32 @@ struct Status {
     drives: String,
     drives_max_length: usize,
     drives_vec: Vec<PathBuf>,
+    drives_rename: HashMap<String, String>,
 
     has_track: bool,
     track: String,
 }
 
 impl Status {
-    fn new() -> Status {
+    fn new(cfg: Config) -> Status {
         // select the first battery
         let mut has_bat = false;
         let mut bat_selection = "".to_string();
-        for path in glob("/sys/class/power_supply/BAT*").unwrap().filter_map(Result::ok)
-                        .chain(glob("/sys/class/power_supply/macsmc-battery/").unwrap().filter_map(Result::ok)) {
-                bat_selection = format!("{}", path.display());
-                has_bat = true;
-                break;
+        match cfg.battery {
+            Some(b) => {
+                bat_selection = b;
+                has_bat = true
+            }
+            None => {
+                for path in glob("/sys/class/power_supply/BAT*")
+                    .unwrap()
+                    .filter_map(Result::ok)
+                {
+                    bat_selection = format!("{}", path.display());
+                    has_bat = true;
+                    break;
+                }
+            }
         }
 
         // select the first backlight
@@ -86,20 +101,21 @@ impl Status {
         // build list of drives
         let mut drives_vec = Vec::<PathBuf>::new();
         let mut drives_max_length = 0;
+        let drives_rename = cfg.drive_rename.unwrap_or(HashMap::new());
+        let bl = cfg.drive_blacklist.unwrap_or(Vec::new());
         for drive in glob(format!("{}/*", DRIVES_PATH).as_str()).unwrap() {
-            match drive {
-                Ok(d) => {
-                    let dstr = d.as_path().to_str().unwrap();
-                    if !dstr.to_ascii_lowercase().contains("swap") {
-                        // filter out swapfile
-                        let len = dstr.len();
-                        if len > drives_max_length {
-                            drives_max_length = len
-                        }
-                        drives_vec.push(d);
-                    }
+            let d = drive.unwrap();
+            let dstr = d.as_path().to_str().unwrap();
+            let dname = &dstr[DRIVES_PATH.len()..];
+            if !bl.iter().any(|s| dname == s) {
+                let len = match drives_rename.get(dname) {
+                    Some(s) => s.len(),
+                    None => dstr.len(),
+                };
+                if len > drives_max_length {
+                    drives_max_length = len
                 }
-                Err(_) => unreachable!(),
+                drives_vec.push(d);
             }
         }
         drives_max_length = drives_max_length - DRIVES_PATH.len();
@@ -124,6 +140,7 @@ impl Status {
             drives: String::new(),
             drives_max_length,
             drives_vec,
+            drives_rename,
 
             has_track: false,
             track: String::new(),
@@ -227,15 +244,14 @@ impl Status {
             .peek()
             .unwrap()
             .to_string();
-
+        let mut dstr = drive.file_name().unwrap().to_str().unwrap();
+        match self.drives_rename.get(dstr) {
+            Some(rn) => dstr = rn,
+            None => (),
+        }
         self.drives = format!(
             "{: <1$}{pcent}",
-            drive
-                .file_name()
-                .unwrap()
-                .to_ascii_lowercase()
-                .to_str()
-                .unwrap(),
+            dstr.to_lowercase(),
             self.drives_max_length,
             pcent = drive_use,
         );
@@ -326,7 +342,8 @@ impl Status {
 // loop
 fn main() {
     // TODO wait to align to exact second if possible
-    let mut status = Status::new();
+    let config = Config::get_config();
+    let mut status = Status::new(config);
     status.print();
     thread::sleep(UPDATE_RATE_MS);
 

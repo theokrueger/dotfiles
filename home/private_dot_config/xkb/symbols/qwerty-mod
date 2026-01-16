@@ -39,14 +39,3 @@ xkb_symbols "swap-caps" {
         replace key <PRSC> {[ Caps_Lock ]};
 };
 
-partial alphanumeric_keys
-xkb_symbols "colemak_dh_mac" {
-        include "us(colemak_dh)"
-
-        name[Group1] = "qwerty to colemak with option<->command swap";
-
-        replace key <CAPS> {[ Super_L ]};
-        replace key <LWIN> {[ Alt_L ]};
-        replace key <LALT> {[ Print ]};
-        replace key <PRSC> {[ Caps_Lock ]};
-};

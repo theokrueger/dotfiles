@@ -18,28 +18,24 @@ input type:touchpad {
   pointer_accel  "0"
   drag           "enabled"
   drag_lock      "disabled"
-  dwt            "disabled"
+  dwt            "enabled"
   natural_scroll "enabled"
   tap            "enabled"
 }
 
 # keyboad layouts
 
+{{- if eq .chezmoi.hostname "crapbookair" }}
+## integrated macbook keyboard
+input 1452:641:Apple_SPI_Keyboard {
+{{- else }}
 ## integrated thinkpad keyboard
 input 1:1:AT_Translated_Set_2_keyboard {
+{{- end }}
   {{- if eq .keyboard_layout "colemak_dh" }}
   xkb_layout "qwerty-mod(colemak_dh)"
   {{- else if eq .keyboard_layout "workman" }}
   xkb_layout "qwerty-mod(workman)"
-  {{- else }}
-  xkb_layout "qwerty-mod(basic)"
-  {{- end }}
-}
-
-## integrated macbook keyboard
-input 1452:641:Apple_SPI_Keyboard {
-  {{- if eq .keyboard_layout "colemak_dh" }}
-  xkb_layout "qwerty-mod(colemak_dh_mac)"
   {{- else }}
   xkb_layout "qwerty-mod(basic)"
   {{- end }}
