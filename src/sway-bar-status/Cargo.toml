@@ -9,6 +9,7 @@ chrono = "0.4.38"
 serde_json = "1.0.149"
 serde = { version = "1.0.228", features = ["derive", "serde_derive"] }
 resolve-path = "0.1.0"
+mpd = "0.1.0"
 
 [profile.release]
 opt-level = 3

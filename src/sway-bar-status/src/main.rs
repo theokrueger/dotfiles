@@ -7,6 +7,7 @@ mod config;
 use config::Config;
 
 use glob::glob;
+use mpd::Client as MpdClient;
 use std::{
     collections::HashMap,
     fs::{self, File},
@@ -28,7 +29,7 @@ const DRIVES_PATH: &str = "/dev/disk/by-label/";
 const DRIVES_UPDATE_RATE: u128 = 10000 / UPDATE_RATE_MS.as_millis();
 const DRIVES_CYCLE_RATE_MS: usize = 10000;
 
-const TRACK_UPDATE_RATE: u128 = 5000 / UPDATE_RATE_MS.as_millis();
+const TRACK_UPDATE_RATE: u128 = 2000 / UPDATE_RATE_MS.as_millis();
 
 struct Status {
     last_update_time: SystemTime,
@@ -53,6 +54,8 @@ struct Status {
     drives_rename: HashMap<String, String>,
 
     has_track: bool,
+    track_server: String,
+    track_client: Option<MpdClient>,
     track: String,
 }
 
@@ -120,6 +123,9 @@ impl Status {
         }
         drives_max_length = drives_max_length - DRIVES_PATH.len();
 
+        // mpd
+        let track_server = cfg.mpd_server.unwrap_or("127.0.0.1:6600".to_string());
+
         // build status settings
         let mut status = Status {
             last_update_time: SystemTime::UNIX_EPOCH,
@@ -143,6 +149,8 @@ impl Status {
             drives_rename,
 
             has_track: false,
+            track_server,
+            track_client: None,
             track: String::new(),
         };
         status.update_time();
@@ -167,11 +175,17 @@ impl Status {
     fn update_battery(&mut self) {
         let mut cap = fs::read_to_string(self.bat_cap_file.clone()).unwrap();
         cap.pop(); // remove newline
+        if cap == "100" {
+            cap = "MAX".into();
+        } else {
+            cap = format!("{cap:02}%");
+        }
+
         let mut stat = fs::read_to_string(self.bat_stat_file.clone()).unwrap();
         stat.pop(); // remove newline
 
         self.battery = format!(
-            "{stat}{cap}%",
+            "{stat}{cap}",
             stat = match stat.as_str() {
                 "Charging" => "^",
                 "Discharging" => "v",
@@ -258,39 +272,44 @@ impl Status {
     }
 
     // now playing. ex: Touhiron 3:04/4:35 [19%]
-    // TODO use something besides mpc
     fn update_track(&mut self) {
-        let mpc_out =
-            String::from_utf8(Command::new("/usr/bin/mpc").output().unwrap().stdout).unwrap();
-        let mut track = "";
-        let mut status = "";
-        let mut position = "";
-        let mut volume = "";
-
-        for (i, line) in mpc_out.lines().enumerate() {
-            match i {
-                0 => track = line,
-                1 => {
-                    for (j, col) in line.split_whitespace().enumerate() {
-                        match j {
-                            0 => status = col,
-                            1 => (),
-                            2 => position = col,
-                            _ => break,
-                        }
-                    }
-                }
-                2 => volume = line.split_whitespace().skip(1).peekable().peek().unwrap(),
-                _ => break,
-            }
-        }
-
-        if status != "[playing]" {
+        if self.track_client.is_none() {
+            // try reconnecting every update until it works lolmao
+            eprintln!("attempting to connect to MPD...");
+            self.track_client = MpdClient::connect(&self.track_server).ok();
             self.has_track = false;
             return;
         }
-        self.has_track = true;
-        self.track = format!("{track} {position} [{volume}]");
+
+        let tcl = self.track_client.as_mut().unwrap();
+        match tcl.status() {
+            Ok(status) => {
+                if status.state != mpd::status::State::Play {
+                    self.has_track = false;
+                    return;
+                }
+                self.has_track = true;
+                let song = tcl.currentsong().unwrap().unwrap(); // not atomic but rare enough to not care(?)
+                let artist = song.artist.unwrap_or("Unknown Artist".into());
+                let track = song.title.unwrap_or("Unknown Track".into());
+                let (position, end) = status.time.unwrap(); // duration shoul always extist when playing ?
+                let vol = match status.volume {
+                    100 => "MAX".to_string(),
+                    _ => format!("{:0>2}%", status.volume),
+                };
+                self.track = format!(
+                    "{artist} - {track} {pm}:{ps:0>2}/{em}:{es:0>2} [{vol}]",
+                    pm = position.as_secs() / 60,
+                    ps = position.as_secs() % 60,
+                    em = end.as_secs() / 60,
+                    es = end.as_secs() % 60,
+                );
+            }
+            Err(_) => {
+                self.has_track = false;
+                self.track_client = None; // new connection will be established on next update
+            }
+        }
     }
 
     // update according to preferred refresh rate

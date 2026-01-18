@@ -1,13 +1,14 @@
 // sample cfg
 /*
 {
+  "battery": "/sys/class/power_supply/macsmc-battery/",
   "drive_rename": {
   "EFI\\x20-\\x20GENTO": "EFI"
   },
   "drive_blacklist": [
     "SWAP"
   ],
-  "battery": "/sys/class/power_supply/macsmc-battery/"
+  "mpd_server": "127.0.0.1:6600"
 }
 */
 use resolve_path::PathResolveExt;
@@ -19,6 +20,7 @@ pub struct Config {
     pub drive_rename: Option<HashMap<String, String>>,
     pub drive_blacklist: Option<Vec<String>>,
     pub battery: Option<String>,
+    pub mpd_server: Option<String>,
 }
 
 impl Config {
@@ -30,6 +32,7 @@ impl Config {
                 Config {
                     drive_rename: None,
                     drive_blacklist: None,
+                    mpd_server: None,
                     battery: None,
                 }
             }
