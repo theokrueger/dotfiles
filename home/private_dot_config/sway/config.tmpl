@@ -22,3 +22,8 @@ exec emacs --daemon
 exec ~/.config/sway/scripts/xdg-desktop-portal.sh
 exec_always ~/.config/sway/scripts/window-title-as-workspace.sh
 #exec swayidle -w timeout 480 '~/.config/sway/scripts/lock.sh' timeout 600 'swaymsg "output * dpms off"' timeout 600 'loginctl suspend' resume 'swaymsg "output * dpms on"' before-sleep '~/.config/sway/scripts/lock.sh'
+
+{{- if eq .chezmoi.hostname "crapbookair" }}
+# fix for max volume on startup for crapbookair
+exec sleep 3 && ~/.config/sway/scripts/speaker-fix.sh
+{{- end }}
