@@ -127,8 +127,15 @@ exclude = []
 [keyboard]
 command_bar = "alt+x"
 
-[notifications]
-direct_message = { sound = "bloop", show_toast = true }
+[notifications.direct_message]
+sound = "bloop"
+show_toast = true
+exclude = { users = ["NickServ"] }
+
+[notifications.highlight]
+sound = "bloop"
+show_toast = true
+exclude = { users = ["NickServ"] }
 
 [pane]
 restore_on_launch = false
