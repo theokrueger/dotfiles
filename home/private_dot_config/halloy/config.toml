@@ -1,23 +1,134 @@
-# Halloy config.
-#
-# For a complete list of available options,
-# please visit https://halloy.chat/configuration.html
-
 theme = "intellij-light"
 
 [servers.liberachat]
 server = "irc.libera.chat"
 channels = [
-    "#gentoo",
     "#gentoo-arm",
     "#gentoo-wiki"
 ]
 nickname = "theokrueger"
 nick_password_file = "~/.local/share/keyrings/liberachat"
 
+[actions.buffer]
+click_channel_name = "replace-pane"
+click_username = "replace-pane"
+click_highlight = "replace-pane"
+local = "replace-pane"
+message_channel = "replace-pane"
+message_user = "replace-pane"
+
+[actions.sidebar]
+buffer = "new-pane"
+focused_buffer = "close-pane"
+
+[buffer]
+line_spacing = 2
+scroll_position_on_open = "oldest-unread"
+
+[buffer.backlog_separator]
+hide_when_all_read = true
+
+[buffer.channel.message]
+nickname_color = "unique"
+
+[buffer.channel.nicklist]
+alignment = "left"
+away = { dimmed = 0.3 }
+color = "unique"
+enabled = true
+position = "right"
+show_access_levels = true
+click = "open-query"
+
+[buffer.channel.topic_banner]
+enabled = false
+max_lines = 4
+
 [buffer.chathistory]
-infinite_scroll = true
+infinite_scroll = false
+
+[buffer.commands]
+show_description = true
+
+[buffer.commands.sysinfo]
+cpu = true
+memory = true
+gpu = true
+os = true
+uptime = false
 
 
-[platform_specific]
-linux.decorations = false
+[buffer.date_separators]
+format = "%A, %B %-d"
+show = true
+
+[buffer.emojis]
+show_picker = true
+skin_tone = "default"
+auto_replace = false
+characters_to_trigger_picker = 2
+
+[buffer.mark_as_read]
+on_application_exit = false
+on_buffer_close = "scrolled-to-bottom"
+on_scroll_to_bottom = true
+on_message_sent = true
+
+[buffer.nickname]
+alignment = "left"
+away = { dimmed = 0.3 }
+brackets = { left = "<", right = ">" }
+color = "unique"
+offline = "solid"
+show_access_levels = true
+shown_status = "current"
+click = "open-query"
+truncate = 16
+hide_consecutive = { smart = 120 }
+
+[buffer.server_messages.join]
+enabled = false
+
+[buffer.server_messages.part]
+enabled = false
+
+[buffer.server_messages.quit]
+enabled = false
+
+[buffer.server_messages.condense]
+messages = ["change-nick", "join", "part", "quit"]
+dimmed = true
+
+[buffer.status_message_prefix]
+brackets = { left = "<", right = ">" }
+
+[buffer.text_input]
+visibility = "always"
+auto_format = "markdown"
+key_bindings = "emacs"
+
+[buffer.url]
+prompt_before_open = true
+
+[font]
+family = "monospace"
+size = 12
+
+#[[highlights.match]]
+#case_insensitive = true
+#words = ["set theis up later"]
+#sound = "zone"
+
+[highlights.nickname]
+case_insensitive = true
+include = ["*"]
+exclude = []
+
+[keyboard]
+command_bar = "alt+x"
+
+[notifications]
+direct_message = { sound = "bloop", show_toast = true }
+
+[pane]
+restore_on_launch = false
