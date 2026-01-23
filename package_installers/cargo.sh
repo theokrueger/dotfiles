@@ -17,6 +17,9 @@ cargo install ssgen
 echo "Installed pesta for emacs pest-mode"
 cargo install pesta
 
+echo "Installing ttyper"
+cargo install ttyper
+
 echo "Installing Sway utilities from local repo"
 for NAME in \
     "../src/sway-bar-status/install.sh" \

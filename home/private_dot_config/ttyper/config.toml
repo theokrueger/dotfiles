@@ -1,0 +1,25 @@
+default_language = "english200_mt"
+
+[theme]
+default = "none"
+title = "white;bold"
+input_border = "magenta"
+prompt_border = "magenta"
+border_type = "thick"
+prompt_correct = "darkgray"
+prompt_incorrect = "red;bold"
+prompt_untyped = "white"
+prompt_current_correct = "darkgray"
+prompt_current_incorrect = "red;bold"
+prompt_current_untyped = "white"
+prompt_cursor = "lightmagenta;underlined;bold"
+results_overview = "magenta;bold"
+results_overview_border = "magenta"
+results_worst_keys = "red;bold"
+results_worst_keys_border = "magenta"
+results_chart = "magenta"
+results_chart_x = "magenta"
+results_chart_y = "gray;italic"
+
+# restart/quit prompt in results ui
+results_restart_prompt = "gray;italic"
