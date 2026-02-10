@@ -1,9 +1,9 @@
-;; template for spinning up new systems using base config
+;; thinkpad x1 carbon gen 3
 
-(define-module (config systems template)
+(define-module (config systems workstation tx1cg2)
   #:use-module (gnu)
   #:use-module (guix)
-  #:use-module (config systems base)
+  #:use-module (config systems workstation-base)
 )
 
 ;; (use-service-modules xyz)
@@ -11,12 +11,12 @@
 
 (operating-system
   ;; basic
-  (inherit %system-base-os)
-  (host-name "template")
+  (inherit %system-base-workstation-os)
+  (host-name "tx1cg3")
 
   ;; bootloader
   (bootloader (bootloader-configuration
-                (inherit %system-base-bootloader-configuration)
+                (inherit %system-base-workstation-bootloader-configuration)
                 ))
 
   ;; filesystems
@@ -32,7 +32,7 @@
                   (file-system
                     (device (file-system-label "ROOT"))
                     (mount-point "/")
-                    (type "ext4"))
+                    (type "btrfs"))
 
                     %base-file-systems))
 
@@ -40,11 +40,11 @@
   (packages (append (list
                       ;xyz
                       )
-              %system-base-packages))
+              %system-base-workstation-packages))
 
   ;; services
   (services (append (list
                       ;(service xyz-service-type (xyz-configuration blahblah))
                       )
-              %system-base-services))
+              %system-base-workstation-services))
   )

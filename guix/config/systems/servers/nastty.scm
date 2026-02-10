@@ -1,9 +1,9 @@
 ;; homelab raid1 nas with 2x10tb hdd on pentium j5040
 
-(define-module (config systems nastty)
+(define-module (config systems servers nastty)
   #:use-module (gnu)
   #:use-module (guix)
-  #:use-module (config systems base)
+  #:use-module (config systems server-base)
 )
 
 (use-service-modules networking nfs)
@@ -11,12 +11,12 @@
 
 (operating-system
   ;; basic
-  (inherit %system-base-os)
+  (inherit %system-server-base-os)
   (host-name "nastty")
 
   ;; bootloader
   (bootloader (bootloader-configuration
-                (inherit %system-base-bootloader-configuration)
+                (inherit %system-server-base-bootloader-configuration)
                 (targets (list "/boot/efi"))
                 ))
 
@@ -45,7 +45,7 @@
   ;; packages
   (packages (append (list
                       )
-              %system-base-packages))
+              %system-server-base-packages))
 
   ;; services
   (services (append (list
@@ -65,5 +65,5 @@
                       ;;                ))
                       ;;     ))
                       )
-              %system-base-services))
+              %system-sever-base-services))
   )
