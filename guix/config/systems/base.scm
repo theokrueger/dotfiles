@@ -43,8 +43,7 @@
     (targets (list "/boot/efi"))
     (bootloader grub-efi-bootloader)
     (keyboard-layout (keyboard-layout "us" "altgr-intl"))
-    (terminal-outputs '(console serial))
-    (serial-speed 115200)))
+    (terminal-outputs '(console))))
 
 ;; services
 (define-public %system-base-services
@@ -53,8 +52,6 @@
               (unattended-upgrade-configuration
                 (schedule "30 01 * * 0")
                 (services-to-restart '(mcron ntp))))
-            (service openssh-service-type)
-            (service dhcpcd-service-type)
             (service ntp-service-type)
             (service avahi-service-type)
             (simple-service 'base-cron-jobs
