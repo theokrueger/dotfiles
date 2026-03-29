@@ -1,9 +1,9 @@
 ;; thinkpad x1 carbon gen 3
 
-(define-module (config systems workstation tx1cg2)
+(define-module (config systems workstations tx1cg3)
   #:use-module (gnu)
   #:use-module (guix)
-  #:use-module (config systems workstation-base)
+  #:use-module (config systems base-workstation)
 )
 
 ;; (use-service-modules xyz)
@@ -37,14 +37,12 @@
                     %base-file-systems))
 
   ;; packages
-  (packages (append (list
-                      ;xyz
-                      )
+ (packages (append 
               %system-base-workstation-packages))
 
   ;; services
   (services (append (list
-                      ;(service xyz-service-type (xyz-configuration blahblah))
-                      )
+                  ;(service xyz-service-type (xyz-configuration blahblah))
+              )
               %system-base-workstation-services))
   )

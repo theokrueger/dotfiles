@@ -1,9 +1,9 @@
 ;; template for spinning up new workstations using base config
 
-(define-module (config systems workstation-template)
+(define-module (config systems workstations workstation-template)
   #:use-module (gnu)
   #:use-module (guix)
-  #:use-module (config systems workstation-base)
+  #:use-module (config systems base-workstation)
 )
 
 ;; (use-service-modules xyz)

@@ -1,3 +1,8 @@
+;; instructions:
+;; $ cp channels.scm  ~/.config/guix/channels.scm
+;; # guix pull
+;; $ hash guix
+
 ;; nonguix
 (cons* (channel
         (name 'nonguix)

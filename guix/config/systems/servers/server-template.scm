@@ -1,9 +1,9 @@
 ;; template for spinning up new servers using base config
 
-(define-module (config systems server-template)
+(define-module (config systems servers server-template)
   #:use-module (gnu)
   #:use-module (guix)
-  #:use-module (config systems server-base)
+  #:use-module (config systems base-server)
 )
 
 ;; (use-service-modules xyz)
