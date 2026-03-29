@@ -16,10 +16,11 @@
 (use-service-modules
   admin
   ssh
+  networking
   avahi
   mcron
-  networking
 )
+
 (use-package-modules
   base
   idutils
@@ -52,13 +53,13 @@
 
 ;; services
 (define-public %system-base-services
-  (append `(list
+  (append (list
             ;; self update
             (service unattended-upgrade-service-type
 		     (unattended-upgrade-configuration
                       (schedule "30 01 * * 0")
                       (services-to-restart '(mcron ntp))))
-	    
+
             (service ntp-service-type)
             (service avahi-service-type)
 	    
@@ -68,11 +69,10 @@
 			     gc-job))
 	    
             ;; etc files
-            ,(util->create-etc-service "base-workstation"
+            (util->create-etc-service "base-etc"
 				       (list
 					"doas.conf"
 					))
-            
             )
           ;; include nonguix substitute to services
           (modify-services %base-services
@@ -129,7 +129,7 @@
     (kernel linux)
     (bootloader %system-base-bootloader-configuration)
     (kernel-arguments '("console=ttyS0,115200"))
-    (initrd linux-initrd)
+    (initrd microcode-initrd)
     (firmware (list linux-firmware))
 
     (swap-devices (list

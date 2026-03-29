@@ -37,12 +37,10 @@
                     %base-file-systems))
 
   ;; packages
- (packages (append 
-              %system-base-workstation-packages))
+  (packages
+   %system-base-workstation-packages)
 
   ;; services
-  (services (append (list
-                  ;(service xyz-service-type (xyz-configuration blahblah))
-              )
-              %system-base-workstation-services))
-  )
+  (services
+   %system-base-workstation-services)
+ )

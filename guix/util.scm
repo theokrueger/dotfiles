@@ -14,7 +14,7 @@
     etc-service-type
     (map 
       (lambda (f)
-        `(,f local-file ,(string-append "./config/etc/" f))
+        `(,f (local-file ,(string-append "./config/etc/" f)))
       )
       files
     )
