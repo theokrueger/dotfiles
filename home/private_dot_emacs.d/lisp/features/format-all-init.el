@@ -22,7 +22,7 @@
        ("LaTeX" latexindent)
        ("Markdown" prettier)
        ("Python" black)
-       ("Rust" rustfmt)
+       ("Rust" (rustfmt "--edition" "2024"))
        ("Shell" shfmt)
        ("TOML" prettier)
        ("TSX" prettier)
