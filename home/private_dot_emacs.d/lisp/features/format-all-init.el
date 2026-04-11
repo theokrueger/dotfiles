@@ -27,6 +27,7 @@
        ("TOML" prettier)
        ("TSX" prettier)
        ("TypeScript" prettier)
+       ("Verilog" (istyle-verilog "--style=gnu"))
        ("Vue" prettier)
        ("YAML" prettier)
        ))
