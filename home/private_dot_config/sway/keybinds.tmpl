@@ -25,6 +25,7 @@ set $music_voldn   mpc volume -5
 set $music_toggle  mpc toggle
 set $music_next    mpc next
 set $music_prev    mpc prev
+set $screenshot    flameshot gui
 
 # workman-p support thru bindcode
 set $one   10
@@ -48,6 +49,7 @@ bindsym $mod_alt+d       exec $messenger
 bindsym $mod_alt+e       exec $editor
 bindsym $mod_alt+g       exec $file_manager
 bindsym $mod_alt+m       exec $music_gui
+bindsym $mod_alt+s       exec $screenshot
 
 # lock and sleep
 bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
