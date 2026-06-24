@@ -1,13 +1,14 @@
 theme = "intellij-light"
 
-[servers.liberachat]
-server = "irc.libera.chat"
-channels = [
-    "#gentoo-arm",
-    "#gentoo-wiki"
-]
-nickname = "theokrueger"
-nick_password_file = "~/.local/share/keyrings/liberachat"
+[servers.cow]
+server = "ddns.theokrueger.dev"
+port = 6696
+use_tls = true
+use_websocket = true
+websocket_path = "/socket"
+chathistory = true
+username = "me"
+password_file = "~/.local/share/keyrings/soju"
 
 [actions.buffer]
 click_channel_name = "replace-pane"
@@ -29,12 +30,12 @@ scroll_position_on_open = "oldest-unread"
 hide_when_all_read = true
 
 [buffer.channel.message]
-nickname_color = "unique"
+#nickname_color = "unique"
 
 [buffer.channel.nicklist]
 alignment = "left"
-away = { dimmed = 0.3 }
-color = "unique"
+#away = { dimmed = 0.3 }
+#color = "unique"
 enabled = true
 position = "right"
 show_access_levels = true
@@ -45,7 +46,7 @@ enabled = false
 max_lines = 4
 
 [buffer.chathistory]
-infinite_scroll = false
+infinite_scroll = true
 
 [buffer.commands]
 show_description = true
