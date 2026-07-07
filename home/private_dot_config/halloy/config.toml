@@ -2,10 +2,8 @@ theme = "intellij-light"
 
 [servers.cow]
 server = "ddns.theokrueger.dev"
-port = 6696
+port = 6697
 use_tls = true
-use_websocket = true
-websocket_path = "/socket"
 chathistory = true
 username = "me"
 password_file = "~/.local/share/keyrings/soju"

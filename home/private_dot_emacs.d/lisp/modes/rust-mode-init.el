@@ -9,7 +9,7 @@
   :commands rust-mode
   :hook (rust-mode . lsp-deferred)
   :config
-  (setq-default
+  (setq
     ;; rust-mode settings
     rust-format-on-save t
     rust-indent-offset 8

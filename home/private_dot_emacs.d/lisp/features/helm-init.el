@@ -7,7 +7,7 @@
 (use-package helm
   :demand t
   :config
-  (setq-default
+  (setq
     completion-styles '(flex)
     ;; recent saving
     recentf-max-menu-items  25

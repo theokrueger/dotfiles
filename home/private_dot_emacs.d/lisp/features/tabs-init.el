@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; defaults
-(setq-default tab-bar-mode t)
+(setq tab-bar-mode t)
 
 ;; browser-like keybinds
 (global-unset-key (kbd "C-t"))

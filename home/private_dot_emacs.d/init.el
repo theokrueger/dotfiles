@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; debug
-(setq-default debug-on-error nil) ;; debug traces
+(setq debug-on-error nil) ;; debug traces
 
 ;; prereqs
 (let ((minver "28.2"))
@@ -12,17 +12,16 @@
 
 ;; unset `file-name-handler-alist` for performance
 (defvar fnh-alist-old (default-toplevel-value 'file-name-handler-alist))
-(setq-default file-name-handler-alist nil)
+(setq file-name-handler-alist nil)
 
 ;; load paths
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "modes" (concat user-emacs-directory "/lisp")))
-(add-to-list 'load-path (expand-file-name "themes" (concat user-emacs-directory "/lisp")))
-(add-to-list 'load-path (expand-file-name "features" (concat user-emacs-directory "/lisp")))
-;;(add-to-list 'load-path (expand-file-name "extern" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "custom" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "templates" user-emacs-directory))
-(add-to-list 'load-path (expand-file-name "org-latex-classes" (concat user-emacs-directory "/templates")))
+(let ((base-dir (expand-file-name "lisp" user-emacs-directory)))
+  (add-to-list 'load-path base-dir)
+  (dolist (subdir '("modes" "themes" "features"))
+    (add-to-list 'load-path (expand-file-name subdir base-dir))))
+
+(dolist (dir '("custom" "templates" "templates/org-latex-classes"))
+  (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
 ;; special init
 (require 'package-init)          ;; package settings
@@ -57,7 +56,7 @@
 (require 'user-posthook)
 
 ;; user defined settings
-(setq-default custom-file (locate-user-emacs-file "custom-vars.el"))
+(setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
 (require 'first-time-setup)    ;; commands to be run on first startup only!!

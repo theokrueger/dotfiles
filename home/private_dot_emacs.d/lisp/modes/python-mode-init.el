@@ -1,7 +1,7 @@
 ;;; python-mode-init.el --- settings related to python programming mode -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
-(setq-default
+(setq
   ;; 4 space tabs because of black
   python-indent-offset 4
   ;; python version

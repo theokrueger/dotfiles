@@ -12,7 +12,7 @@
 (global-set-key (kbd "C-z") 'maybe-suspend-frame)
 
 ;; remove gui elements
-(setq-default
+(setq
   menu-bar-mode nil       ;; disable altbar
   tool-bar-mode nil       ;; disable fat buttons
   scroll-bar-mode nil)    ;; disable scrollbar
@@ -21,17 +21,17 @@
 (menu-bar-mode -1)        ;; disable altbar
 
 ;; disable mouse menus (they are annoying)
-(bind-key* "C-<down-mouse-1>" 'no-operation)
-(bind-key* "C-<down-mouse-2>" 'no-operation)
-(bind-key* "C-<down-mouse-3>" 'no-operation)
+(bind-key* "C-<down-mouse-1>" 'ignore)
+(bind-key* "C-<down-mouse-2>" 'ignore)
+(bind-key* "C-<down-mouse-3>" 'ignore)
 
 ;; disable gui popups
-(setq-default
+(setq
   use-file-dialog nil
   use-dialog-box nil)
 
 ;; GUI window settings
-(setq-default
+(setq
   window-resize-pixelwise t
   frame-resize-pixelwise t)
 

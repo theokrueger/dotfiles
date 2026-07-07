@@ -15,7 +15,7 @@
   ("C-c <down>" . org-priority-down)
   :init
   ;; values that need to be set before org is loaded
-  (setq-default
+  (setq
     org-confirm-babel-evaluate nil ;; don't confirm org code eval
     org-list-allow-alphabetical t ;; allow lists starting with a. b. c. etc
     )
@@ -36,7 +36,7 @@
     )
   :config
   (add-to-list 'auto-mode-alist '("\\.org$" . org-mode)) ;; associate .org files with org mode
-  (setq-default
+  (setq
     org-hide-emphasis-markers t)
   )
 

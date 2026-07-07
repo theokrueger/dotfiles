@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; style settings
-(setq-default
+(setq
   c-default-style '(
                      (java-mode . "java")
                      (awk-mode  . "awk")
@@ -12,7 +12,7 @@
   )
 
 ;; indentation settings
-(setq-default
+(setq
   indent-tabs-mode nil
   indent-line-function 'insert-tab
   tab-stop-list (number-sequence 8 160 8)

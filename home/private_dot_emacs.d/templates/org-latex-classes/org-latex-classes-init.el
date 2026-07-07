@@ -10,7 +10,7 @@
   (setq org-latex-packages-alist '())
 
   ;; use engraved for code blocks
-  (setq-default org-latex-src-block-backend 'engraved)
+  (setq org-latex-src-block-backend 'engraved)
   (add-to-list 'org-latex-default-packages-alist'("" "fvextra" nil))
   (add-to-list 'org-latex-default-packages-alist'("" "titling" nil))
 

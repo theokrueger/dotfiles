@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq-default
+(setq
   package-native-compile t        ;; native compile packages
   native-comp-always-compile t    ;; always compile with native comp
   native-comp-async-jobs-number 0 ;; native compile using half of cpu threads

@@ -12,12 +12,6 @@
   "Return t if BUFFER exists."
   (and buffer (buffer-live-p buffer)))
 
-;; no operation
-(defun no-operation ()
-  "Do nothing."
-  (interactive)
-  )
-
 ;; read file to string
 (defun file-to-string (filename)
   "Return the contents of FILENAME as a string."

@@ -4,7 +4,7 @@
 ;;; Code:
 
 ;; display time mode in mode line
-(setq-default
+(setq
   display-time-default-load-average nil
   display-time-24hr-format t
   display-time-day-and-date t

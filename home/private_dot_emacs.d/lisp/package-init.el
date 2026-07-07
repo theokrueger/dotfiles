@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; package inits
-(setq-default package-enable-at-startup nil)
+(setq package-enable-at-startup nil)
 
 ;; helper to install packages if not installed
 (defvar package-contents-refreshed nil)
@@ -12,7 +12,7 @@
   (interactive)
   (unless (package-installed-p package)
     (unless (or package-archive-contents package-contents-refreshed)
-      (setq-default package-contents-refreshed t)
+      (setq package-contents-refreshed t)
       (package-refresh-contents))
     (package-install package)))
 

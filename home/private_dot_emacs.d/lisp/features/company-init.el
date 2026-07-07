@@ -7,7 +7,7 @@
   :defer t
   :commands company-mode
   :config
-  (setq-default company-idle-delay 0.5)
+  (setq company-idle-delay 0.5)
   :hook
   (prog-mode . company-mode))
 

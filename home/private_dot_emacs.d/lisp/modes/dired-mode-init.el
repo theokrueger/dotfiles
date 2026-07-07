@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq-default
+(setq
   dired-kill-when-opening-new-dired-buffer t ;; avoid accumulating so many dired buffers
   )
 
