@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # install script for dotfiles
-cd "$(dirname "$0")"
+cd "$(dirname "$0")" || exit 1
 
 SKIP=false
 for arg in "$@"; do
@@ -8,52 +8,38 @@ for arg in "$@"; do
         "--skip" )
 	    echo "Skipping installation steps"
             SKIP=true;;
-        *) echo >&2 "Invalid option: $@"; exit 1;;
+        *) echo >&2 "Invalid option: $arg"; exit 1;;
     esac
 done
 
 # install required packages
-if [[ ! $SKIP ]]; then
-chmod +x ./package_installers/*.sh
-    if [[ "$(which pacman)" != '' ]]; then
-        # artix
-        ./package_installers/pacman.sh
-    fi
-    if [[ "$(which cargo)" != '' ]]; then
-        # rust
-        ./package_installers/cargo.sh
-    fi
-    if [[ "$(which pip)" != '' ]]; then
-        # pip
-        ./package_installers/pip.sh
-    fi
+if [[ "$SKIP" != true ]]; then
+    ./package_installers/*.sh
 fi
 
 # check if a path exists, then print some info
 exists() {
     if [[ "$1" == '' ]]; then
-        error "$2 installation not found!"
+        echo >&2 "$2 installation not found!"
         if [[ "$3" != '' ]]; then
             echo "$3"
         fi
-        exit
+        exit 1
     fi
 }
 
 # tools for install
-CHEZMOI="$(which chezmoi)"
+CHEZMOI="$(command -v chezmoi)"
 exists "$CHEZMOI" "chezmoi"
-FLATPAK="$(which flatpak)"
+FLATPAK="$(command -v flatpak)"
 exists "$FLATPAK" "flatpak"
-WGET="$(which wget)"
+WGET="$(command -v wget)"
 exists "$WGET" "wget"
-GSETTINGS="$(which gsettings)"
+GSETTINGS="$(command -v gsettings)"
 exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
 
-# aliases
-CP="cp --reflink=auto --verbose"
-
-if [[ ! $SKIP ]]; then
+# install
+if [[ "$SKIP" != true ]]; then
     # ensure flathub is added
     flatpak remote-add --if-not-exists --user flathub "https://dl.flathub.org/repo/flathub.flatpakrepo"
 
@@ -83,14 +69,9 @@ fi
 
 # apply chezmoi cfg
 CHEZMOI_CFG_FILE="$HOME/.config/chezmoi/chezmoi.yaml"
-if [[ -f "$CHEZMOI_CFG_FILE" ]]; then
-    echo "chezmoi config file exists!"
-else
-    echo "chezmoi config file does not exist, copying it over..."
-    mkdir -p ~/.config/chezmoi/
-    echo "sourceDir: $PWD" > $CHEZMOI_CFG_FILE
-fi
-cat "./home/private_dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > $CHEZMOI_CFG_FILE
+mkdir -p ~/.config/chezmoi/
+echo "sourceDir: $PWD" > "$CHEZMOI_CFG_FILE"
+cat "./home/private_dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$CHEZMOI_CFG_FILE"
 "$CHEZMOI" apply
 
 echo "Please manually update files in etc folder"

@@ -1,5 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # installer for cargo-distributed programs
+cd "$(dirname "$0")"
+set -euo pipefail
 
 echo "Performing full cargo upgrade..."
 cargo install cargo-update
@@ -16,9 +18,6 @@ cargo install ssgen
 
 echo "Installed pesta for emacs pest-mode"
 cargo install pesta
-
-echo "Installing ttyper"
-cargo install ttyper
 
 echo "Installing Sway utilities from local repo"
 for NAME in \

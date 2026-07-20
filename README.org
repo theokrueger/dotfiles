@@ -1,0 +1,14 @@
+* dotfiles
+dotfiles managed by ~chezmoi~
+
+** deps
+requires:
+- chezmoi
+- cargo
+
+** usage
+#+BEGIN_SRC
+git clone --depth 1 https://gitlab.com/theokrueger/dotfiles
+cd dotfiles
+./install.sh
+#+END_SRC

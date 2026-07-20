@@ -1,13 +1,5 @@
 theme = "intellij-light"
 
-[servers.cow]
-server = "ddns.theokrueger.dev"
-port = 6697
-use_tls = true
-chathistory = true
-username = "me"
-password_file = "~/.local/share/keyrings/soju"
-
 [actions.buffer]
 click_channel_name = "replace-pane"
 click_username = "replace-pane"
