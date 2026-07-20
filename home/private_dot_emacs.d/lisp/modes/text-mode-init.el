@@ -29,7 +29,7 @@
   )
 
 ;; settings
-(setq
+(setq-default
   ;; navigation
   sentence-end-double-space nil
   ;; enable line wrapping

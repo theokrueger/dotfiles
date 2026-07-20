@@ -81,19 +81,6 @@
       {{- $animatedBGEnabled = true }}
       {{- $animatedBGFolder = "gentoo-penguin" }}
 
-    {{- else if eq .chezmoi.hostname "crapbookair" }}
-      # this is crapbookair
-      {{- $primaryMonWidth  = 2560 }}
-      {{- $primaryMonHeight = 1600 }}
-      {{- $kbLayout = "colemak_dh" }}
-      {{- $lockscreen = "nostars.png" }}
-      {{- $staticBG = "glt/stars.png" }}
-      {{- $bgColour = "#000000" }}
-      {{- $fgColour = "#ffffff" }}
-      {{- $fgLightColour = "#ffffff" }}
-      {{- $fgDarkColour = "#e0e0e0" }}
-      # overriding to laptop
-      {{- $chassisType = "laptop" }}
     {{- else }}
       # this has no configuration for given hostname
     {{- end }}

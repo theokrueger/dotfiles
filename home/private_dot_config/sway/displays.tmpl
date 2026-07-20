@@ -1,12 +1,6 @@
 # display configuration
 
 # desktop displays
-output "Dell Inc. DELL S2522HG F4FQ1C3" mode 1920x1080@239.757Hz pos 0 0 adaptive_sync off
+output "Dell Inc. DELL S2522HG F4FQ1C3" mode 1920x1080@239.757Hz pos 0 0 adaptive_sync on
 output "UGD Artist 156    0x00000001" mode 1920x1080@60.000Hz pos 0 1080
-output "Acer Technologies Acer XFA240" mode 1920x1080@144.00Hz pos 0 0 adaptive_sync off
-
-{{- if eq .chezmoi.hostname "crapbookair" }}
-# why is the macbook display unnamed in asahi rip
-output eDP-1 scale 1.33333333
-seat * xcursor_theme default 24
-{{- end }}
+output "Acer Technologies Acer XFA240" mode 1920x1080@144.00Hz pos 0 0 adaptive_sync on

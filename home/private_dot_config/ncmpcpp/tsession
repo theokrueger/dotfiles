@@ -13,14 +13,14 @@ send-keys "~/.config/ncmpcpp/cover.sh " C-m
 split-window -v
 select-pane -t 1
 send-keys "unset HISTFILE" C-m
-send-keys "ncmpcpp" C-m
+send-keys "ncmpcpp --quiet" C-m
 send-keys 1
 
 # visualizer pane; run instance of ncmpcpp in visualizer mode
 select-pane -t 0
 split-window -h
 send-keys "unset HISTFILE" C-m
-send-keys "ncmpcpp --config='~/.config/ncmpcpp/visualizer.conf'" C-m
+send-keys "ncmpcpp --quiet --config='~/.config/ncmpcpp/visualizer.conf'" C-m
 send-keys 8
 send-keys u
 
