@@ -26,6 +26,7 @@ set $music_toggle  mpc toggle
 set $music_next    mpc next
 set $music_prev    mpc prev
 set $screenshot    flameshot gui
+set $markup        wayscriber --daemon-toggle
 
 # workman-p support thru bindcode
 set $one   10
@@ -50,6 +51,7 @@ bindsym $mod_alt+e       exec $editor
 bindsym $mod_alt+g       exec $file_manager
 bindsym $mod_alt+m       exec $music_gui
 bindsym $mod_alt+s       exec $screenshot
+bindsym $mod+s           exec $markup
 
 # lock and sleep
 bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
