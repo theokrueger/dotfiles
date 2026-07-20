@@ -8,7 +8,7 @@
   :commands format-all-mode
   :hook (prog-mode . format-all-mode)
   :config
-  (setq format-all-formatters
+  (setq-default format-all-formatters
     `(
        ("Assembly" asmfmt)
        ("C" (clang-format ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))))

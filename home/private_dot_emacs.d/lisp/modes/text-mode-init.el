@@ -29,7 +29,7 @@
   )
 
 ;; settings
-(setq-default
+(setq
   ;; navigation
   sentence-end-double-space nil
   ;; enable line wrapping
@@ -39,9 +39,42 @@
   search-highlight t         ;; highlight matches
   search-whitespace-regexp t ;; search inc whitespace
   ;; reload buffers on file change
-  global-auto-revert-non-file-buffers t
-  ;; show trailing whitespace
-  show-trailing-whitespace t)
+  global-auto-revert-non-file-buffers t)
+
+;; below from https://emacs.stackexchange.com/questions/82485/whitespace-mode-only-display-leading-whitespace
+;; Use · for spaces
+(setq whitespace-display-mappings
+  '(
+     (space-mark ?\ [?·] [?·] [?.])
+     (tab-mark ?\t [187 ?\t] [62 ?\t])
+     ))
+
+;; Enable for programming modes
+(add-hook 'prog-mode-hook #'whitespace-mode)
+
+;; Enable everything
+(setq whitespace-style
+  '(face
+     tabs
+     tab-mark
+     spaces
+     space-mark
+     trailing))
+
+;; Redefine hspace as leading space
+(setq whitespace-hspace-regexp "\\(^ +\\)")x
+
+(with-eval-after-load 'whitespace
+  (set-face-attribute 'whitespace-hspace nil
+    :foreground (face-foreground 'window-divider-first-pixel nil t)
+    :background nil)
+  (set-face-attribute 'whitespace-space nil
+    :foreground (face-background 'default nil t)
+    :background nil)
+  (set-face-attribute 'whitespace-trailing nil
+    :foreground nil
+    :background (face-foreground 'ansi-color-bright-red nil t))
+  )
 
 (provide 'text-mode-init)
 ;;; text-mode-init.el ends here
