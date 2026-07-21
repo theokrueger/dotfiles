@@ -62,7 +62,7 @@
      trailing))
 
 ;; Redefine hspace as leading space
-(setq whitespace-hspace-regexp "\\(^ +\\)")x
+(setq whitespace-hspace-regexp "\\(^ +\\)")
 
 (with-eval-after-load 'whitespace
   (set-face-attribute 'whitespace-hspace nil
