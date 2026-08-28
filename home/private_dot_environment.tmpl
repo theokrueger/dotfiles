@@ -24,9 +24,12 @@ export AWT_TOOLKIT='MToolkit'
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # paths
-export PATH="$HOME/.config/guix/current/bin:$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet/tools"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.dotnet/tools"
 
 {{- if eq .chezmoi.hostname "thonkpad" }}
 # thonkpad run sway on igpu
 export WLR_DRM_DEVICES="/dev/dri/by-name/igpu"
 {{- end }}
+
+# locale
+export LC_TIME=en_GB.UTF-8

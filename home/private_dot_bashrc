@@ -24,3 +24,6 @@ shopt -s direxpand
 . ~/.aliases
 . ~/.environment
 . ~/.colours
+if [ -f ~/.custom ]; then
+  . ~/.custom
+fi

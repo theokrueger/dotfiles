@@ -93,7 +93,7 @@
 {{- end }}
 
 # directory of the dotfiles repo
-sourceDir: ~/code/dotfiles
+sourceDir: "{{ .chezmoi.workingTree }}"
 edit.command: emacs -nw
 encryption: "gpg"
 gpg:

@@ -28,18 +28,18 @@ exists() {
     fi
 }
 
-# tools for install
-CHEZMOI="$(command -v chezmoi)"
-exists "$CHEZMOI" "chezmoi"
-FLATPAK="$(command -v flatpak)"
-exists "$FLATPAK" "flatpak"
-WGET="$(command -v wget)"
-exists "$WGET" "wget"
-GSETTINGS="$(command -v gsettings)"
-exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
-
 # install
 if [[ "$SKIP" != true ]]; then
+    # tools for install
+    CHEZMOI="$(command -v chezmoi)"
+    exists "$CHEZMOI" "chezmoi"
+    FLATPAK="$(command -v flatpak)"
+    exists "$FLATPAK" "flatpak"
+    WGET="$(command -v wget)"
+    exists "$WGET" "wget"
+    GSETTINGS="$(command -v gsettings)"
+    exists "$GSETTINGS" "gsettings" "Please ensure your system has GTK3 support"
+
     # ensure flathub is added
     flatpak remote-add --if-not-exists --user flathub "https://dl.flathub.org/repo/flathub.flatpakrepo"
 

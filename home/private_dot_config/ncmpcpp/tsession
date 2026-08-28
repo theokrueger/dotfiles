@@ -9,6 +9,7 @@ send-keys "ncmpcpp --quiet" C-m
 send-keys 1
 
 # image pane; run cover script, disable text output and remove prompt
+select-pane -t 0
 send-keys "unset HISTFILE" C-m
 send-keys "stty -echo" C-m
 send-keys "tput civis -- invisible" C-m
