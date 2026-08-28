@@ -22,8 +22,7 @@ alias gen2-update="doas emerge --ask --update --changed-use --deep --with-bdeps=
 
 # custom shortcuts
 {{- if eq .window_manager "sway" }}
-
-alias startw="dbus-run-session sway --unsupported-gpu > .swaylog;sleep 1;clear;echo 'sway log updated at .swaylog'"
+alias startw="dbus-run-session sway --unsupported-gpu"
 {{- end }}
 
 {{- if eq .chezmoi.hostname "thonkpad" }}

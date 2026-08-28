@@ -27,9 +27,10 @@ const MEMORY_UPDATE_RATE: u32 = 5000 / UPDATE_RATE_MS.as_millis() as u32;
 
 const DRIVES_PATH: &str = "/dev/disk/by-label/";
 const DRIVES_UPDATE_RATE: u32 = 10000 / UPDATE_RATE_MS.as_millis() as u32;
-const DRIVES_UPDATES_PER_CYCLE: u32 = 10;
+const DRIVES_UPDATES_PER_CYCLE: u32 = 10; // in units of UPDATE_RATE_MS
 
-const TRACK_UPDATE_RATE: u32 = 2000 / UPDATE_RATE_MS.as_millis() as u32;
+const TRACK_UPDATE_RATE: u32 = 5000 / UPDATE_RATE_MS.as_millis() as u32;
+const TRACK_UPDATE_RATE_ACTIVE: u32 = 1000 / UPDATE_RATE_MS.as_millis() as u32;
 
 struct Status {
     pub last_update_time: Instant,
@@ -333,7 +334,9 @@ impl Status {
         if self.loop_num % DRIVES_UPDATE_RATE == 0 {
             self.update_drives();
         }
-        if self.loop_num % TRACK_UPDATE_RATE == 0 {
+        if self.loop_num % TRACK_UPDATE_RATE == 0
+            || (self.has_track && self.loop_num % TRACK_UPDATE_RATE_ACTIVE == 0)
+        {
             self.update_track();
         }
     }
