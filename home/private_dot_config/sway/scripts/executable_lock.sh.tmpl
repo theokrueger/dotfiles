@@ -5,7 +5,7 @@ swaylock \
     --ignore-empty-password \
     --hide-keyboard-layout \
     --disable-caps-lock-text \
-    --color {{ "" }}{{- .colours.bg | replaceAllRegex "#" "" }} \
+    --color {{ .colours.bg | replaceAllRegex "#" "" }} \
     --font monospace \
     --font-size 24 \
     --show-failed-attempts \
@@ -13,7 +13,7 @@ swaylock \
     --image "{{- .lockscreen | replaceAllRegex "~" "$$HOME" }}" \
     --indicator-x-position 100 \
     --indicator-y-position $(( {{- .primary_monitor_height }} - 50)) \
-    --text-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
+    --text-color {{ .colours.text | replaceAllRegex "#" "" }} \
     --bs-hl-color 00000000 \
     --caps-lock-bs-hl-color 00000000 \
     --caps-lock-key-hl-color 00000000 \
@@ -24,7 +24,7 @@ swaylock \
     --inside-wrong-color 00000000 \
     --key-hl-color 00000000 \
     --layout-bg-color 00000000 \
-    --layout-text-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
+    --layout-text-color {{ .colours.text | replaceAllRegex "#" "" }} \
     --line-color 00000000 \
     --line-clear-color 00000000 \
     --line-caps-lock-color 00000000 \
@@ -36,8 +36,7 @@ swaylock \
     --ring-ver-color 00000000 \
     --ring-wrong-color 00000000 \
     --separator-color 00000000 \
-    --text-clear-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
-    --text-caps-lock-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
-    --text-ver-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }} \
-    --text-wrong-color {{ "" }}{{- .colours.text | replaceAllRegex "#" "" }}
-
+    --text-clear-color {{ .colours.text | replaceAllRegex "#" "" }} \
+    --text-caps-lock-color {{ .colours.text | replaceAllRegex "#" "" }} \
+    --text-ver-color {{ .colours.text | replaceAllRegex "#" "" }} \
+    --text-wrong-color {{ .colours.text | replaceAllRegex "#" "" }}

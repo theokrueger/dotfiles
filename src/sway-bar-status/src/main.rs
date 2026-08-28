@@ -11,28 +11,29 @@ use mpd::Client as MpdClient;
 use std::{
     collections::HashMap,
     fs::{self, File},
-    io::{stdout, BufRead, BufReader, Write},
+    io::{BufRead, BufReader, Write, stdout},
     path::PathBuf,
     process::Command,
     thread,
-    time::{Duration, SystemTime},
+    time::{Duration, Instant},
 };
 
 const UPDATE_RATE_MS: Duration = Duration::from_millis(1000);
-const BATTERY_UPDATE_RATE: u128 = 20000 / UPDATE_RATE_MS.as_millis();
-const BACKLIGHT_UPDATE_RATE: u128 = 20000 / UPDATE_RATE_MS.as_millis();
+const BATTERY_UPDATE_RATE: u32 = 20000 / UPDATE_RATE_MS.as_millis() as u32;
+const BACKLIGHT_UPDATE_RATE: u32 = 20000 / UPDATE_RATE_MS.as_millis() as u32;
 
 const MEMINFO_FILE: &str = "/proc/meminfo";
-const MEMORY_UPDATE_RATE: u128 = 5000 / UPDATE_RATE_MS.as_millis();
+const MEMORY_UPDATE_RATE: u32 = 5000 / UPDATE_RATE_MS.as_millis() as u32;
 
 const DRIVES_PATH: &str = "/dev/disk/by-label/";
-const DRIVES_UPDATE_RATE: u128 = 10000 / UPDATE_RATE_MS.as_millis();
-const DRIVES_CYCLE_RATE_MS: usize = 10000;
+const DRIVES_UPDATE_RATE: u32 = 10000 / UPDATE_RATE_MS.as_millis() as u32;
+const DRIVES_UPDATES_PER_CYCLE: u32 = 10;
 
-const TRACK_UPDATE_RATE: u128 = 2000 / UPDATE_RATE_MS.as_millis();
+const TRACK_UPDATE_RATE: u32 = 2000 / UPDATE_RATE_MS.as_millis() as u32;
 
 struct Status {
-    last_update_time: SystemTime,
+    pub last_update_time: Instant,
+    loop_num: u32,
 
     time: String,
 
@@ -128,7 +129,9 @@ impl Status {
 
         // build status settings
         let mut status = Status {
-            last_update_time: SystemTime::UNIX_EPOCH,
+            last_update_time: Instant::now(),
+            loop_num: 1,
+
             time: "".into(),
 
             has_bat,
@@ -161,7 +164,7 @@ impl Status {
             status.update_backlight();
         }
         status.update_memory();
-        status.update_drives(0);
+        status.update_drives();
         status.update_track();
         return status;
     }
@@ -237,8 +240,8 @@ impl Status {
 
     // storage usage. ex: HOME 21%
     // TODO use syscasll instead of df
-    fn update_drives(&mut self, elapsed: u128) {
-        let i = elapsed as usize / DRIVES_CYCLE_RATE_MS % self.drives_vec.len();
+    fn update_drives(&mut self) {
+        let i: usize = (self.loop_num / DRIVES_UPDATES_PER_CYCLE) as usize % self.drives_vec.len();
         let drive = self.drives_vec.get(i).unwrap().as_path();
         let mut drive_use = String::from_utf8(
             Command::new("/usr/bin/df")
@@ -314,31 +317,25 @@ impl Status {
 
     // update according to preferred refresh rate
     fn update(&mut self) {
-        let time = SystemTime::now();
-        let elapsed = time
-            .duration_since(SystemTime::UNIX_EPOCH)
-            .unwrap()
-            .as_millis();
+        self.last_update_time = Instant::now();
+        self.loop_num += 1;
 
-        let loop_num = elapsed / UPDATE_RATE_MS.as_millis();
         self.update_time();
-        if self.has_bat && loop_num % BATTERY_UPDATE_RATE == 0 {
+        if self.has_bat && self.loop_num % BATTERY_UPDATE_RATE == 0 {
             self.update_battery();
         }
-        if self.has_bl && loop_num % BACKLIGHT_UPDATE_RATE == 0 {
+        if self.has_bl && self.loop_num % BACKLIGHT_UPDATE_RATE == 0 {
             self.update_backlight();
         }
-        if loop_num % MEMORY_UPDATE_RATE == 0 {
+        if self.loop_num % MEMORY_UPDATE_RATE == 0 {
             self.update_memory();
         }
-        if loop_num % DRIVES_UPDATE_RATE == 0 {
-            self.update_drives(elapsed);
+        if self.loop_num % DRIVES_UPDATE_RATE == 0 {
+            self.update_drives();
         }
-        if loop_num % TRACK_UPDATE_RATE == 0 {
+        if self.loop_num % TRACK_UPDATE_RATE == 0 {
             self.update_track();
         }
-
-        self.last_update_time = time;
     }
 
     // print out current status
@@ -363,12 +360,11 @@ fn main() {
     // TODO wait to align to exact second if possible
     let config = Config::get_config();
     let mut status = Status::new(config);
-    status.print();
-    thread::sleep(UPDATE_RATE_MS);
 
     loop {
-        status.update();
         status.print();
-        thread::sleep(UPDATE_RATE_MS);
+        //thread::sleep_until(status.last_update_time + UPDATE_RATE_MS);
+        thread::sleep(UPDATE_RATE_MS - (Instant::now() - status.last_update_time));
+        status.update();
     }
 }

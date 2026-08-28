@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # path to current song
 folder="$HOME/backups/mosic/$(dirname "$(mpc --format %file% current)")"

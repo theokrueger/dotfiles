@@ -63,7 +63,7 @@ if [[ "$SKIP" != true ]]; then
         echo "adw-gtk flatpak is installed!"
     else
         echo "Installing adw-gtk3 flatpak..."
-        flatpak install --assumeyes org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
+        flatpak install --user --assumeyes org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
     fi
 fi
 

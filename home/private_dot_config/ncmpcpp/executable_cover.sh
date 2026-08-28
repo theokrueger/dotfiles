@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cd "$(dirname $0)"
 if [ ! -f /tmp/cover_path ]; then
   ./cover_obs.sh
@@ -7,11 +7,11 @@ fi
 
 INFILE="/tmp/cover_path"
 function add_cf_cover() {
-    echo '{"action": "add", "identifier": "cover","x": 1, "y": 1, "max_width": 30, "max_height": 15, "path":"'$(cat $INFILE)'"}'
+  echo '{"action": "add", "identifier": "cover","x": 1, "y": 1, "max_width": 30, "max_height": 15, "path":"'$(cat $INFILE)'"}'
 }
 
 function add_wl_cover() {
-    echo '{"action": "add", "identifier": "cover","x": 2, "y": 0, "scaler": "fit_contain", "max_width": 28, "max_height": 14, "path":"'$(cat $INFILE)'"}'
+  echo '{"action": "add", "identifier": "cover","x": 2, "y": 0, "scaler": "fit_contain", "max_width": 28, "max_height": 14, "path":"'$(cat $INFILE)'"}'
 }
 
 function remove_cover() {
@@ -20,7 +20,7 @@ function remove_cover() {
 
 # TODO this is a hack
 function add_cover() {
-  if [[ $(swaymsg -t get_tree | jq '.. | (.nodes? // empty)[] | select(.focused==true) | .app_id') == '"Alacritty"' ]]; then
+  if [[ $(swaymsg -t get_tree 2>/dev/null | jq '.. | (.nodes? // empty)[] | select(.focused==true) | .app_id') == '"Alacritty"' ]]; then
     if [[ "$1" == "wayland" ]]; then
       add_wl_cover
     elif [[ "$1" == "chafa" ]]; then

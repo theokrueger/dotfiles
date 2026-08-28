@@ -5,6 +5,8 @@ dotfiles managed by ~chezmoi~
 requires:
 - chezmoi
 - cargo
+- flatpak
+- wget
 
 ** usage
 #+BEGIN_SRC

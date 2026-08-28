@@ -1,14 +1,14 @@
-USE_COLOUR=true
+USE_COLOR=true
 
 # PS1 stolen from gentoo livecd
 if [[ ${NO_COLOR} ]]; then
-  USE_COLOUR=false
+  USE_COLOR=false
 fi
 
-[[ ! $USE_COLOUR ]] && return
+[[ ! $USE_COLOR ]] && return
 
 # For direxpand to be missing indicates that bash is lacking readline support.
-if [[ ! $USE_COLOUR ]] || [[ ! $(shopt -p direxpand 2>/dev/null) ]]; then
+if [[ ! $USE_COLOR ]] || [[ ! $(shopt -p direxpand 2>/dev/null) ]]; then
     # Define a prompt without color.
     PS1='\u@\h \w \$ '
 elif (( EUID == 0 )); then
@@ -24,12 +24,8 @@ if hash dircolors 2>/dev/null; then
     eval "$(dircolors -b -- ~/.dir_colors)"
 fi
 
-unset -v 
-
-
-
-# custom colours
-if [[ $USE_COLOUR ]] && [[ "$TERM" = "linux" ]]; then
+# custom colors
+if [[ $USE_COLOR ]] && [[ "$TERM" = "linux" ]]; then
     echo -en "\e]P0222222" # black
     echo -en "\e]P8222222" # darkgrey
     echo -en "\e]P1803232" # darkred
@@ -46,7 +42,7 @@ if [[ $USE_COLOUR ]] && [[ "$TERM" = "linux" ]]; then
     echo -en "\e]PEa1cdcd" # cyan
     echo -en "\e]P7ffffff" # lightgrey
     echo -en "\e]PFdedede" # white
-#    clear                  # for background artefacting
+    # clear                # for background artefacting
 fi
 
 unset -v USE_COLOR
