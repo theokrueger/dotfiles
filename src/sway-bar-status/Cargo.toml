@@ -4,10 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-glob = "0.3.1"
-chrono = "0.4.38"
-serde_json = "1.0.149"
-serde = { version = "1.0.228", features = ["derive", "serde_derive"] }
+glob = "0.3.4"
+chrono = "0.4.45"
+serde_json = "1.0.151"
+serde = { version = "1.0.229", features = ["derive", "serde_derive"] }
 resolve-path = "0.1.0"
 mpd = "0.1.0"
 
