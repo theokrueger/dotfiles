@@ -31,9 +31,7 @@ fn main() -> Fallible<()> {
             });
 
             // wait for thread to finish setup before continuing
-            thread::sleep(std::time::Duration::from_millis(20));
             let _unused = init_mutex.lock().unwrap();
-            thread::sleep(std::time::Duration::from_millis(20));
             break;
         }
     }

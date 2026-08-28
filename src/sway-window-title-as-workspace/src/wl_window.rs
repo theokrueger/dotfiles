@@ -2,19 +2,15 @@
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use smithay_client_toolkit::activation::RequestData;
-use smithay_client_toolkit::reexports::calloop::EventLoop;
-use smithay_client_toolkit::reexports::calloop_wayland_source::WaylandSource;
 use smithay_client_toolkit::{
-    activation::{ActivationHandler, ActivationState},
+    activation::{ActivationHandler, ActivationState, RequestData},
     compositor::{CompositorHandler, CompositorState},
-    delegate_activation, delegate_compositor, delegate_keyboard, delegate_output, delegate_pointer,
-    delegate_registry, delegate_seat, delegate_shm, delegate_xdg_shell, delegate_xdg_window,
+    delegate_dispatch2, delegate_registry,
     output::{OutputHandler, OutputState},
     registry::{ProvidesRegistryState, RegistryState},
     registry_handlers,
     seat::{
-        keyboard::{KeyEvent, KeyboardHandler, Keysym, Modifiers},
+        keyboard::{KeyEvent, KeyboardHandler, Keysym, Modifiers, RawModifiers},
         pointer::{PointerEvent, PointerHandler},
         Capability, SeatHandler, SeatState,
     },
@@ -30,12 +26,13 @@ use smithay_client_toolkit::{
         Shm, ShmHandler,
     },
 };
+use smithay_client_toolkit::reexports::calloop::EventLoop;
+use smithay_client_toolkit::reexports::calloop_wayland_source::WaylandSource;
 use wayland_client::{
     globals::registry_queue_init,
     protocol::{wl_keyboard, wl_output, wl_pointer, wl_seat, wl_shm, wl_surface},
     Connection, QueueHandle,
 };
-
 pub fn create_blank_window(init_mutex: Arc<Mutex<bool>>) {
     let lock = init_mutex.lock().unwrap();
     // All Wayland apps start by connecting the compositor (server).
@@ -87,6 +84,7 @@ pub fn create_blank_window(init_mutex: Arc<Mutex<bool>>) {
                 seat_and_serial: None,
                 surface: Some(window.wl_surface().clone()),
                 app_id: Some(String::from("placeholder_window_for_pinning_workspaces")),
+                udata: (),
             },
         )
     }
@@ -229,9 +227,9 @@ impl WindowHandler for SimpleWindow {
 }
 
 impl ActivationHandler for SimpleWindow {
-    type RequestData = RequestData;
+    type RequestUdata = ();
 
-    fn new_token(&mut self, _token: String, _data: &Self::RequestData) {
+    fn new_token(&mut self, _token: String, _data: &RequestData<Self::RequestUdata>) {
         // do nothing!! :D
     }
 }
@@ -306,6 +304,17 @@ impl KeyboardHandler for SimpleWindow {
         // do nothing!! :D
     }
 
+    fn repeat_key(
+        &mut self,
+        _: &Connection,
+        _: &QueueHandle<Self>,
+        _: &wl_keyboard::WlKeyboard,
+        _: u32,
+        _event: KeyEvent,
+    ) {
+        // do nothing!! :D
+    }
+
     fn release_key(
         &mut self,
         _: &Connection,
@@ -324,6 +333,7 @@ impl KeyboardHandler for SimpleWindow {
         _: &wl_keyboard::WlKeyboard,
         _serial: u32,
         _modifiers: Modifiers,
+        _raw_modifiers: RawModifiers,
         _layout: u32,
     ) {
         // do nothing!! :D
@@ -363,19 +373,8 @@ impl SimpleWindow {
     }
 }
 
-delegate_compositor!(SimpleWindow);
-delegate_output!(SimpleWindow);
-delegate_shm!(SimpleWindow);
-
-delegate_seat!(SimpleWindow);
-delegate_keyboard!(SimpleWindow);
-delegate_pointer!(SimpleWindow);
-
-delegate_xdg_shell!(SimpleWindow);
-delegate_xdg_window!(SimpleWindow);
-delegate_activation!(SimpleWindow);
-
 delegate_registry!(SimpleWindow);
+delegate_dispatch2!(SimpleWindow);
 
 impl ProvidesRegistryState for SimpleWindow {
     fn registry(&mut self) -> &mut RegistryState {
