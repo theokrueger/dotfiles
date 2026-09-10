@@ -19,5 +19,16 @@
 ;; speeds up LSP significantly
 (setenv "LSP_USE_PLISTS" "true")
 
+(setq default-frame-alist
+  '((vertical-scroll-bars . nil)
+     (horizontal-scroll-bars . nil)
+     (menu-bar-lines . 0)
+     (tool-bar-lines . 0)
+     (internal-border-width . 3)
+     ;; macOS-only
+     (ns-appearance . dark)
+     (ns-transparent-titlebar . t)
+     (undecorated-round . t)))
+
 (provide 'early-init)
 ;;; early-init.el ends here

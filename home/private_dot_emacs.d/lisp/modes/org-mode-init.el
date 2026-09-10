@@ -2,23 +2,20 @@
 ;;; Commentary:
 ;;; Code:
 
-
-;; associate org mode with .org extensiona
-(use-package org-mode
-  :commands org-mode
+(use-package org
+  :ensure nil ;; built-in
   :hook
   (org-mode . visual-line-mode) ;; wrap lines
-  ;;  (org-mode . org-bullets-mode) ;; visually distinct bullets
-  :bind-keymap
+  :bind
   ("C-c <up>"   . org-priority-up)
   ("C-c <down>" . org-priority-down)
-  :init
+  :custom
   ;; values that need to be set before org is loaded
-  (setopt
-    org-link-descriptive nil ;; show literal links
-    org-confirm-babel-evaluate nil ;; don't confirm org code eval
-    org-list-allow-alphabetical t ;; allow lists starting with a. b. c. etc
-    )
+  (org-link-descriptive nil)       ;; show literal links
+  (org-confirm-babel-evaluate nil) ;; don't confirm org code eval
+  (org-list-allow-alphabetical t)  ;; allow lists starting with a. b. c. etc
+  :config
+  ;; languages for `org-babel'.
   (org-babel-do-load-languages
     'org-babel-load-languages
     '(
@@ -34,16 +31,14 @@
        (latex . t)
        )
     )
-  :config
-  (add-to-list 'auto-mode-alist '("\\.org$" . org-mode)) ;; associate .org files with org mode
-  (setopt
-    org-hide-emphasis-markers nil
-    )
   )
 
-(use-package org-bullets
-  :commands org-bullets-mode
-  )
+;; visually distinct bullets
+(declare-function org-superstar-configure-like-org-bullets "org-superstar")
+(use-package org-superstar
+  :hook (org-mode . org-superstar-mode)
+  :config
+  (org-superstar-configure-like-org-bullets))
 
 (provide 'org-mode-init)
 ;;; org-mode-init.el ends here

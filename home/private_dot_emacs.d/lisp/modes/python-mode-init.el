@@ -4,6 +4,7 @@
 (setopt
   ;; 4 space tabs because of black
   python-indent-offset 4
+  python-indent-guess-indent-offset nil ;; no "can't guess" messages, black decides
   python-shell-interpreter "python3")
 
 (provide 'python-mode-init)

@@ -1,7 +1,14 @@
 ;;; org-latex-classes-init.el --- load templates for org latex -*- lexical-binding: t -*-
 ;;; Commentary:
-;;; Loaded by org-mode-init.el
+;;; Loaded by templates-common-init.el.  The preambles of the classes are
+;;; .tex files in this directory, read by `org-latex-classes-preamble' when
+;;; the class files are compiled (or loaded when they are not compiled).
 ;;; Code:
+
+(require 'org-latex-classes-common-init)
+
+;; Defined in ox-latex, loaded by the `with-eval-after-load' below.
+(defvar org-latex-src-block-backend)
 
 (use-package engrave-faces)
 

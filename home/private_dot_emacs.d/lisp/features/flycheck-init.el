@@ -3,11 +3,12 @@
 ;;; Code:
 
 (use-package flycheck
-  :commands (flycheck-mode flyspell-mode)
-  :hook
-  (prog-mode . flycheck-mode)
-  (text-mode . flyspell-mode)
-  )
+  :hook ((after-init . global-flycheck-mode)
+          ;; show diagnostics inline
+          (after-init . global-flycheck-annotate-mode))
+  :custom
+  ;; only annotate the line at point
+  (flycheck-annotate-other-lines-style nil))
 
 (provide 'flycheck-init)
 ;;; flycheck-init.el ends here

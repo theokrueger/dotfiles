@@ -4,10 +4,11 @@
 
 ;; load themes
 (setq custom-safe-themes t)
-(add-to-list 'custom-theme-load-path (concat user-emacs-directory "lisp/themes/"))
+(add-to-list 'custom-theme-load-path
+             (expand-file-name "lisp/themes/" user-emacs-directory))
 
 ;; default theme of choice
-(if (or window-system (daemonp))
+(if (or (display-graphic-p) (daemonp))
   (load-theme 'lightblue)    ;; GUI theme (also used if daemon as it is preferred theme)
   (load-theme 'leuven-dark)) ;; TUI theme
 

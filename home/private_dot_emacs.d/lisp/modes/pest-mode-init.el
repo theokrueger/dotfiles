@@ -5,16 +5,14 @@
 ;; pest-mode
 (use-package pest-mode
   :commands pest-mode
-  :hook (pest-mode . flymake-mode)
-  :mode "\\.pest\\'"
-  ;;  :config
-  ;;  (setq-default)
-  )
+  :mode "\\.pest\\'")
 
 ;; flycheck for pest
 (use-package flycheck-pest
-  :defer t
-  )
+  :after flycheck
+  :demand t
+  :config
+  (flycheck-pest-setup))
 
 (provide 'pest-mode-init)
 ;;; pest-mode-init.el ends here

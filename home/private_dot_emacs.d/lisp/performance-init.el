@@ -4,9 +4,12 @@
 ;;; Code:
 
 ;; garbage collector settings
-(setopt
+(setq
   read-process-output-max (* 24 1024 1024) ;; 24mb process reads
   gc-cons-threshold most-positive-fixnum)  ;; infinite gc threshold for startup
+
+;; this removes a free-variable warning.
+(defvar fnh-alist-old)
 
 (add-hook 'after-init-hook
   (lambda ()
@@ -16,12 +19,8 @@
       (delete-dups (append file-name-handler-alist fnh-alist-old)))
     (makunbound 'fnh-alist-old)
 
-    ;; 256 mb gc threshold after startup
-    (setq gc-cons-threshold (eval-when-compile(* 256 1024 1024)))))
-
-;; gcmh: reduce GC pauses
-;; (use-package gcmh)
-;; (gcmh-mode 1)
+    ;; 512 mb gc threshold after startup
+    (setq gc-cons-threshold (* 512 1024 1024))))
 
 ;; few messages
 (setopt message-log-max 2000)

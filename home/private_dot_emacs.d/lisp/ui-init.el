@@ -4,20 +4,16 @@
 
 ;; C-z wont minimise under GUI
 (defun maybe-suspend-frame ()
-  "Suspend frame unless running under a window system."
+  "Suspend the current frame unless it is displayed on a window system."
   (interactive)
-  (unless window-system
+  (unless (display-graphic-p)
     (suspend-frame)))
 (global-set-key (kbd "C-z") 'maybe-suspend-frame)
 
-;; remove gui elements
-(setopt
-  menu-bar-mode nil       ;; disable altbar
-  tool-bar-mode nil       ;; disable fat buttons
-  scroll-bar-mode nil)    ;; disable scrollbar
-(set-scroll-bar-mode nil) ;; disable scrollbar
-(tool-bar-mode -1)        ;; disable fat buttons
-(menu-bar-mode -1)        ;; disable altbar
+;; menu-bar- and tool-bar-lines are zeroed in early-init.el
+(menu-bar-mode -1)      ;; disable altbar
+(tool-bar-mode -1)      ;; disable fat buttons
+(scroll-bar-mode -1)    ;; disable scrollbar
 
 ;; disable mouse menus (they are annoying)
 (bind-key* "C-<down-mouse-1>" 'ignore)
@@ -34,18 +30,16 @@
   window-resize-pixelwise t
   frame-resize-pixelwise t)
 
-;; make the first click but not move cursor
-(setopt ns-click-through nil)
+;; make the first click go through without moving the cursor (macOS only)
+(when (featurep 'ns)
+  (setopt ns-click-through nil))
 
 ;; rebalance windows automatically when splitting
 (setopt window-combination-resize t)
-;; prefer horizontal splitting
-(setopt split-window-preferred-direction 'longest)
 
 ;; make right-click do something sensible and shift-drag behave better
-(when (display-graphic-p)
-  (mouse-shift-adjust-mode)
-  (context-menu-mode))
+(mouse-shift-adjust-mode 1)
+(context-menu-mode 1)
 
 ;; continuiously refresh input keystrokes thingy
 (setopt view-lossage-auto-refresh t)
@@ -54,31 +48,19 @@
 (use-package which-key
   :demand t
   :config
-  (which-key-mode))
-
-;; goodbye decoration
-(setopt default-frame-alist '(
-                               (vertical-scroll-bars . nil)
-                               (horizontal-scroll-bars . nil)
-                               (ns-appearance . dark)
-                               (ns-transparent-titlebar . t)
-                               (undecorated-round . t)
-                               (internal-border-width . 3)
-                               ))
+  (which-key-mode 1))
 
 ;; scrolling
 (setopt mouse-wheel-tilt-scroll t)
 (setopt mouse-wheel-flip-direction t)
-(pixel-scroll-precision-mode) ; Smooth scrolling
+(pixel-scroll-precision-mode 1) ; Smooth scrolling
 
 ;; TUI
 (add-hook
   'tty-setup-hook
   #'(lambda ()
       ;; terminal mouse support
-      (require 'mouse)
       (xterm-mouse-mode t)
-      (gpm-mouse-mode t)
       ))
 
 ;; Update the cursor shape inside a terminal

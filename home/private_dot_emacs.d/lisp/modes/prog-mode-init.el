@@ -14,11 +14,14 @@
 ;; indentation settings
 (setopt
   indent-tabs-mode nil
-  indent-line-function 'insert-tab
   tab-stop-list (number-sequence 8 160 8)
-  tab-width 8
   standard-indent 8)
-(global-set-key (kbd "RET") 'newline-and-indent)
+
+;; paren highlighting
+(setopt show-paren-delay 0)
+(setopt show-paren-style 'mixed) ;; default is 'parenthesis and just does delimiters
+(setopt show-paren-context-when-offscreen 'overlay)
+(show-paren-mode 1) ;; highlight matching delimiters
 
 ;; rainbow delimiters
 (use-package rainbow-delimiters
@@ -36,11 +39,6 @@
   (rainbow-delimiters-depth-9-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark green"))))
   (rainbow-delimiters-mismatched-face ((t (:inherit rainbow-delimiters-unmatched-face :foreground "red" :weight bold))))
   (rainbow-delimiters-unmatched-face ((t (:inherit rainbow-delimiters-base-error-face :foreground "red" :weight bold))))
-  :init
-  (setopt show-paren-delay 0)
-  (setopt show-paren-style 'expression) ; default is 'parenthesis and just does delimiters
-  (setopt show-paren-context-when-offscreen 'overlay)
-  (show-paren-mode t) ;; highlight matching delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 

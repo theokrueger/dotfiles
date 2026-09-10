@@ -8,7 +8,7 @@
 
 ;; prereqs
 (when (< emacs-major-version 31)
-  (error "Emacs is too old; Upgrade to Emacs 31 to use this config. You have version %s" emacs-major-version))
+  (error "Emacs is too old; Upgrade to Emacs 31 to use this config.  You have version %s" emacs-major-version))
 
 ;; unset `file-name-handler-alist` for performance
 (defvar fnh-alist-old (default-toplevel-value 'file-name-handler-alist))
@@ -29,9 +29,6 @@
 (require 'performance-init)      ;; performance settings
 (require 'compile-init)          ;; bytecode compilation for speedup
 
-;; user defined prehooks
-(require 'user-prehook)
-
 ;; lang inits
 (require 'modes-common-init)     ;; global mode settings
 
@@ -42,7 +39,6 @@
 
 ;; interaction inits
 (require 'keybinds-init)         ;; custom keybinds
-(require 'desktop-init)          ;; desktop save/loading, backups
 (require 'time-init)             ;; measure startup time
 
 ;; feature inits
@@ -51,14 +47,11 @@
 ;; templates init
 (require 'templates-common-init) ;; templates
 
-;; user settings init
-(require 'user-posthook)
-
 ;; user defined settings
-(setq custom-file (locate-user-emacs-file "custom-vars.el"))
+(setopt custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
-;;(require 'first-time-setup)    ;; commands to be run on first startup only!!
+(require 'first-time-setup)    ;; commands to be run on first startup only!!
 
 (provide 'init)
 ;;; init.el ends here

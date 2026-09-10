@@ -3,13 +3,9 @@
 ;;; Code:
 
 ;; tree-sitter
-(use-package treesit-auto
-  :demand t
-  :custom
-  (treesit-auto-install t)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
+(setopt treesit-enabled-modes t              ;; prefer ts-modes where available
+  treesit-auto-install-grammar 'ask ;; ask before downloading/building a grammar
+  )
 
 ;; common
 (require 'fundamental-mode-init)  ;; text mode settings
@@ -24,6 +20,7 @@
 (require 'lisp-mode-init)  ;; lisp settings
 (require 'org-mode-init)   ;; org mode settings
 (require 'pest-mode-init)  ;; pest settings
+(require 'python-mode-init) ;; python settings
 (require 'rust-mode-init)  ;; rust settings
 (require 'yaml-mode-init)  ;; yaml settings
 
