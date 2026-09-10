@@ -2,21 +2,19 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'lsp-mode)
 (use-package lsp-mode
-  :defer t
   :commands (
               lsp
               lsp-deferred)
-  ;;  :hook (prog-mode . lsp-deferred)
+  :hook (prog-mode . lsp-deferred)
   :init
   ;; lsp settings
-  (setq-default
+  (setopt
     lsp-log-io nil         ;; ensure logging off
-    lsp-auto-configure nil ;; no auto configure lsp ui and such
+    lsp-auto-configure t   ;; auto configure lsp ui and such
     lsp-idle-delay 0.500)
   ;; lsp-ui settings
-  (setq-default
+  (setopt
     lsp-ui-peek-always-show t
     lsp-ui-sideline-show-hover t
     lsp-ui-doc-enable nil
@@ -26,12 +24,10 @@
   ("C-x n" . lsp-ui-imenu)
   )
 
-(require-package 'lsp-ui)
 (use-package lsp-ui
   :defer t
   :commands lsp-ui-mode)
 
-(require-package 'helm-lsp)
 (use-package helm-lsp
   :defer t
   :commands helm-lsp-workspace-symbol)

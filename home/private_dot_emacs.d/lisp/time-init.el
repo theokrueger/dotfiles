@@ -4,13 +4,13 @@
 ;;; Code:
 
 ;; display time mode in mode line
-(setq
+(setopt
   display-time-default-load-average nil
-  display-time-24hr-format t
-  display-time-day-and-date t
-  display-time-format "[%a] %F %H:%M:%S")
+  display-time-day-and-date nil)
+;;  display-time-24hr-format t
+;;  display-time-format "[%a] %F %H:%M:%S"
 
-(display-time-mode 1)
+;;(display-time-mode 1)
 
 ;; measure init time benchmark
 (message (concat "Startup took " (emacs-init-time)))

@@ -3,13 +3,11 @@
 ;;; Code:
 
 ;; rust-mode
-(require-package 'rust-mode)
 (use-package rust-mode
-  :defer t
   :commands rust-mode
   :hook (rust-mode . lsp-deferred)
   :config
-  (setq
+  (setopt
     ;; rust-mode settings
     rust-format-on-save t
     rust-indent-offset 8
@@ -24,16 +22,12 @@
   )
 
 ;; cargo minor mode
-(require-package 'cargo)
 (use-package cargo
-  :defer t
   :commands cargo-minor-mode
   )
 
 ;; flycheck for rust
-(require-package 'flycheck-rust)
 (use-package flycheck-rust
-  :defer t
   :commands flycheck-rust-setup
   :hook (rust-mode . flycheck-rust-setup)
   )

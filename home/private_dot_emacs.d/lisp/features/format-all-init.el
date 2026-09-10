@@ -2,19 +2,21 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'format-all)
-
 (use-package format-all
   :commands format-all-mode
   :hook (prog-mode . format-all-mode)
   :config
-  (setq-default format-all-formatters
+  (setq c-formatter
+    ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))
+    )
+  (setopt format-all-formatters
     `(
        ("Assembly" asmfmt)
-       ("C" (clang-format ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))))
-       ("C++" (clang-format ,(format "--style=file:%s" (expand-file-name (format "%s/extern/c-linux.clang-format" user-emacs-directory)))))
+       ("C" (clang-format 'c-formatter))
+       ("C++" (clang-format 'c-formatter))
        ("CSS" prettier)
        ("Emacs Lisp" emacs-lisp)
+       ("HTML" prettier)
        ("JavaScript" prettier)
        ("JSON" prettier)
        ("JSON5" prettier)
@@ -23,7 +25,9 @@
        ("Markdown" prettier)
        ("Python" black)
        ("Rust" (rustfmt "--edition" "2024"))
+       ("SCSS" prettier)
        ("Shell" shfmt)
+       ("SQL" sqlformat)
        ("TOML" prettier)
        ("TSX" prettier)
        ("TypeScript" prettier)

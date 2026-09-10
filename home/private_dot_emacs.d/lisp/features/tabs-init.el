@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; defaults
-(setq tab-bar-mode t)
+(setopt tab-bar-mode t)
 
 ;; browser-like keybinds
 (global-unset-key (kbd "C-t"))
@@ -18,7 +18,7 @@
 (global-set-key   (kbd "C-t C-S-t")   'tab-undo)
 
 (dolist (num '("1" "2" "3" "4" "5" "6" "7" "8" "9" "0"))
-  (global-set-key (kbd (concat "C-t C-" num))
+  (global-set-key (kbd (concat "C-t " num))
     (lambda () (interactive) (tab-bar-select-tab 'num))))
 
 (tab-bar-mouse-move-tab 1)

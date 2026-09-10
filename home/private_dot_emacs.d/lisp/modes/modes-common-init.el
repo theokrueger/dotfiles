@@ -3,8 +3,8 @@
 ;;; Code:
 
 ;; tree-sitter
-(require-package 'treesit-auto)
 (use-package treesit-auto
+  :demand t
   :custom
   (treesit-auto-install t)
   :config
@@ -12,7 +12,7 @@
   (global-treesit-auto-mode))
 
 ;; common
-(require 'text-mode-init)  ;; text mode settings
+(require 'fundamental-mode-init)  ;; text mode settings
 (require 'prog-mode-init)  ;; prog mode settings
 
 ;; util

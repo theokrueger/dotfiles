@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq
+(setopt
   c-basic-offset 8        ;; 8space tabs
   )
 

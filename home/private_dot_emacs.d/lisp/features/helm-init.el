@@ -2,12 +2,11 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'helm)
-(require-package 'helm-descbinds)
+(use-package helm-descbinds :demand t)
 (use-package helm
   :demand t
   :config
-  (setq
+  (setopt
     completion-styles '(flex)
     ;; recent saving
     recentf-max-menu-items  25

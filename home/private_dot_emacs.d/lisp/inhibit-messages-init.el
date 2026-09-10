@@ -9,7 +9,7 @@
 
 
 ;; settings
-(setq
+(setopt
   inhibit-startup-echo-area-message t
   ;; no splash message
   inhibit-startup-message t ;; (older)

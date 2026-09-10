@@ -2,9 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'flycheck)
 (use-package flycheck
-  :defer t
   :commands (flycheck-mode flyspell-mode)
   :hook
   (prog-mode . flycheck-mode)

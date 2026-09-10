@@ -20,10 +20,8 @@
     (buffer-string)))
 
 ;; package to globally bind a key
-(require-package 'bind-key)
 (use-package bind-key
-  :defer t
-  :commands bind-key*
+  :demand t
   )
 
 (provide 'util-init)

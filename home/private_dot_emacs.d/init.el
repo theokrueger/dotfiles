@@ -1,14 +1,14 @@
 ;;; init.el --- init settings -*- lexical-binding: t -*-
 ;;; Commentary:
+;;; Significant portions of this configuration are from Emacs Bedrock.
 ;;; Code:
 
 ;; debug
 (setq debug-on-error nil) ;; debug traces
 
 ;; prereqs
-(let ((minver "28.2"))
-  (if (version< emacs-version minver)
-    (error "Emacs is too old.  Upgrade to Emacs %s to use this config" minver)))
+(when (< emacs-major-version 31)
+  (error "Emacs is too old; Upgrade to Emacs 31 to use this config. You have version %s" emacs-major-version))
 
 ;; unset `file-name-handler-alist` for performance
 (defvar fnh-alist-old (default-toplevel-value 'file-name-handler-alist))
@@ -37,8 +37,7 @@
 
 ;; interface inits
 (require 'inhibit-messages-init) ;; suppress fanfare
-(require 'gui-init)              ;; GUI window settings
-(require 'tui-init)              ;; TUI settings
+(require 'ui-init)               ;; UI window settings
 (require 'themes-init)           ;; colour / theme settings
 
 ;; interaction inits
@@ -59,7 +58,7 @@
 (setq custom-file (locate-user-emacs-file "custom-vars.el"))
 (load custom-file 'noerror 'nomessage)
 
-(require 'first-time-setup)    ;; commands to be run on first startup only!!
+;;(require 'first-time-setup)    ;; commands to be run on first startup only!!
 
 (provide 'init)
 ;;; init.el ends here

@@ -3,7 +3,7 @@
 ;;; Loaded by org-mode-init.el
 ;;; Code:
 
-(require-package 'engrave-faces)
+(use-package engrave-faces)
 
 ;; add classes
 (with-eval-after-load 'ox-latex

@@ -4,7 +4,7 @@
 
 ;; backup management
 ;; https://www.emacswiki.org/emacs/BackupDirectory
-(setq
+(setopt
   backup-by-copying t      ;; don't clobber symlinks
   backup-directory-alist
   '(("." . "~/.emacs.d/saves/"))

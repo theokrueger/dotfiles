@@ -4,7 +4,7 @@
 ;;; Code:
 
 ;; garbage collector settings
-(setq
+(setopt
   read-process-output-max (* 24 1024 1024) ;; 24mb process reads
   gc-cons-threshold most-positive-fixnum)  ;; infinite gc threshold for startup
 
@@ -19,13 +19,12 @@
     ;; 256 mb gc threshold after startup
     (setq gc-cons-threshold (eval-when-compile(* 256 1024 1024)))))
 
-;; gcmh
-(require-package 'gcmh)
-(use-package gcmh)
-(gcmh-mode 1)
+;; gcmh: reduce GC pauses
+;; (use-package gcmh)
+;; (gcmh-mode 1)
 
 ;; few messages
-(setq message-log-max 1000)
+(setopt message-log-max 2000)
 ;;(kill-buffer "*Messages*") ;; uncomment and set message-log-max to nil for no messages buffer
 
 (provide 'performance-init)
