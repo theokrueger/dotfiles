@@ -8,7 +8,7 @@
   (rust-indent-offset 8)
   )
 
-(setopt rust-ts-indent-offset 8) ;; ts-mode counterpart of rust-indent-offset
+(setopt rust-ts-indent-offset 4) ;; ts-mode counterpart of rust-indent-offset
 
 ;; lsp settings
 (setopt
