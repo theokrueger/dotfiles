@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; style settings
-(setq
+(setopt
   c-default-style '(
                      (java-mode . "java")
                      (awk-mode  . "awk")
@@ -12,16 +12,18 @@
   )
 
 ;; indentation settings
-(setq
+(setopt
   indent-tabs-mode nil
-  indent-line-function 'insert-tab
   tab-stop-list (number-sequence 8 160 8)
-  tab-width 8
   standard-indent 8)
-(global-set-key (kbd "RET") 'newline-and-indent)
+
+;; paren highlighting
+(setopt show-paren-delay 0)
+(setopt show-paren-style 'mixed) ;; default is 'parenthesis and just does delimiters
+(setopt show-paren-context-when-offscreen 'overlay)
+(show-paren-mode 1) ;; highlight matching delimiters
 
 ;; rainbow delimiters
-(require-package 'rainbow-delimiters)
 (use-package rainbow-delimiters
   :defer t
   :commands rainbow-delimiters-mode
@@ -37,14 +39,11 @@
   (rainbow-delimiters-depth-9-face ((t (:inherit rainbow-delimiters-base-face :foreground "dark green"))))
   (rainbow-delimiters-mismatched-face ((t (:inherit rainbow-delimiters-unmatched-face :foreground "red" :weight bold))))
   (rainbow-delimiters-unmatched-face ((t (:inherit rainbow-delimiters-base-error-face :foreground "red" :weight bold))))
-  :init
-  (show-paren-mode 1) ;; highlight matching delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
 
 ;; indent highlighting
-(require-package 'highlight-indent-guides)
 (use-package highlight-indent-guides
   :defer t
   :commands highlight-indent-guides-mode
@@ -52,7 +51,6 @@
   )
 
 ;; symbol overlays
-(require-package 'symbol-overlay)
 (use-package symbol-overlay
   :defer t
   :commands symbol-overlay-mode
@@ -65,7 +63,6 @@
   )
 
 ;; shift lines up and down
-(require-package 'move-dup)
 (use-package move-dup
   :defer t
   :commands (
@@ -78,7 +75,6 @@
   )
 
 ;; folding
-(require-package 'hideshow)
 (use-package hideshow
   :defer t
   :hook (prog-mode . hs-minor-mode)

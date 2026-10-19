@@ -14,6 +14,7 @@
     postBuffer = 157286400
 [core]
     editor = emacs
+    excludesfile = ~/.gitignore_global
 [alias]
     aa = add --all
     bv = branch -vv

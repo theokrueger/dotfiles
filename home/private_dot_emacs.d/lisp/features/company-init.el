@@ -2,14 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'company)
 (use-package company
-  :defer t
-  :commands company-mode
-  :config
-  (setq company-idle-delay 0.5)
-  :hook
-  (prog-mode . company-mode))
+  :hook (after-init . global-company-mode)
+  :custom
+  (company-minimum-prefix-length 1))
 
 (provide 'company-init)
 ;;; company-init.el ends here

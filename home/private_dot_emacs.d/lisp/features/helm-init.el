@@ -2,35 +2,30 @@
 ;;; Commentary:
 ;;; Code:
 
-(require-package 'helm)
-(require-package 'helm-descbinds)
+(use-package helm-descbinds
+  :commands helm-descbinds)
+
 (use-package helm
   :demand t
   :config
-  (setq
-    completion-styles '(flex)
-    ;; recent saving
-    recentf-max-menu-items  25
-    recentf-max-saved-items 25
+  (setopt
     helm-M-x-always-save-history t
-    recentf-exclude '("/tmp/" "/ssh:" 'package-user-dir)
     ;; fuzzy matching
     helm-M-x-fuzzy-match        t
     helm-buffers-fuzzy-matching t
     helm-recentf-fuzzy-match    t
-    helm-locate-fuzzy-match     nil
-    helm-projectile-fuzzy-match t
     ;; interaction settings
     helm-allow-mouse                   t
-    helm-move-to-line-cycle-in-source  t
-    helm-ff-lynx-style-map             t     ;; use arrow keys in find
+    helm-move-to-line-cycle-in-source  t ;; wrap around at the ends, no ding
     helm-input-idle-delay              0.01
-    helm-idle-delay                    0.01
     ;; appearance
     helm-display-header-line   nil
     helm-autoresize-mode       t
-    helm-autoresize-max-height 30 ;; in %
-    helm-autoresize-min-heigh  10 ;; in %
+    ;; `helm--autoresize-hook' hands both of these to `fit-window-to-buffer',
+    ;; which clamps the window height to [min, max]; keeping them equal pins the
+    ;; helm window at one height instead of letting it shrink as matches run out.
+    helm-autoresize-max-height 50 ;; in %
+    helm-autoresize-min-height 50 ;; in %
     helm-M-x-show-short-doc    t
     )
 
@@ -65,10 +60,46 @@
   ("M-g l"     . goto-line)
   ("M-g g"     . goto-line)
   ("C-x r p"   . helm-projects-history)
-  ("C-r"       . helm-imenu)
+  ;; search
   ("C-s"       . helm-occur)
+  ("C-r"       . helm-occur)
   ("C-M-s"     . helm-regexp)
+  ("C-M-r"     . helm-regexp)
+  ("M-g i"     . helm-imenu)
   )
+
+;; move helm keybinds in before the docstring instead of after.
+;; yes, this function is is slop.
+(defun helm-M-x-transformer-keys-first (candidates)
+  "Move the keybinding of each of CANDIDATES in front of its docstring.
+CANDIDATES is what `helm-M-x-transformer-1' returns: (DISPLAY . COMMAND)
+pairs, where the keybinding is the last character of DISPLAY, carrying it as
+a `display' property.  Commands that have no binding, and anything not built
+the way `helm-M-x' builds it, are left alone."
+  (mapcar
+    (lambda (candidate)
+      (let ((display (car candidate))
+             (name (if (stringp (cdr candidate))
+                     (cdr candidate)
+                     (format "%s" (cdr candidate)))))
+        (if (or (not (stringp display))
+              (not (string-prefix-p name display))
+              (< (length display) (1+ (length name))))
+          candidate
+          (let* ((end (1- (length display)))
+                  (key (substring display end)))
+            (if (not (stringp (get-text-property 0 'display key)))
+              candidate
+              ;; the character before the key (a space) is dropped along
+              ;; with it, and a space is added after the command name.
+              (cons (concat (substring display 0 (length name))
+                      " " key
+                      (substring display (length name) end))
+                (cdr candidate)))))))
+    candidates))
+
+(with-eval-after-load 'helm-command
+  (advice-add 'helm-M-x-transformer-1 :filter-return #'helm-M-x-transformer-keys-first))
 
 (provide 'helm-init)
 ;;; helm-init.el ends here

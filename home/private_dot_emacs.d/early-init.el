@@ -2,13 +2,33 @@
 ;;; Commentary:
 ;;; Code:
 
-;; add melpa-stable
-(require 'package)
-(add-to-list 'package-archives
-  '("melpa" . "https://melpa.org/packages/") t)
+;; startup speed, annoyance suppression
+(setq gc-cons-threshold 10000000)
+(setq byte-compile-warnings '(not obsolete))
+(setq warning-suppress-log-types '((comp) (bytecomp)))
+(setq native-comp-async-report-warnings-errors 'silent)
+
+;; silence stupid startup message
+(advice-add #'display-startup-echo-area-message :override #'ignore)
+
+;; tell use-package to install if missing by default
+(setq
+  use-package-always-ensure t
+  use-package-always-defer t)
 
 ;; speeds up LSP significantly
 (setenv "LSP_USE_PLISTS" "true")
+
+(setq default-frame-alist
+  '((vertical-scroll-bars . nil)
+     (horizontal-scroll-bars . nil)
+     (menu-bar-lines . 0)
+     (tool-bar-lines . 0)
+     (internal-border-width . 3)
+     ;; macOS-only
+     (ns-appearance . dark)
+     (ns-transparent-titlebar . t)
+     (undecorated-round . t)))
 
 (provide 'early-init)
 ;;; early-init.el ends here

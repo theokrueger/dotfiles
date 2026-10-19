@@ -1,6 +1,6 @@
 ;;; lightblue-theme.el --- Custom theme for faces  -*- lexical-binding:t -*-
 
-;; Copyright (C) 2011-2023 Free Software Foundation, Inc.
+;; Copyright (C) 2011-2025 Free Software Foundation, Inc.
 
 ;; Author: Drew Adams <drew.adams@oracle.com>
 ;; Maintainer: emacs-devel@gnu.org
@@ -62,6 +62,13 @@
     `(font-lock-warning-face ((,class (:foreground "orange red" :weight bold))))
     ;; Compilation faces
     `(next-error ((,class (:inherit region :background "SkyBlue"))))))
+
+;;;###autoload
+(when (and (boundp 'custom-theme-load-path)
+           load-file-name)
+  ;; Add theme folder to `custom-theme-load-path' when installing over MELPA.
+  (add-to-list 'custom-theme-load-path
+               (file-name-as-directory (file-name-directory load-file-name))))
 
 (provide-theme 'lightblue)
 
