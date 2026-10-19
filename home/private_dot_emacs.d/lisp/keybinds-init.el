@@ -5,7 +5,7 @@
 ;;; Code:
 
 ;; launch the terminal
-(global-set-key (kbd "C-<return>") (lambda () (interactive) (term "/bin/bash")))
+;;(global-set-key (kbd "C-<return>") (lambda () (interactive) (term "/bin/bash")))
 
 ;; window navigation
 (global-set-key (kbd "M-s-<up>")    'windmove-up)
