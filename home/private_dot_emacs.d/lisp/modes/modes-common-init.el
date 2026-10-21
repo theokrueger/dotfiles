@@ -16,6 +16,7 @@
 
 ;; langs
 (require 'cxx-mode-init)   ;; c/c++ settings
+(require 'just-mode-init)  ;; justfile settings
 (require 'latex-mode-init) ;; latex settings
 (require 'lisp-mode-init)  ;; lisp settings
 (require 'org-mode-init)   ;; org mode settings
