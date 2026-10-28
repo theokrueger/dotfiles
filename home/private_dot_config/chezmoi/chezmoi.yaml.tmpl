@@ -81,6 +81,16 @@
       {{- $animatedBGEnabled = true }}
       {{- $animatedBGFolder = "gentoo-penguin" }}
 
+    {{- else if eq .chezmoi.hostname "alptop" }}
+      # this is alptop
+      {{- $primaryMonWidth  = 1920 }}
+      {{- $primaryMonHeight = 1200 }}
+      {{- $kbLayout = "colemak_dh" }}
+      {{- $lockscreen = "pneguin/1920x1080.png" }}
+      {{- $staticBG = "hostname/pink/gen2desk_1920x1080.png" }}
+      {{- $animatedBGEnabled = true }}
+      {{- $animatedBGFolder = "gentoo-penguin" }}
+
     {{- else }}
       # this has no configuration for given hostname
     {{- end }}
