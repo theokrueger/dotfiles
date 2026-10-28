@@ -133,10 +133,10 @@ data:
   primary_monitor_height: {{ $primaryMonHeight }}
   keyboard_layout: {{ $kbLayout }}
 
-  lockscreen: ~/.local/share/assets/lockscreens/{{- $lockscreen }}
-  static_background: ~/.local/share/assets/wallpapers/{{- $staticBG }}
+  lockscreen: ~/.local/share/lockscreens/{{- $lockscreen }}
+  static_background: ~/.local/share/wallpapers/{{- $staticBG }}
   animated_background:
     enabled: {{ $animatedBGEnabled }}
-    folder: ~/.local/share/assets/wallpapers/{{- $animatedBGFolder -}}/
+    folder: ~/.local/share/wallpapers/{{- $animatedBGFolder -}}/
     delay: {{ $animatedBGDelay }}
-    overlay: ~/.local/share/assets/wallpapers/{{- $animatedBGOverlay }}
+    overlay: ~/.local/share/wallpapers/{{- $animatedBGOverlay }}
