@@ -13,8 +13,8 @@ cargo install-update-config git-credential-keepassxc --enforce-lock --feature no
 $HOME/.cargo/bin/git-credential-keepassxc configure
 git config --global --replace-all credential.helper 'keepassxc --git-groups'
 
-echo "Installing SSGen"
-cargo install ssgen
+#echo "Installing SSGen"
+#cargo install ssgen
 
 echo "Installed pesta for emacs pest-mode"
 cargo install pesta
