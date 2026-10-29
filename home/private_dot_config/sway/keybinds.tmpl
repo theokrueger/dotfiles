@@ -3,7 +3,8 @@
 # variables
 set $mod Mod4
 set $mod_alt Mod4+Shift
-set $mod_alt_alt Mod4+Control
+set $mod_alt_2 Mod4+Control
+set $mod_alt_3 Mod4+Alt
 set $left h
 set $down j
 set $up k
@@ -20,7 +21,7 @@ set $editor        emacs
 set $file_manager  thunar
 set $game_launcher steam
 set $music_gui     $terminal -e ~/.config/ncmpcpp/ncmpcpp.sh
-set $music_volup   mpc volume +5   
+set $music_volup   mpc volume +5
 set $music_voldn   mpc volume -5
 set $music_toggle  mpc toggle
 set $music_next    mpc next
@@ -56,7 +57,7 @@ bindsym $mod+s           exec $markup
 # lock and sleep
 bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
 bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl suspend
-bindsym $mod_alt_alt+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl hibernate
+bindsym $mod_alt_2+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl hibernate
 
 {{- if eq .chassis "laptop" }}
 # brightness
@@ -75,17 +76,18 @@ bindsym XF86AudioLowerVolume exec $voldown
 bindsym XF86AudioMute        exec $volmute
 
 # media playpause
-bindsym $mod_alt_alt+Up         exec $music_volup
-bindsym $mod_alt_alt+Down       exec $music_voldn
-bindsym $mod_alt_alt+Left       exec $music_prev
-bindsym $mod_alt_alt+Right      exec $music_next
-bindsym $mod_alt_alt+apostrophe exec $music_toggle
+bindsym $mod_alt_2+Up         exec $music_volup
+bindsym $mod_alt_2+Down       exec $music_voldn
+bindsym $mod_alt_2+Left       exec $music_prev
+bindsym $mod_alt_2+Right      exec $music_next
+bindsym $mod_alt_2+apostrophe exec $music_toggle
 
 # manage windows
 bindsym $mod+q kill
 bindsym $mod+f floating on
 bindsym $mod+t floating off
 bindsym $mod+m fullscreen
+bindsym $mod+Space fullscreen
 
 bindsym $mod_alt+$left  move left
 bindsym $mod_alt+$down  move down
@@ -108,6 +110,12 @@ bindsym $mod+Left   focus left
 bindsym $mod+Down   focus down
 bindsym $mod+Up     focus up
 bindsym $mod+Right  focus right
+
+# focus between monitors
+bindsym $mod+comma  focus output left
+bindsym $mod+period focus output right
+bindsym $mod_alt+comma  move container to output left
+bindsym $mod_alt+period move container to output right
 
 # workspaces
 bindcode $mod+$one   workspace number 1
