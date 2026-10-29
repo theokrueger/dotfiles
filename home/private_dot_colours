@@ -1,14 +1,14 @@
 USE_COLOR=true
 
 # PS1 stolen from gentoo livecd
-if [[ ${NO_COLOR} ]]; then
+if [[ -n ${NO_COLOR:-} ]]; then
   USE_COLOR=false
 fi
 
-[[ ! $USE_COLOR ]] && return
+[[ $USE_COLOR == false ]] && return
 
 # For direxpand to be missing indicates that bash is lacking readline support.
-if [[ ! $USE_COLOR ]] || [[ ! $(shopt -p direxpand 2>/dev/null) ]]; then
+if [[ $USE_COLOR == false ]] || [[ ! $(shopt -p direxpand 2>/dev/null) ]]; then
     # Define a prompt without color.
     PS1='\u@\h \w \$ '
 elif (( EUID == 0 )); then

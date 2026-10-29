@@ -1,0 +1,25 @@
+{
+  "lastChangelogVersion": "1.4.0",
+  "defaultProvider": "opencode-go",
+  "defaultModel": "deepseek-v4.1-flash",
+  "packages": [
+    "npm:pi-ask-user",
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "npm:@juicesharp/rpiv-todo",
+    "npm:pi-lens"
+  ],
+  "hideThinkingBlock": true,
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "followUpMode": "one-at-a-time",
+  "enableSkillCommands": true,
+  "showCacheMissNotices": true,
+  "quietStartup": true,
+  "enableInstallTelemetry": false,
+  "doubleEscapeAction": "tree",
+  "fullscreenExitOutput": "resume-hint",
+  "fullscreenCopyOnSelect": true,
+  "theme": "system"
+}

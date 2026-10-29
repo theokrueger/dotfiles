@@ -6,7 +6,7 @@
       <configItem>
         <name>linsuslap</name>
         <shortDescription>keyswaps</shortDescription>
-        <description>English (US, linsuslap custom keymap)</description>
+        <description>English (US, internal ThinkPad keymap)</description>
         <countryList>
           <iso3166Id>US</iso3166Id>
         </countryList>
@@ -19,7 +19,7 @@
       <configItem>
         <name>thonkpad</name>
         <shortDescription>keyswaps</shortDescription>
-        <description>English (US, thonkpad custom keymap)</description>
+        <description>English (US, internal ThinkPad keymap)</description>
         <countryList>
           <iso3166Id>US</iso3166Id>
         </countryList>

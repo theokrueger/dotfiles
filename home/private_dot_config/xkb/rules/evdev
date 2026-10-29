@@ -1,5 +1,5 @@
-! option   = symbols
-  linsuslap:basic  = +linsuslap(basic)
-  thonkpad:basic  = +thonkpad(basic)
+! model layout			=	symbols
+  *     linsuslap		=	pc+internal-thinkpad(basic)
+  *     thonkpad		=	pc+internal-thinkpad(basic)
 
 ! include %S/evdev

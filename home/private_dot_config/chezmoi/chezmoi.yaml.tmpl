@@ -50,8 +50,9 @@
       # this is desktop
       {{- $chassisType = "desktop" }}
     {{- end }}
+  {{- end }}
 
-    {{- if eq .chezmoi.hostname "thonkpad" }}
+  {{- if eq .chezmoi.hostname "thonkpad" }}
       # this is thonkpad
       {{- $primaryMonWidth  = 1920 }}
       {{- $primaryMonHeight = 1080 }}
@@ -91,9 +92,8 @@
       {{- $animatedBGEnabled = true }}
       {{- $animatedBGFolder = "gentoo-penguin" }}
 
-    {{- else }}
-      # this has no configuration for given hostname
-    {{- end }}
+  {{- else }}
+    # this has no configuration for given hostname
   {{- end }}
 
 {{- else if eq .chezmoi.os "windows" }}
@@ -103,7 +103,7 @@
 {{- end }}
 
 # directory of the dotfiles repo
-sourceDir: "{{ .chezmoi.workingTree }}"
+sourceDir: "{{ if .chezmoi.workingTree }}{{ .chezmoi.workingTree }}{{ else }}{{ .chezmoi.sourceDir | dir }}{{ end }}"
 edit.command: emacs -nw
 encryption: "gpg"
 gpg:
@@ -139,4 +139,4 @@ data:
     enabled: {{ $animatedBGEnabled }}
     folder: ~/.local/share/wallpapers/{{- $animatedBGFolder -}}/
     delay: {{ $animatedBGDelay }}
-    overlay: ~/.local/share/wallpapers/{{- $animatedBGOverlay }}
+    overlay: {{ if $animatedBGOverlay }}"~/.local/share/wallpapers/{{ $animatedBGOverlay }}"{{ else }}""{{ end }}

@@ -14,7 +14,11 @@ done
 
 # install required packages
 if [[ "$SKIP" != true ]]; then
-    ./package_installers/*.sh
+    for installer in ./package_installers/*.sh; do
+        [[ -f "$installer" ]] || continue
+        echo "Running $installer"
+        "$installer"
+    done
 fi
 
 # check if a path exists, then print some info
