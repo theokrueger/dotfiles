@@ -98,10 +98,20 @@ bindsym $mod_alt+Down   move down
 bindsym $mod_alt+Up     move up
 bindsym $mod_alt+Right  move right
 
-#bindsym $mod+b splith
-#bindsym $mod+v splitv
+bindsym $mod+b splith
+bindsym $mod+v splitv
 
 bindsym $mod+Return exec ~/.config/sway/scripts/sway-autotiler --focus-to-master
+
+# resize
+bindsym $mod_alt_3+$up    resize shrink height $resize_rate
+bindsym $mod_alt_3+$right resize grow   width  $resize_rate
+bindsym $mod_alt_3+$down  resize shrink height $resize_rate
+bindsym $mod_alt_3+$left  resize grow   height $resize_rate
+bindsym $mod_alt_3+Left   resize shrink width  $resize_rate
+bindsym $mod_alt_3+Down   resize grow   height $resize_rate
+bindsym $mod_alt_3+Up     resize shrink height $resize_rate
+bindsym $mod_alt_3+Right  resize grow   width  $resize_rate
 
 # focus
 bindsym $mod+$left  focus left
@@ -112,6 +122,8 @@ bindsym $mod+Left   focus left
 bindsym $mod+Down   focus down
 bindsym $mod+Up     focus up
 bindsym $mod+Right  focus right
+
+bindsym $mod_alt+space focus mode_toggle
 
 # focus between monitors
 bindsym $mod+comma  focus output left
@@ -143,30 +155,6 @@ bindcode $mod_alt+$zero  move scratchpad
 
 # other
 bindsym $mod_alt+c     exec swaymsg exit
-bindsym $mod_alt+space focus mode_toggle
-
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width $resize_rate
-    bindsym $down resize grow height $resize_rate
-    bindsym $up resize shrink height $resize_rate
-    bindsym $right resize grow width $resize_rate
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width $resize_rate
-    bindsym Down resize grow height $resize_rate
-    bindsym Up resize shrink height $resize_rate
-    bindsym Right resize grow width $resize_rate
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym Space mode  "default"
-}
-bindsym $mod+r mode "resize"
 
 # drag windows around
 tiling_drag enable

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+git config -l | grep alias | sed 's/^alias\.//g'

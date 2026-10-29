@@ -16,6 +16,7 @@
     editor = emacs
     excludesfile = ~/.gitignore_global
 [alias]
+    b  = branch
     aa = add --all
     bv = branch -vv
     ba = branch -ra

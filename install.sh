@@ -75,7 +75,5 @@ fi
 CHEZMOI_CFG_FILE="$HOME/.config/chezmoi/chezmoi.yaml"
 mkdir -p ~/.config/chezmoi/
 echo "sourceDir: $PWD" > "$CHEZMOI_CFG_FILE"
-cat "./home/private_dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$CHEZMOI_CFG_FILE"
+cat "./home/dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$CHEZMOI_CFG_FILE"
 "$CHEZMOI" apply
-
-echo "Please manually update files in etc folder"

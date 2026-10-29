@@ -7,6 +7,7 @@ requires:
 - cargo
 - flatpak
 - wget
+- keepassxc
 
 ** usage
 #+BEGIN_SRC

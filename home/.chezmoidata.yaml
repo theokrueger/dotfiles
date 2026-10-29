@@ -1,0 +1,53 @@
+---
+# per-host configuration overrides.
+# anything not set for a host falls back to hosts.default.
+# the selection happens in dot_config/chezmoi/chezmoi.yaml.tmpl.
+hosts:
+  default:
+    chassis: desktop
+    primary_monitor_width: 1920
+    primary_monitor_height: 1080
+    keyboard_layout: qwerty
+    lockscreen: default.png
+    static_background: default.png
+    animated_background:
+      enabled: false
+      folder: ""
+      delay: 360
+      overlay: ""
+
+  thonkpad:
+    chassis: laptop
+    keyboard_layout: colemak_dh
+    lockscreen: pneguin/1920x1080.png
+    static_background: hostname/pink/thonkpad_1920x1080.png
+    animated_background:
+      enabled: true
+      folder: gentoo-penguin
+
+  linsuslap:
+    chassis: laptop
+    keyboard_layout: colemak_dh
+    lockscreen: pneguin/1920x1080.png
+    static_background: hostname/pink/linsuslap_1920x1080.png
+    animated_background:
+      enabled: true
+      folder: gentoo-penguin
+
+  gen2desk:
+    chassis: desktop
+    lockscreen: pneguin/1920x1080.png
+    static_background: hostname/pink/gen2desk_1920x1080.png
+    animated_background:
+      enabled: true
+      folder: gentoo-penguin
+
+  alptop:
+    chassis: laptop
+    primary_monitor_height: 1200
+    keyboard_layout: colemak_dh
+    lockscreen: pneguin/1920x1080.png
+    static_background: hostname/pink/gen2desk_1920x1080.png
+    animated_background:
+      enabled: true
+      folder: gentoo-penguin
