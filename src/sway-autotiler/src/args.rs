@@ -18,6 +18,10 @@ pub struct Args {
     /// split direction ratio
     #[arg(long, default_value_t = 1.0, value_parser = positive_float)]
     pub splitratio: f64,
+
+    /// swap the focused window with the largest tiling window
+    #[arg(long)]
+    pub focus_to_master: bool,
 }
 
 fn positive_float(value: &str) -> Result<f64, String> {

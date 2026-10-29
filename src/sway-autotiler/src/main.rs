@@ -3,6 +3,7 @@
 //! switches the focused container between splith and splitv based on its height/width ratio
 
 mod args;
+mod master;
 mod tiling;
 mod tree;
 
@@ -10,10 +11,15 @@ use clap::Parser;
 use swayipc::{Connection, Event, EventType, Fallible, WindowChange};
 
 use args::Args;
+use master::focus_to_master;
 use tiling::autotile;
 
 fn main() -> Fallible<()> {
     let args = Args::parse();
+
+    if args.focus_to_master {
+        return focus_to_master();
+    }
 
     let mut connection = Connection::new()?;
     let event_stream = Connection::new()?.subscribe([EventType::Window, EventType::Mode])?;
