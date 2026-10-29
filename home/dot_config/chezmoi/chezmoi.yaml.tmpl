@@ -106,6 +106,8 @@
 sourceDir: "{{ if .chezmoi.workingTree }}{{ .chezmoi.workingTree }}{{ else }}{{ .chezmoi.sourceDir | dir }}{{ end }}"
 edit.command: emacs -nw
 encryption: "gpg"
+# every managed target is private: 0600 files / 0700 directories
+umask: 0o077
 gpg:
   symmetric: true
 
