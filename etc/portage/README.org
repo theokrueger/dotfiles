@@ -2,11 +2,6 @@
 everything is TOML and managed by the python script.
 
 ** per-host config
-hosts/<hostname>.toml takes the same keys as sets/ (install, "package.use",
-"package.accept_keywords", "package.mask", "package.unmask", "package.license",
-"package.env") plus:
-
-- disable = [...] masks shared sets for this hostname only
-- ["make.conf"] key/value table, rendered to make.conf/50-<hostname> so it
-  sorts after the shared make.conf/* files (keep the quotes: a bare [make.conf]
-  header would nest a conf table under make)
+hosts/<hostname>.toml takes the same keys as `sets/`, plus
+- `disable` to mask entries in `sets/`
+- `["make.conf"]` table with the same formatting as entries in `make.conf`
