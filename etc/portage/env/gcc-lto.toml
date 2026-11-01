@@ -1,18 +1,15 @@
-# link-time optimisation build environment
+# use in projects that have no rust code
 env = [
   'CFLAGS="${CFLAGS} -flto=auto"',
   'CXXFLAGS="${CXXFLAGS} -flto=auto"',
   'FFLAGS="${FFLAGS} -flto=auto"',
   'FCFLAGS="${FCFLAGS} -flto=auto"',
-  'RUSTFLAGS="${RUSTFLAGS} -C lto=thin"',
   'USE="${USE} lto pgo"',
 ]
 
 packages = [
-  'www-client/librewolf',
   'app-emulation/qemu',
   'gui-wm/sway',
-  'x11-terms/alacritty',
   'llvm-core/*',
   'llvm-runtimes/*',
   'app-arch/*',
@@ -20,7 +17,6 @@ packages = [
   'net-misc/networkmanager',
   'xfce-base/thunar',
   'xfce-base/tumbler',
-  'mail-client/thunderbird',
   'app-editors/emacs',
   'app-emacs/emacs-common',
   'sys-boot/grub',

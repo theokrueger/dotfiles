@@ -5,8 +5,9 @@ install = [
 ]
 
 "package.use" = [
-  # librewolf
-  'www-client/librewolf eme-free -wifi -X',
+  # librewolf & thunderbird
+  'www-client/librewolf eme-free hwaccel jumbo-build openh264 -wifi -X',
+  'mail-client/thunderbird eme-free hwaccel -wifi -X',
   'media-libs/libvpx postproc',
   'media-libs/libpng apng',
 ]

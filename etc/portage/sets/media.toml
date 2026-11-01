@@ -1,0 +1,10 @@
+install = [
+  "app-text/evince",
+  "media-gfx/gimp",
+  "media-video/vlc",
+]
+
+"package.use" = [
+  "media-gfx/gimp webp",
+  "media-video/vlc x265 x264 flac dav1d",
+]

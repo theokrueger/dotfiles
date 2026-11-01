@@ -1,0 +1,31 @@
+# use in projects that have rust code and do not link to a gcc-compiled lto-enabled package
+env = [
+  'CARGO_PROFILE_RELEASE_LTO=yes',
+  'PATH="/usr/lib/llvm/22/bin:${PATH}"',
+
+  # likely runtime problems with lto become errors
+  'WARNING_FLAGS="-Werror=odr -Werror=strict-aliasing"',
+  'CFLAGS="${CFLAGS} -flto=thin ${WARNING_FLAGS}"',
+  'CXXFLAGS="${CXXFLAGS} -flto=thin ${WARNING_FLAGS}"',
+  'FFLAGS="${FFLAGS} -flto=thin ${WARNING_FLAGS}"',
+  'FCFLAGS="${FCFLAGS} -flto=thin ${WARNING_FLAGS}"',
+  'LDFLAGS="${LDFLAGS} -flto=thin -fuse-ld=lld"',
+
+  # rust lto at link time for ffi
+  'RUSTFLAGS="${RUSTFLAGS} -C opt-level=3 -C strip=debuginfo -C linker=clang -C linker-plugin-lto -C link-arg=-fuse-ld=lld"',
+
+  'CC="clang"',
+  'CXX="clang++"',
+  'CPP="clang-cpp"',
+  'AR="llvm-ar"',
+  'NM="llvm-nm"',
+  'RANLIB="llvm-ranlib"',
+
+  'USE="${USE} lto pgo"',
+]
+
+packages = [
+  'mail-client/thunderbird',
+  'www-client/librewolf',
+  'x11-terms/alacritty',
+]

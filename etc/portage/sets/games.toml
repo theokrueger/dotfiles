@@ -6,6 +6,7 @@ install = [
   'games-util/game-device-udev-rules',
   'gui-wm/gamescope',
   'games-util/mangohud',
+  'games-action/prismlauncher',
 ]
 
 "package.accept_keywords" = [
