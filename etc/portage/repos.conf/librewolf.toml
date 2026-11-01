@@ -1,0 +1,3 @@
+location = '/var/db/repos/librewolf'
+sync-type = 'git'
+sync-uri = 'https://codeberg.org/librewolf/gentoo.git'

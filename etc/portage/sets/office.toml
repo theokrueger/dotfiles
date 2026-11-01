@@ -1,0 +1,16 @@
+install = [
+  'app-office/libreoffice',
+  'x11-misc/sent',
+  'app-text/texlive',
+]
+
+"package.accept_keywords" = [
+  # sent
+  'x11-misc/sent ~amd64',
+  'media-gfx/farbfeld ~amd64',
+]
+
+"package.use" = [
+  'app-text/texlive cjk context extra games graphics humanities luatex metapost music png pstricks publishers science tex4ht texi2html truetype xetex xml',
+  'app-text/texlive-core cjk context extra games graphics humanities luatex metapost music png pstricks publishers science tex4ht texi2html truetype xetex xml',
+]

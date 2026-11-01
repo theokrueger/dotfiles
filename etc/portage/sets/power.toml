@@ -1,0 +1,5 @@
+# firmware updates and hardware inventory
+install = [
+  'sys-apps/fwupd',
+  'sys-apps/lshw',
+]

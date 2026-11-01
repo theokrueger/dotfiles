@@ -1,0 +1,10 @@
+install = [
+  'media-sound/pulsemixer',
+  'media-video/pipewire',
+]
+
+"package.use" = [
+  '*/* alsa alsa-plugin bluetooth pipewire gstreamer pulseaudio',
+  'media-video/pipewire sound-server',
+  'media-sound/pulseaudio -alsa-plugin -daemon',
+]

@@ -1,0 +1,10 @@
+# cpu feature detection, probed from the running cpu rather than baked in
+# @CPU_FLAGS@ is the output of app-portage/cpuid2cpuflags, which prints the
+# whole "CPU_FLAGS_X86: aes avx ..." assignment, so the atom stays in the data
+install = [
+  'app-portage/cpuid2cpuflags',
+]
+
+"package.use" = [
+  '*/* @CPU_FLAGS@',
+]

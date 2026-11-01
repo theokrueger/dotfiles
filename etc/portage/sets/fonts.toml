@@ -1,0 +1,9 @@
+install = [
+  'media-fonts/fonts-meta',
+  'media-fonts/nerdfonts',
+]
+
+"package.use" = [
+  'media-fonts/fonts-meta cjk ms emoji',
+  'media-fonts/nerdfonts ibmplexmono sourcecodepro robotomono noto'
+]

@@ -1,5 +1,5 @@
 * dotfiles
-dotfiles managed by ~chezmoi~
+world's worst dotfiles repo
 
 ** deps
 requires:
@@ -8,6 +8,7 @@ requires:
 - flatpak
 - wget
 - keepassxc
+- python3
 
 ** usage
 #+BEGIN_SRC

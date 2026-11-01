@@ -1,0 +1,4 @@
+ACCEPT_LICENSE = '"*"'
+LC_MESSAGES = 'C.UTF-8'
+FEATURES = '"${FEATURES} binpkg-request-signature"'
+EMERGE_DEFAULT_OPTS = '"--with-bdeps=y --binpkg-respect-use=y --getbinpkg --quiet --keep-going"'

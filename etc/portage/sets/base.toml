@@ -1,0 +1,57 @@
+# core system must-haves
+install = [
+  # dotfiles
+  'app-admin/chezmoi',
+
+  # archives and optical media
+  'app-arch/7zip',
+  'app-arch/unrar',
+  'app-cdr/cdrtools',
+
+  # filesystems and block devices
+  'sys-block/io-scheduler-udev-rules',
+  'sys-fs/btrfs-progs',
+  'sys-fs/compsize',
+  'sys-fs/dosfstools',
+  'sys-fs/fuse',
+  'sys-fs/lvm2',
+
+  # process and system monitors
+  'app-misc/fastfetch',
+  'sys-apps/progress',
+  'sys-process/btop',
+  'sys-process/htop',
+  'sys-process/lsof',
+
+  # scheduling
+  'sys-process/cronie',
+
+  # text and file utilities
+  'app-misc/trash-cli',
+  'app-shells/fzf',
+  'app-text/tree',
+  'dev-perl/rename',
+  'sys-apps/ripgrep',
+
+  # editors and loose cli tools
+  'app-editors/nano',
+  'app-misc/jq',
+  'dev-build/just',
+  'sci-calculators/units',
+
+  # devices and serial consoles
+  'dev-util/android-tools',
+  'net-dialup/picocom',
+  'sys-apps/usbutils',
+]
+
+"package.use" = [
+  '*/* -telemetry',
+
+  # machine hardware
+  '*/* nvme tpm uefi',
+]
+
+"package.accept_keywords" = [
+  '*/*::guru ~amd64',
+]

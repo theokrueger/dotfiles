@@ -1,0 +1,20 @@
+install = [
+  'games-misc/cowsay',
+  'games-misc/fortune-mod',
+  'games-misc/fortune-mod-kernelcookies',
+  'games-misc/lolcat',
+  'games-util/game-device-udev-rules',
+  'gui-wm/gamescope',
+  'games-util/mangohud',
+]
+
+"package.accept_keywords" = [
+  'games-misc/lolcat ~amd64',
+  'games-misc/fortune-mod* ~amd64',
+  'games-util/game-device-udev-rules ~amd64',
+  # lazy approach for lolcat
+  'dev-ruby/*::gentoo ~amd64',
+  # gamescope
+  'gui-wm/gamescope ~amd64',
+  'media-libs/vkroots ~amd64',
+]

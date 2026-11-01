@@ -1,0 +1,17 @@
+# browsers and mail
+install = [
+  'mail-client/thunderbird',
+  'www-client/librewolf',
+]
+
+"package.use" = [
+  # librewolf
+  'www-client/librewolf eme-free -wifi -X',
+  'media-libs/libvpx postproc',
+  'media-libs/libpng apng',
+]
+
+"package.accept_keywords" = [
+  '*/*::librewolf ~amd64',
+  'dev-libs/nss ~amd64',
+]

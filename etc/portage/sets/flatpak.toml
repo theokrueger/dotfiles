@@ -1,0 +1,8 @@
+install = [
+  'sys-apps/flatpak',
+]
+
+"package.use" = [
+  '*/* flatpak',
+  'sys-apps/flatpak X',
+]

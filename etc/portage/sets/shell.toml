@@ -1,0 +1,10 @@
+# interactive shell environment
+install = [
+  'app-misc/tmux',
+  'app-shells/bash-completion',
+  'app-shells/fzf',
+]
+
+"package.use" = [
+  '*/* bash-completion',
+]

@@ -1,0 +1,5 @@
+* data-driven portage config
+everything is TOML and managed by the python script.
+
+** per-host config
+hosts/<hostname>.toml adds packages/flags and masks sets per-hostname

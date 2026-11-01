@@ -1,0 +1,14 @@
+# gentoo-specific program
+install = [
+  'app-admin/eclean-kernel',
+  'app-eselect/eselect-repository',
+  'app-portage/eix',
+  'app-portage/gentoolkit',
+  'dev-util/ccache',
+]
+
+"package.use" = [
+  # pgo on llvm
+  'llvm-runtimes/clang-runtime sanitize',
+  'llvm-runtimes/compiler-rt-sanitizers profile orc',
+]

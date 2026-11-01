@@ -1,0 +1,16 @@
+# privilege escalation and password manager
+install = [
+  'app-admin/doas',
+  'app-admin/keepassxc',
+]
+
+"package.use" = [
+  'app-admin/doas persist',
+  # keepassxc
+  'app-admin/keepassxc browser',
+  'sys-libs/zlib minizip',
+]
+
+"package.accept_keywords" = [
+  'app-admin/keepassxc ~amd64',
+]

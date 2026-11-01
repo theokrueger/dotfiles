@@ -1,0 +1,14 @@
+# emacs
+install = [
+  'app-editors/emacs',
+  'dev-libs/tree-sitter-meta',
+  'app-text/aspell',
+]
+
+"package.use" = [
+  'app-editors/emacs gui dynamic-loading source threads jit -alsa -sound gtk png gpm tree-sitter',
+  'app-emacs/emacs-common gui',
+
+  # for jit
+  'sys-devel/gcc jit',
+]

@@ -1,0 +1,29 @@
+env = [
+  'FEATURES="${FEATURES} ccache"',
+]
+
+packages = [
+  'app-emulation/qemu',
+  'app-office/libreoffice',
+  'dev-debug/gdb',
+  'dev-debug/valgrind',
+  'dev-lang/mono',
+  'dev-lang/python',
+  'dev-lang/rust',
+  'dev-qt/qtbase',
+  'gui-wm/gamescope',
+  'gui-wm/sway',
+  'llvm-core/*',
+  'llvm-runtimes/*',
+  'mail-client/thunderbird',
+  'media-gfx/imagemagick',
+  'media-libs/mesa',
+  'media-libs/opencv',
+  'media-sound/audacity',
+  'media-video/ffmpeg',
+  'media-video/obs-studio',
+  'net-libs/nodejs',
+  'sys-devel/gcc',
+  'sys-kernel/gentoo-kernel',
+  'www-client/librewolf',
+]

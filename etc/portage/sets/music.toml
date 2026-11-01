@@ -1,0 +1,15 @@
+install = [
+  'media-sound/mpc',
+  'media-sound/mpd',
+  'media-sound/ncmpcpp',
+  # used by my ncmpcpp script
+  'app-misc/tmux',
+  'media-gfx/ueberzugpp',
+  'sys-fs/inotify-tools',
+]
+
+"package.use" = [
+  'media-sound/ncmpcpp visualizer taglib outputs',
+  'media-sound/mpd flac opus',
+  'media-gfx/ueberzugpp opencv',
+]

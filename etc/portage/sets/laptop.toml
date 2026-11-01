@@ -1,0 +1,5 @@
+# laptop-only hardware/software
+install = [
+  'sys-auth/fprintd',
+  'sys-power/tlp',
+]

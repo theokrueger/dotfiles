@@ -1,0 +1,63 @@
+install = [
+  # compositor and session
+  'dev-libs/light',
+  'gui-wm/sway',
+  'gui-apps/mako',
+  'gui-apps/qt6ct',
+  'gui-apps/swaybg',
+  'gui-apps/swayidle',
+  'gui-apps/swaylock',
+  'gui-apps/tofi',
+  'gui-apps/wev',
+  'gui-apps/wl-clipboard',
+  'gui-apps/wl-mirror',
+  'gui-apps/wlr-randr',
+
+  # portals and desktop integration
+  'gui-libs/xdg-desktop-portal-wlr',
+  'sys-apps/xdg-desktop-portal-gtk',
+  'x11-misc/xdg-user-dirs',
+  'x11-themes/adw-gtk3',
+  'x11-terms/alacritty',
+
+  # files and archives
+  'app-arch/file-roller',
+  'gnome-base/gvfs',
+  'media-gfx/ueberzugpp',
+  'xfce-base/thunar',
+  'xfce-base/thunar-volman',
+  'xfce-base/tumbler',
+  'xfce-extra/thunar-archive-plugin',
+  'xfce-extra/thunar-media-tags-plugin',
+  'xfce-extra/thunar-shares-plugin',
+
+  # images and fonts
+  'media-fonts/fonts-meta',
+  'media-gfx/flameshot',
+  'media-gfx/swayimg',
+
+  # printing
+  'net-print/cups-pdf',
+]
+
+"package.use" = [
+  '*/* elogind -systemd dbus udev polkit',
+
+  # wayland
+  '*/* wayland',
+  'dev-qt/qtgui egl',
+  'dev-libs/weston wayland',
+  'media-libs/vulkan-loader X',
+
+  # wm
+  'gui-wm/sway tray X',
+  'gui-apps/swaybg gdk-pixbuf',
+  'media-gfx/swayimg lua_single_target_luajit',
+  'x11-terms/alacritty -X wayland',
+
+  # files
+  'xfce-base/thunar trash-panel-plugin libnotify exif udisks',
+  'xfce-base/tumbler ffmpeg pdf',
+  'gnome-base/gvfs mtp',
+  'dev-libs/libdbusmenu gtk3',
+]

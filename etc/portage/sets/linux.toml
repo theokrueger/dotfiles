@@ -1,0 +1,23 @@
+# kernel, bootloader, initramfs and secure boot
+install = [
+  'app-crypt/efitools',
+  'app-crypt/sbctl',
+  'sys-boot/grub',
+  'sys-boot/os-prober',
+  'sys-fs/cryptsetup',
+  'sys-kernel/gentoo-kernel',
+  'sys-kernel/installkernel',
+  'sys-kernel/linux-firmware',
+]
+
+"package.use" = [
+  '*/* dist-kernel lvm',
+  'sys-kernel/installkernel grub -dracut ugrd',
+  'sys-boot/grub mount mapper device-mapper',
+  'sys-fs/cryptsetup openssl',
+]
+
+"package.accept_keywords" = [
+  'sys-kernel/gentoo-kernel ~amd64',
+  'virtual/dist-kernel ~amd64',
+]

@@ -1,0 +1,7 @@
+disable = [
+  "steam",
+]
+
+install = []
+
+use = []

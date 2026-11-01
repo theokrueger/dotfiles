@@ -1,0 +1,15 @@
+install = [
+  'net-firewall/ufw',
+  'net-fs/sshfs',
+  'net-misc/chrony',
+  'net-misc/networkmanager',
+  'net-p2p/syncthing',
+  'net-vpn/tailscale',
+  'sys-auth/nss-mdns',
+  'net-wireless/iw',
+]
+
+"package.use" = [
+  '*/* zeroconf networkmanager wifi',
+  'net-misc/networkmanager dhcpcd',
+]

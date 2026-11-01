@@ -1,0 +1,6 @@
+# secure boot via sbctl key
+USE = '"${USE} secureboot modules-sign"'
+MODULES_SIGN_KEY = '"/var/lib/sbctl/keys/db/db.key"'
+MODULES_SIGN_CERT = '"/var/lib/sbctl/keys/db/db.pem"'
+SECUREBOOT_SIGN_KEY = '"/var/lib/sbctl/keys/db/db.key"'
+SECUREBOOT_SIGN_CERT = '"/var/lib/sbctl/keys/db/db.pem"'
