@@ -2,6 +2,6 @@
 everything is TOML and managed by the python script.
 
 ** per-host config
-hosts/<hostname>.toml takes the same keys as `sets/`, plus
-- `disable` to mask entries in `sets/`
-- `["make.conf"]` table with the same formatting as entries in `make.conf`
+entries in ~hosts/~ take the same keys as ~sets/~, plus
+- ~disable~ to mask entries in ~sets/~
+- ~["make.conf"]~ table with the same formatting as entries in ~make.conf~
