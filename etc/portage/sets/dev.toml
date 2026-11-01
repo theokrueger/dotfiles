@@ -8,28 +8,25 @@ install = [
   'dev-python/numpy',
   'dev-python/uv',
 
+  # dotnet
+  #'dev-dotnet/dotnet-sdk-bin:8.0',
+  'dev-dotnet/dotnet-sdk-bin:10.0',
+
   # version control
   'dev-vcs/git',
   'dev-vcs/git-lfs',
 
-  # toolchains and build
+  # c/c++/cross
   'sys-devel/crossdev',
   'sys-devel/mold',
 
-  # runtimes and web
+  # web
   'net-libs/nodejs',
   'www-apps/zola',
 ]
 
 "package.use" = [
-  # note: package.use/lang starts with a bare "*/*" with no flags
-  # (a no-op in Portage); kept verbatim
-  '*/*',
-
-  # js
   'net-libs/nodejs npm',
-
-  # rust
   'dev-lang/rust* clippy rust-analyzer rust-src rustfmt profiler',
 ]
 

@@ -1,0 +1,7 @@
+install = [
+  'x11-drivers/OpenTabletDriver',
+]
+
+"package.accept_keywords" = [
+  'x11-drivers/OpenTabletDriver ~amd64',
+]

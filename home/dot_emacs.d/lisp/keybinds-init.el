@@ -8,14 +8,10 @@
 ;;(global-set-key (kbd "C-<return>") (lambda () (interactive) (term "/bin/bash")))
 
 ;; window navigation
-(global-set-key (kbd "M-s-<up>")    'windmove-up)
-(global-set-key (kbd "M-s-<down>")  'windmove-down)
-(global-set-key (kbd "M-s-<left>")  'windmove-left)
-(global-set-key (kbd "M-s-<right>") 'windmove-right)
-(global-set-key (kbd "M-s-k") 'windmove-up)
-(global-set-key (kbd "M-s-j") 'windmove-down)
-(global-set-key (kbd "M-s-h") 'windmove-left)
-(global-set-key (kbd "M-s-l") 'windmove-right)
+(global-set-key (kbd "C-M-<up>")    'windmove-up)
+(global-set-key (kbd "C-M-<down>")  'windmove-down)
+(global-set-key (kbd "C-M-<left>")  'windmove-left)
+(global-set-key (kbd "C-M-<right>") 'windmove-right)
 
 (global-set-key (kbd "C-x C-S-s") 'rename-visited-file)
 

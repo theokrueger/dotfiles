@@ -38,7 +38,4 @@ def host(schema: Path, name: str | None) -> tuple[str, dict[str, Any]]:
     if name and not path.is_file():
         sys.exit(f"{path}: no such host file")
     doc: dict[str, Any] = load(path) if path.is_file() else {}
-    for key in ("disable", "install", "use"):
-        if not isinstance(doc.get(key, []), list):
-            sys.exit(f"{path}: {key} must be a list")
     return host, doc

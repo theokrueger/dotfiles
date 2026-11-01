@@ -1,0 +1,14 @@
+install = [
+  'media-video/obs-studio',
+  'media-video/obs-vaapi',
+  'media-video/wlrobs',
+  'media-video/v4l2loopback',
+]
+
+"package.use" = [
+  'media-video/obs-studio v4l wayland qsv speex',
+]
+
+"package.accept_keywords" = [
+  'media-video/obs-studio ~amd64',
+]

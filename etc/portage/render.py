@@ -4,7 +4,7 @@
 import argparse
 import os
 import sys
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping
 from pathlib import Path
 from typing import Any
 
@@ -14,7 +14,13 @@ from macros import AT_MACROS
 
 SET_KEYS: set[str] = {"install", *portage.PACKAGE_KEYS}
 ENV_KEYS: set[str] = {"env", "packages"}
-HOST_KEYS: set[str] = {"disable", "install", "use"}
+# host keys, sets keys plus disable and make.conf
+HOST_TYPES: dict[str, type] = {
+    "disable": list,
+    "make.conf": dict,
+    **dict.fromkeys(SET_KEYS, list),
+}
+HOST_KEYS: set[str] = set(HOST_TYPES)
 
 
 def report(label: str, subject: str) -> None:
@@ -50,6 +56,10 @@ def main():
     host, host_doc = data.host(schema, args.host)
     print(host)
     check_keys(f"hosts/{host}.toml", host_doc, HOST_KEYS)
+    for key, value in host_doc.items():
+        wanted: type | None = HOST_TYPES.get(key)
+        if wanted and not isinstance(value, wanted):
+            sys.exit(f"hosts/{host}.toml: {key} must be a {wanted.__name__}")
     disabled: set[str] = set(host_doc.get("disable", []))
 
     # write file
@@ -131,15 +141,25 @@ def main():
             if doc.get(key):
                 emit(f"{key}/{name}", doc[key], source)
 
-    # hosts/
-    if host_doc.get("install") or host_doc.get("use"):
+    # hosts/ and sets/ and package.*/ and make.conf/
+    host_entries: dict[str, list[str]] = {
+        key: host_doc[key] for key in portage.PACKAGE_KEYS if host_doc.get(key)
+    }
+    host_make: dict[str, Any] = host_doc.get("make.conf") or {}
+    if host_doc.get("install") or host_entries or host_make:
         if host in names:
             sys.exit(f"{schema}/hosts/{host}.toml: a set named {host} already exists")
         source = f"hosts/{host}.toml"
         if host_doc.get("install"):
             emit(f"sets/{host}", host_doc["install"], source)
-        if host_doc.get("use"):
-            emit(f"package.use/{host}", host_doc["use"], source)
+        for key, lines in host_entries.items():
+            emit(f"{key}/{host}", lines, source)
+        if host_make:
+            emit(
+                f"make.conf/50-{host}",
+                [f"{key}={value}" for key, value in host_make.items()],
+                source,
+            )
 
     # world_sets
     sets: set[str] = {rel.split("/")[1] for rel in written if rel.startswith("sets/")}

@@ -30,11 +30,13 @@ install = [
   'xfce-extra/thunar-archive-plugin',
   'xfce-extra/thunar-media-tags-plugin',
   'xfce-extra/thunar-shares-plugin',
+  'sys-apps/qdirstat',
 
-  # images and fonts
-  'media-fonts/fonts-meta',
+  # img
   'media-gfx/flameshot',
   'media-gfx/swayimg',
+  'gui-apps/grim',
+  'gui-apps/slurp',
 
   # printing
   'net-print/cups-pdf',

@@ -7,6 +7,7 @@ install = [
   'app-arch/7zip',
   'app-arch/unrar',
   'app-cdr/cdrtools',
+  'app-arch/unzip',
 
   # filesystems and block devices
   'sys-block/io-scheduler-udev-rules',
@@ -15,6 +16,7 @@ install = [
   'sys-fs/dosfstools',
   'sys-fs/fuse',
   'sys-fs/lvm2',
+  'sys-apps/smartmontools',
 
   # process and system monitors
   'app-misc/fastfetch',

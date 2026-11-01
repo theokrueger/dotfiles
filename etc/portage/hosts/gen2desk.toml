@@ -1,5 +1,44 @@
-disable = []
+disable = [
+  "laptop",
+]
 
-install = []
+install = [
+  # amdgpu and rocm
+  'dev-libs/rocm-opencl-runtime',
+  'dev-util/clinfo',
+  'dev-util/rocm-smi',
+  'dev-util/vulkan-tools',
+  'media-libs/glew',
+  'media-libs/libva',
+  'media-libs/openvr',
+  'media-video/libva-utils',
+  'sci-libs/hipBLAS',
+  'sci-libs/miopen',
 
-use = []
+  # media
+  'media-sound/soundconverter',
+]
+
+"package.use" = []
+
+"package.accept_keywords" = [
+  # amdgpu/rocm stack
+  'dev-util/roc* ~amd64',
+  'sci-libs/roc* ~amd64',
+  'sci-libs/hip* ~amd64',
+  'sci-libs/miopen ~amd64',
+  'sci-ml/*rocm* ~amd64',
+  'dev-libs/roc* ~amd64',
+  'dev-build/roc* ~amd64',
+  'dev-util/clinfo ~amd64',
+  'dev-util/hip* ~amd64',
+  'dev-util/Tensile ~amd64',
+  'dev-libs/half ~amd64',
+  'dev-libs/hipother ~amd64',
+  'llvm-core/* ~amd64',
+  'llvm-runtimes/* ~amd64',
+  'dev-util/spirv-llvm-translator ~amd64',
+]
+
+["make.conf"]
+

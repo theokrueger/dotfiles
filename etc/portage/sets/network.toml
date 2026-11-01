@@ -5,8 +5,10 @@ install = [
   'net-misc/networkmanager',
   'net-p2p/syncthing',
   'net-vpn/tailscale',
+  'net-dns/avahi',
   'sys-auth/nss-mdns',
   'net-wireless/iw',
+  'net-fs/nfs-utils',
 ]
 
 "package.use" = [

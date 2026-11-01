@@ -1,0 +1,9 @@
+install = [
+  'app-containers/distrobox',
+  'app-containers/docker',
+  'app-containers/docker-cli',
+]
+
+"package.use" = [
+  'app-containers/distrobox gui',
+]
