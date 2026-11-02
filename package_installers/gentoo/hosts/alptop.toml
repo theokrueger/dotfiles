@@ -11,4 +11,6 @@ install = []
 
 "package.accept_keywords" = []
 
+"kernel.config.disable" = []
+
 ["make.conf"]

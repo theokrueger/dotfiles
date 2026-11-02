@@ -3,5 +3,5 @@ install = [
 ]
 
 "package.use" = [
-  '*/* @CPU_FLAGS@',
+  '@CPU_FLAGS@', # macro includes the */* already
 ]

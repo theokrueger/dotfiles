@@ -8,3 +8,10 @@ install = [
   'media-video/pipewire sound-server',
   'media-sound/pulseaudio -alsa-plugin -daemon',
 ]
+
+"kernel.config" = [
+  'CONFIG_SOUND=y',
+  'CONFIG_SND=y',
+  'CONFIG_SND_PROC_FS=y',
+  'CONFIG_SND_VERBOSE_PROCFS=y',
+]

@@ -7,3 +7,8 @@ install = [
   '*/* flatpak',
   'sys-apps/flatpak X',
 ]
+
+"kernel.config" = [
+  'CONFIG_FUSE_FS=y',
+  'CONFIG_SECURITY_LANDLOCK=y',
+]

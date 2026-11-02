@@ -11,7 +11,9 @@ def cpu_flags() -> str:
         probe = subprocess.run(
             ["cpuid2cpuflags"], capture_output=True, text=True, check=True
         )
-    except (OSError, subprocess.CalledProcessError) as error:
+    except subprocess.CalledProcessError as error:
+        sys.exit(f"cpuid2cpuflags: {error.stderr.strip() or error}")
+    except OSError as error:
         sys.exit(f"cpuid2cpuflags: {error}")
     return " ".join(probe.stdout.split())
 
@@ -21,7 +23,7 @@ def jobs() -> str:
     return str(count or 4)
 
 
-# @macro -> closure
+# @macro@ -> closure
 AT_MACROS: dict[str, Callable[[], str]] = {
     "@JOBS@": jobs,
     "@CPU_FLAGS@": cpu_flags,

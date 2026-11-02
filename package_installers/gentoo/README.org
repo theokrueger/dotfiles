@@ -1,0 +1,15 @@
+* data-driven portage config
+everything is TOML and managed by the python script.
+
+** per-host config
+entries in ~hosts/~ take the same keys as ~sets/~, plus
+- ~disable~ to mask entries in ~sets/~
+- ~["kernel.config.disable"]~ to skip files in ~kernel.config.d/~
+- ~["make.conf"]~ table with the same formatting as entries in ~make.conf~
+
+** kernel config snippets
+~kernel.config.d/~ holds installkernel snippets and is not TOML, files are copied
+verbatim into ~/etc/kernel/config.d/~ with the generated marker on top.
+
+sets can add their own ~kernel.config~ lines, those are merged into one
+~/etc/kernel/config.d/99-sets.config~ in set order, each set under its own comment.

@@ -40,5 +40,9 @@ install = [
   'dev-util/spirv-llvm-translator ~amd64',
 ]
 
+"kernel.config.disable" = [
+  '25-no-nvidia.config',
+]
+
 ["make.conf"]
 

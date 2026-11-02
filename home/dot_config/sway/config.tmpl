@@ -9,9 +9,6 @@ include ./rules
 
 # startup apps
 exec mako
-exec pipewire
-exec pipewire-pulse
-exec wireplumber
 exec otd
 exec mpd --no-daemon
 
@@ -19,4 +16,4 @@ exec /usr/libexec/polkit-gnome-authentication-agent-1
 exec ~/.config/sway/scripts/sway-autotiler --limit 4 --splitratio 1.61
 exec --no-startup-id dbus-update-activation-environment --all
 exec_always ~/.config/sway/scripts/window-title-as-workspace.sh
-exec swayidle -w timeout 540 'notify-send --wait --expire-time=60000 "LOCKING SOON" "AS IN 60 SECONDS SOON"' -w timeout 600 '~/.config/sway/scripts/lock.sh'
+exec swayidle -w timeout 840 'notify-send --wait --expire-time=60000 "LOCKING SOON" "AS IN 60 SECONDS SOON"' -w timeout 900 '~/.config/sway/scripts/lock.sh'

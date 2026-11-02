@@ -156,3 +156,7 @@ install = [
   "*/*::steam-overlay ~amd64",
   "sys-libs/libudev-compat ~amd64",
 ]
+
+"kernel.config" = [
+  "CONFIG_TMPFS=y",
+]
