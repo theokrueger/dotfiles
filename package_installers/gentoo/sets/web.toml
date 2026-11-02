@@ -15,4 +15,5 @@ install = [
 "package.accept_keywords" = [
   '*/*::librewolf ~amd64',
   'dev-libs/nss ~amd64',
+  'media-libs/libaom ~amd64',
 ]

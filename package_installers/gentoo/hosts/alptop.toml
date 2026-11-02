@@ -1,5 +1,4 @@
 disable = [
-  "steam",
   "input-tablet",
   "input-spaceball",
   "obs",
