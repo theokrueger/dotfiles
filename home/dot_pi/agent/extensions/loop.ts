@@ -23,7 +23,7 @@ import type {
 import { Type } from "typebox";
 
 const TOOL_NAME = "loop_done";
-const STATUS_KEY = "1loop";
+const STATUS_KEY = "10loop";
 const DEFAULT_MAX = 100;
 
 /** Tools that hand control to a human. Blocked while interactive mode is off. */
@@ -189,8 +189,7 @@ export default function (pi: ExtensionAPI) {
         ctx.ui.notify(
           (active
             ? `Loop on. ${progress()}. Escape or /loop off to stop.`
-            : "Loop off.") +
-            ` Interactive: ${interactive ? "on" : "off"}.`,
+            : "Loop off.") + ` Interactive: ${interactive ? "on" : "off"}.`,
           "info",
         );
       } else {
@@ -205,7 +204,8 @@ export default function (pi: ExtensionAPI) {
   // Interactive off: refuse the tools that would park the run on a human.
   pi.on("tool_call", (event) => {
     if (!active || interactive) return;
-    if (!(INTERACTIVE_TOOLS as readonly string[]).includes(event.toolName)) return;
+    if (!(INTERACTIVE_TOOLS as readonly string[]).includes(event.toolName))
+      return;
     return {
       block: true,
       reason:

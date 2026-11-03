@@ -1,10 +1,9 @@
 {
-  "lastChangelogVersion": "1.4.0",
+  "lastChangelogVersion": "1.5.0",
   "defaultProvider": "opencode-go",
   "defaultModel": "deepseek-v4.1-flash",
   "packages": [
     "npm:pi-ask-user",
-    "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-lens"
@@ -21,5 +20,9 @@
   "doubleEscapeAction": "tree",
   "fullscreenExitOutput": "resume-hint",
   "fullscreenCopyOnSelect": true,
-  "theme": "system"
+  "theme": "system",
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.84.0",
+    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.8"
+  }
 }

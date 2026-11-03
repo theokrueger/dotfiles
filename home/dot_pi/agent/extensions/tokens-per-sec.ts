@@ -10,7 +10,7 @@ import type {
 } from "@earendil-works/pi-coding-agent";
 
 /** Footer statuses sort by key, so the numeric prefix keeps TPS leftmost. */
-const STATUS_KEY = "0-tps";
+const STATUS_KEY = "00-tps";
 const WINDOW = 5;
 const RENDER_INTERVAL_MS = 200;
 const MIN_SAMPLE_MS = 150; // shorter samples produce wild rates
