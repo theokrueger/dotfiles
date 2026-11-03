@@ -3,10 +3,17 @@
  *
  *   /loop on [max]   start looping (default 100 continuations, 0 = unlimited)
  *   /loop off        stop looping now
+ *   /loop interactive on|off
+ *                    allow/disallow the agent asking the user anything while looping
  *   /loop            show status
  *
  * The loop ends when the model calls `loop_done`: either the task is complete, or
  * every option is exhausted and nothing viable remains.
+ *
+ * Interactive mode is on by default and stays set until changed or the session
+ * restarts. With it off, tools that need a human (`ask_user`,
+ * `contact_supervisor`) are blocked while the loop runs and the prompt tells the
+ * model to decide on its own instead of asking.
  */
 
 import type {
@@ -19,11 +26,20 @@ const TOOL_NAME = "loop_done";
 const STATUS_KEY = "1loop";
 const DEFAULT_MAX = 100;
 
+/** Tools that hand control to a human. Blocked while interactive mode is off. */
+const INTERACTIVE_TOOLS = ["ask_user", "contact_supervisor"] as const;
+
 /** Tokens paid per stop attempt. Keep this short. */
 const CONTINUE_TEXT =
   "Loop active. Do not stop. Take the next concrete step now. " +
   `Call ${TOOL_NAME} when the task is complete; ` +
   "if you need the user's input, ask them.";
+
+/** Same nudge with the interactive escape hatches closed. */
+const CONTINUE_TEXT_NO_ASK =
+  "Loop active (interactive is off: do not ask the user, and ask_user/contact_supervisor are blocked). " +
+  "Take the next concrete step now, choosing the most reasonable option and stating the assumption. " +
+  `Call ${TOOL_NAME} when the task is complete; if a decision genuinely requires the user, call ${TOOL_NAME} and name that decision.`;
 
 const CAP_TEXT = `Loop iteration cap reached. Wrap up now, then call ${TOOL_NAME} if the task is complete.`;
 
@@ -32,11 +48,25 @@ export default function (pi: ExtensionAPI) {
   let iterations = 0;
   let maxIterations = DEFAULT_MAX;
   let capAnnounced = false;
+  /** When false, the agent may not call tools that wait on the user. */
+  let interactive = true;
 
   function progress(): string {
-    return maxIterations > 0
-      ? `loop ${iterations}/${maxIterations}`
-      : `loop ${iterations}`;
+    const count =
+      maxIterations > 0
+        ? `loop ${iterations}/${maxIterations}`
+        : `loop ${iterations}`;
+    return interactive ? count : `${count} · no-ask`;
+  }
+
+  /** The message that keeps the turn going. */
+  function nudgeText(): string {
+    if (capAnnounced) {
+      return interactive
+        ? CAP_TEXT
+        : `${CAP_TEXT} Interactive is off: do not ask the user.`;
+    }
+    return interactive ? CONTINUE_TEXT : CONTINUE_TEXT_NO_ASK;
   }
 
   function renderStatus(ctx: ExtensionContext): void {
@@ -74,7 +104,20 @@ export default function (pi: ExtensionAPI) {
     renderStatus(ctx);
     ctx.ui.notify(
       `Loop on. The agent will keep going until it calls ${TOOL_NAME}.` +
-        (max > 0 ? ` Cap: ${max} continuations.` : " No cap."),
+        (max > 0 ? ` Cap: ${max} continuations.` : " No cap.") +
+        (interactive ? "" : " Interactive off: it cannot ask you anything."),
+      "info",
+    );
+  }
+
+  /** Flip the ask-the-user switch; takes effect immediately while looping. */
+  function setInteractive(ctx: ExtensionContext, enabled: boolean): void {
+    interactive = enabled;
+    renderStatus(ctx);
+    ctx.ui.notify(
+      enabled
+        ? "Loop interactive on. The agent may ask you questions again."
+        : "Loop interactive off. The agent will decide on its own instead of asking you.",
       "info",
     );
   }
@@ -121,30 +164,74 @@ export default function (pi: ExtensionAPI) {
 
   pi.registerCommand("loop", {
     description:
-      "Keep iterating until the model declares it is done: /loop on [max] | /loop off",
+      "Keep iterating until the model declares it is done: /loop on [max] | /loop off | /loop interactive on|off",
     getArgumentCompletions: (prefix) =>
-      ["on", "off", "status"]
+      ["on", "off", "interactive", "status"]
         .filter((value) => value.startsWith(prefix))
         .map((value) => ({ value, label: value })),
     handler: async (args, ctx) => {
-      const [action, limit] = args.trim().split(/\s+/);
+      const [action, value] = args.trim().split(/\s+/);
       if (action === "on") {
-        const parsed = Number.parseInt(limit ?? "", 10);
+        const parsed = Number.parseInt(value ?? "", 10);
         start(ctx, parsed >= 0 ? parsed : DEFAULT_MAX);
       } else if (action === "off") {
         if (active) stop(ctx, "Loop off (requested).");
         else ctx.ui.notify("Loop already off.", "info");
+      } else if (action === "interactive") {
+        if (value === "on") setInteractive(ctx, true);
+        else if (value === "off") setInteractive(ctx, false);
+        else
+          ctx.ui.notify(
+            `Interactive is ${interactive ? "on" : "off"}. Usage: /loop interactive on|off`,
+            "warning",
+          );
       } else if (action === "" || action === "status") {
         ctx.ui.notify(
-          active
+          (active
             ? `Loop on. ${progress()}. Escape or /loop off to stop.`
-            : "Loop off.",
+            : "Loop off.") +
+            ` Interactive: ${interactive ? "on" : "off"}.`,
           "info",
         );
       } else {
-        ctx.ui.notify("Usage: /loop on [max] | /loop off | /loop", "warning");
+        ctx.ui.notify(
+          "Usage: /loop on [max] | /loop off | /loop interactive on|off | /loop",
+          "warning",
+        );
       }
     },
+  });
+
+  // Interactive off: refuse the tools that would park the run on a human.
+  pi.on("tool_call", (event) => {
+    if (!active || interactive) return;
+    if (!(INTERACTIVE_TOOLS as readonly string[]).includes(event.toolName)) return;
+    return {
+      block: true,
+      reason:
+        `${event.toolName} is blocked: interactive mode is off (/loop interactive off). ` +
+        "Decide yourself, note the assumption, and keep working. " +
+        `If the user really must choose, call ${TOOL_NAME} and name the decision.`,
+    };
+  });
+
+  // Interactive off: restate the rule in the prompt, overriding the loop_done
+  // guideline that tells the model to ask.
+  pi.on("before_agent_start", (event) => {
+    if (!active || interactive) return;
+    const options = event.systemPromptOptions;
+    const guidelines = options.toolGuidelines[TOOL_NAME];
+    if (guidelines) {
+      options.toolGuidelines[TOOL_NAME] = guidelines.map((line) =>
+        line.startsWith("Asking the user does not end the loop")
+          ? `Do not ask the user: interactive mode is off. If a decision is genuinely theirs, call ${TOOL_NAME} and name it instead of asking.`
+          : line,
+      );
+    }
+    options.promptGuidelines.push(
+      "Loop mode is running with interactive off: do not ask the user anything and do not wait for approval. ask_user and contact_supervisor are blocked. " +
+        "Pick the most reasonable option, state the assumption, and keep working until you call loop_done.",
+    );
   });
 
   // The whole loop: fires only when the run would otherwise end.
@@ -171,13 +258,14 @@ export default function (pi: ExtensionAPI) {
 
     iterations += 1;
     renderStatus(ctx);
+    const nudge = nudgeText();
     return {
       entries: [
         ...event.entries,
         {
           type: "custom_message",
           customType: "loop-continue",
-          content: capAnnounced ? CAP_TEXT : CONTINUE_TEXT,
+          content: nudge,
           display: false,
         },
       ],
@@ -188,6 +276,7 @@ export default function (pi: ExtensionAPI) {
   // Don't leak loop state across /new, /resume, /fork or /reload.
   pi.on("session_start", (_event, ctx) => {
     reset();
+    interactive = true;
     setToolEnabled(false);
     renderStatus(ctx);
   });
