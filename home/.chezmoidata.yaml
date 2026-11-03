@@ -1,7 +1,4 @@
 ---
-# per-host configuration overrides.
-# anything not set for a host falls back to hosts.default.
-# the selection happens in dot_config/chezmoi/chezmoi.yaml.tmpl.
 hosts:
   default:
     chassis: desktop
