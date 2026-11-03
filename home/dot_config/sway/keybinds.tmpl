@@ -55,9 +55,9 @@ bindsym $mod_alt+s       exec $screenshot
 bindsym $mod+s           exec $markup
 
 # lock and sleep
-bindsym $mod+Delete      exec ~/.config/sway/scripts/lock.sh
-bindsym $mod_alt+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl suspend
-bindsym $mod_alt_2+Delete  exec ~/.config/sway/scripts/lock.sh & sleep 2 && loginctl hibernate
+bindsym $mod+Delete        exec ~/.config/sway/scripts/lock.sh
+bindsym $mod_alt+Delete    exec loginctl suspend
+#bindsym $mod_alt_2+Delete  exec loginctl hibernate
 
 {{- if eq .chassis "laptop" }}
 # brightness
