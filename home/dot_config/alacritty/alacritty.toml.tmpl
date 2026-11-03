@@ -1,12 +1,14 @@
 [terminal]
 shell = "/bin/bash"
+osc52 = "OnlyCopy"
 
 [general]
 live_config_reload = false
 ipc_socket = false
 
 [env]
-TERM = "alacritty"
+# ssh compat
+TERM = "xterm-256color"
 
 [window]
 decorations = "None"
@@ -22,7 +24,7 @@ size = 12
 
 [colors]
 cursor = { text = "{{- .colours.bg }}", cursor = "{{- .colours.fg }}" }
-selection = { text = "{{- .colours.bg }}", cursor = "{{- .colours.fg }}" }
+selection = { text = "{{- .colours.bg }}", background = "{{- .colours.fg }}" }
 
 [colors.primary]
 foreground = "{{- .colours.text }}"
@@ -34,3 +36,9 @@ bright_foreground = "{{- .colours.text_focused }}"
 animation = "EaseOutQuad"
 duration = 13
 color = "{{- .colours.fg }}"
+
+[keyboard]
+bindings = [
+  { key = "C", mods = "Control|Shift", action = "Copy" },
+  { key = "V", mods = "Control|Shift", action = "Paste" },
+]
