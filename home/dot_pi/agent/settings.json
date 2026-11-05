@@ -2,7 +2,6 @@
   "lastChangelogVersion": "1234.5678.9",
   "packages": [
     "npm:pi-subagents",
-    "npm:@juicesharp/rpiv-todo",
     "npm:pi-lens"
   ],
   "hideThinkingBlock": true,

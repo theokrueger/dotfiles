@@ -17,8 +17,8 @@ alias lsblk='lsblk -o name,mountpoint,size,FSUSE%,label,uuid'
 alias cp='cp --reflink=auto --verbose'
 
 # gentoo/portage
-alias gen2-sync="doas /bin/bash -c 'emerge-webrsync && doas emaint sync -A'"
-alias gen2-update="doas emerge --ask --update --changed-use --deep --with-bdeps=y --keep-going --quiet-build y --getbinpkg --binpkg-respect-use=y @world"
+alias gen2-sync="doas /bin/bash -c 'emerge-webrsync && emaint sync -A'"
+alias gen2-update="doas emerge --ask --update --changed-use --deep --with-bdeps=y --keep-going --quiet-build=y --getbinpkg --binpkg-respect-use=y @world"
 
 # custom shortcuts
 {{- if eq .window_manager "sway" }}
