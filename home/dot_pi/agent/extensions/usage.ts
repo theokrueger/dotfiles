@@ -68,6 +68,9 @@ async function collect(): Promise<UsageRecord[]> {
 
     const text = await readFile(join(dir, name), "utf8").catch(() => "");
     for (const entry of parseSessionEntries(text)) {
+      // The session header carries no usage.
+      if (entry.type === "session") continue;
+
       const at = Date.parse(entry.timestamp);
       if (!(at >= since)) continue;
 

@@ -28,18 +28,17 @@ install = [
   # scheduling
   'sys-process/cronie',
 
-  # text and file utilities
+  # cli utils
   'app-misc/trash-cli',
   'app-shells/fzf',
   'app-text/tree',
   'dev-perl/rename',
   'sys-apps/ripgrep',
-
-  # editors and loose cli tools
   'app-editors/nano',
   'app-misc/jq',
   'dev-build/just',
   'sci-calculators/units',
+  'sys-apps/fd',
 
   # devices and serial consoles
   'dev-util/android-tools',

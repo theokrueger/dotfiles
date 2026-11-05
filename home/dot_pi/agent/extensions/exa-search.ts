@@ -194,8 +194,8 @@ export default function (pi: ExtensionAPI) {
       const chars = details?.characters ?? text.length;
       const lines = text ? text.split("\n").length : 0;
       return new Text(
-        theme.fg("success", `${chars} chars`) +
-          theme.fg("dim", ` \u00b7 ${lines} lines \u00b7 `) +
+        theme.fg("success", `${chars} char(s)`) +
+          theme.fg("dim", ` \u00b7 ${lines} line(s) \u00b7 `) +
           context.keyHint("app.tools.expand", "to expand"),
         0,
         0,
@@ -210,7 +210,7 @@ export default function (pi: ExtensionAPI) {
     const chars = message.details?.characters ?? textOf(message.content).length;
     return new Text(
       theme.fg("accent", "web search") +
-        theme.fg("dim", ` \u00b7 ${message.details?.query ?? "results"} \u00b7 ${chars} chars \u00b7 `) +
+        theme.fg("dim", ` \u00b7 ${message.details?.query ?? "results"} \u00b7 ${chars} char(s) \u00b7 `) +
         options.keyHint("app.tools.expand", "to expand"),
       options.outputPad,
       0,
@@ -237,7 +237,7 @@ export default function (pi: ExtensionAPI) {
         { deliverAs: "nextTurn" },
       );
       ctx.ui.notify(
-        `Exa: ${result.text.length} chars queued for the next turn` +
+        `Exa: ${result.text.length} char(s) queued for the next turn` +
           (result.authenticated ? "" : " (free tier)"),
         "info",
       );
