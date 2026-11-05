@@ -1,29 +1,41 @@
 /**
  * `/retry` — continue the session after an abort.
  *
- *   /retry   ask the model to pick up where the aborted run stopped
+ *   /retry   re-issue the model request without adding anything to the conversation
  *
- * Escape aborts a run but leaves the partial response in context; the model
- * will not resume on its own until asked. The nudge is a hidden custom message,
- * so no fake user turn appears in the transcript.
+ * Escape aborts a run but leaves the partial response in context. /retry starts a
+ * new run with a hidden trigger message (the only way the extension API can start
+ * a run), but a `context` handler strips every retry trigger out of the transcript
+ * before the model request, so the LLM sees exactly the same message list as the
+ * previous attempt — no nudge, no duplicate entries, just a plain retry.
  */
 
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { AgentMessage, ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const CUSTOM_TYPE = "retry-continue";
 
-const NUDGE = "The previous run was interrupted. Continue from where it stopped.";
+const TRIGGER = "/retry";
+
+function isRetryTrigger(message: AgentMessage): boolean {
+  return message.role === "custom" && (message as { customType?: string }).customType === CUSTOM_TYPE;
+}
 
 export default function (pi: ExtensionAPI) {
+  // Hide the trigger from the LLM: the retried request carries the same
+  // conversation as before, with the partial assistant response still last.
+  pi.on("context", (event) => ({
+    messages: event.messages.filter((m) => !isRetryTrigger(m)),
+  }));
+
   pi.registerCommand("retry", {
-    description: "Continue the session after an aborted run",
+    description: "Retry the last model request without adding messages",
     handler: async (_args, ctx) => {
       if (!ctx.isIdle()) {
         ctx.ui.notify("Still running: /retry only continues an idle session.", "warning");
         return;
       }
       pi.sendMessage(
-        { customType: CUSTOM_TYPE, content: NUDGE, display: false },
+        { customType: CUSTOM_TYPE, content: TRIGGER, display: false },
         { triggerTurn: true },
       );
     },
