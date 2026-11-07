@@ -12,6 +12,7 @@ install = [
   'gui-apps/wl-clipboard',
   'gui-apps/wl-mirror',
   'gui-apps/wlr-randr',
+  'x11-misc/ydotool',
 
   # portals and desktop integration
   'gui-libs/xdg-desktop-portal-wlr',

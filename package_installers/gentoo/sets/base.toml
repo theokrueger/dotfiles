@@ -14,7 +14,8 @@ install = [
   'sys-fs/btrfs-progs',
   'sys-fs/compsize',
   'sys-fs/dosfstools',
-  'sys-fs/fuse',
+  'sys-fs/fuse:0',
+  'sys-fs/fuse:3',
   'sys-fs/lvm2',
   'sys-apps/smartmontools',
 
