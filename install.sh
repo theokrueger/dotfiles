@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # install script for dotfiles
-cd "$(dirname "$0")" || exit 1
+set -euo pipefail
+cd "$(dirname "$0")"
 
 SKIP=false
 for arg in "$@"; do
@@ -33,10 +34,10 @@ exists() {
 }
 
 # install
+CHEZMOI="$(command -v chezmoi)"
+exists "$CHEZMOI" "chezmoi"
 if [[ "$SKIP" != true ]]; then
     # tools for install
-    CHEZMOI="$(command -v chezmoi)"
-    exists "$CHEZMOI" "chezmoi"
     FLATPAK="$(command -v flatpak)"
     exists "$FLATPAK" "flatpak"
     WGET="$(command -v wget)"
@@ -73,7 +74,9 @@ fi
 
 # apply chezmoi cfg
 CHEZMOI_CFG_FILE="$HOME/.config/chezmoi/chezmoi.yaml"
-mkdir -p ~/.config/chezmoi/
-echo "sourceDir: $PWD" > "$CHEZMOI_CFG_FILE"
-cat "./home/dot_config/chezmoi/chezmoi.yaml.tmpl" | chezmoi execute-template > "$CHEZMOI_CFG_FILE"
+CHEZMOI_TMP="$(mktemp)"
+trap 'rm -f "$CHEZMOI_TMP"' EXIT
+mkdir -p "$(dirname "$CHEZMOI_CFG_FILE")"
+"$CHEZMOI" --source "$PWD" execute-template < "./home/dot_config/chezmoi/chezmoi.yaml.tmpl" > "$CHEZMOI_TMP"
+mv "$CHEZMOI_TMP" "$CHEZMOI_CFG_FILE"
 "$CHEZMOI" apply
