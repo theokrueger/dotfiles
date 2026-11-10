@@ -3,8 +3,8 @@
  *
  *   /aside why is the retry backoff capped at 30s here?
  *
- * The aside is a separate request to the active model with a snapshot of the
- * main thread's context. It has no tools, and only reasons over that context.
+ * A separate request to the active model with a snapshot of the main thread's
+ * context: no tools, and nothing added to the conversation.
  */
 
 import {
@@ -16,6 +16,8 @@ import {
 import { Box, Markdown, Text } from "@earendil-works/pi-tui";
 
 const ENTRY_TYPE = "aside";
+const STATUS_KEY = "20aside";
+
 const ASK = (question: string) => `# Aside
 
 This is a side question about the conversation above, not a continuation of the main task: answer only this. You have no tools in this request, so answer from the conversation and your own knowledge. Be concise and direct — no plan, no preamble, no pretending you inspected or ran anything.
@@ -31,35 +33,46 @@ interface AsideEntry {
   usage?: { input: number; output: number; cost: number };
 }
 
-interface Request {
-  question: string;
-  startedAt: number;
-  signal: AbortSignal;
-}
-
 export default function (pi: ExtensionAPI) {
   const inflight = new Set<AbortController>();
 
-  /** Answer one aside. Auth/transport failures reject; a bad response sets `error`. */
+  // Bold while any aside runs. A ctx captured before a session switch is stale
+  // and throws, so a failed update must not escape.
+  const renderStatus = (ctx: ExtensionContext) => {
+    try {
+      if (!ctx.hasUI) return;
+      ctx.ui.setStatus(
+        STATUS_KEY,
+        inflight.size > 0 ? ctx.ui.theme.bold("aside running") : undefined,
+      );
+    } catch {
+      // Session replaced mid-flight: there is no footer left to update.
+    }
+  };
+
+  /** One aside. Transport failures reject; a bad response sets `error`. */
   const ask = async (
     ctx: ExtensionContext,
-    { question, startedAt, signal }: Request,
+    question: string,
+    startedAt: number,
+    signal: AbortSignal,
   ): Promise<AsideEntry> => {
     const model = ctx.model;
     if (!model) throw new Error("/aside needs an active model");
 
-    const messages = [
-      ...convertToLlm(ctx.sessionManager.buildSessionContext().messages),
-      {
-        role: "user" as const,
-        content: [{ type: "text" as const, text: ASK(question) }],
-        timestamp: Date.now(),
-      },
-    ];
-
     const message = await ctx.modelRegistry.complete(
       model,
-      { systemPrompt: ctx.getSystemPrompt(), messages },
+      {
+        systemPrompt: ctx.getSystemPrompt(),
+        messages: [
+          ...convertToLlm(ctx.sessionManager.buildSessionContext().messages),
+          {
+            role: "user" as const,
+            content: [{ type: "text" as const, text: ASK(question) }],
+            timestamp: Date.now(),
+          },
+        ],
+      },
       {
         reasoning: model.reasoning ? ctx.thinkingLevel : undefined,
         sessionId: ctx.sessionManager.getSessionId(), // shares the main thread's prompt cache
@@ -153,14 +166,11 @@ export default function (pi: ExtensionAPI) {
       const startedAt = Date.now();
       const abort = new AbortController();
       inflight.add(abort);
+      renderStatus(ctx);
 
       const run = async () => {
         try {
-          const entry = await ask(ctx, {
-            question,
-            startedAt,
-            signal: abort.signal,
-          });
+          const entry = await ask(ctx, question, startedAt, abort.signal);
           if (!abort.signal.aborted) show(ctx, entry);
         } catch (error) {
           if (abort.signal.aborted) return;
@@ -174,6 +184,7 @@ export default function (pi: ExtensionAPI) {
           });
         } finally {
           inflight.delete(abort);
+          renderStatus(ctx);
         }
       };
 
