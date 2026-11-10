@@ -8,7 +8,11 @@
  * per million tokens, copied from morphllm.com/api/models/json?prices=list.
  */
 
-import type { ModelCost, ThinkingLevelMap } from "@earendil-works/pi-ai";
+import type {
+  ModelCost,
+  ModelThinkingLevel,
+  ThinkingLevelMap,
+} from "@earendil-works/pi-ai";
 import type {
   ExtensionAPI,
   ProviderModelConfig,
@@ -34,11 +38,29 @@ const COST = {
   deepseek: { input: 0.12, output: 0.8, cacheRead: 0.008, cacheWrite: 0 },
 };
 
-/** Kimi K3 has no "minimal" tier; Morph answers anything else with a 400. */
+/**
+ * docs.morphllm.com/llms.txt
+ */
 const EFFORT = {
-  kimi: { off: "none", minimal: "low" },
-  deepseek: { off: "none" },
-};
+  kimi: {
+    off: "none",
+    minimal: "low", // Kimi K3 has no `minimal` tier
+    low: "low",
+    medium: "medium",
+    high: "high",
+    xhigh: "xhigh",
+    max: "max",
+  },
+  deepseek: {
+    off: "none",
+    minimal: "minimal",
+    low: "low",
+    medium: "medium",
+    high: "high",
+    xhigh: "xhigh",
+    max: "max",
+  },
+} satisfies Record<string, Record<ModelThinkingLevel, string>>;
 
 const model = (
   id: string,
