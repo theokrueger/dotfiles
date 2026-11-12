@@ -1,0 +1,12 @@
+install = [
+  'media-gfx/freecad'
+]
+
+"package.use" = [
+  'sci-libs/opencascade json',
+  'dev-python/pyside uitools',
+  'media-libs/tiff lzma zstd',
+]
+
+"package.accept_keywords" = [
+]

@@ -1,0 +1,13 @@
+install = [
+  'sci-electronics/kicad-meta'
+]
+
+"package.use" = [
+  'x11-libs/wxGTK webkit',
+  'dev-libs/boost python',
+]
+
+"package.accept_keywords" = [
+  'sci-electronics/kicad openmp',
+  'sys-devel/gcc openmp',
+]
