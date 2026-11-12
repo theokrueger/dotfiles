@@ -23,7 +23,7 @@ PACKAGE_KEYS: list[str] = [
     "package.env",
 ]
 
-# directorys that can be modified
+# directories the renderer owns
 SCAN_DIRS: list[str] = [
     "make.conf",
     "env",
@@ -52,14 +52,14 @@ def ini(sections: Mapping[str, Mapping[str, object]]) -> list[str]:
     return lines
 
 
-# every file under owned folder
+# every file under owned folder, nested ones included
 def scanned(root: Path, dirs: Iterable[str]) -> list[str]:
     return [
-        f"{rel_dir}/{entry.name}"
+        path.relative_to(root).as_posix()
         for rel_dir in dirs
         if (root / rel_dir).is_dir()
-        for entry in sorted((root / rel_dir).iterdir())
-        if entry.is_file()
+        for path in sorted((root / rel_dir).rglob("*"))
+        if path.is_file()
     ]
 
 

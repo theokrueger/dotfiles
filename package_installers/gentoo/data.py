@@ -1,5 +1,4 @@
 # reading the data files that describe a portage config
-import socket
 import sys
 import tomllib
 from pathlib import Path
@@ -11,6 +10,8 @@ def load(path: Path) -> Any:
         with path.open("rb") as handle:
             return tomllib.load(handle)
     except tomllib.TOMLDecodeError as error:
+        sys.exit(f"{path}: {error}")
+    except OSError as error:
         sys.exit(f"{path}: {error}")
 
 
@@ -32,14 +33,7 @@ def name(path: Path) -> str:
     return path.stem
 
 
-def host(schema: Path, hostname: str | None) -> tuple[str, dict[str, Any]]:
-    host: str = hostname or socket.gethostname().split(".")[0]
+# None when the host has no file, an empty file is a valid host
+def host(schema: Path, host: str) -> dict[str, Any] | None:
     path: Path = schema / "hosts" / f"{host}.toml"
-    if not path.is_file():
-        if hostname:
-            sys.exit(f"{path}: no such host file")
-        # an unknown hostname still renders the shared sets
-        print(f"warning: {path}: no such host file", file=sys.stderr)
-        return host, {}
-    doc: dict[str, Any] = load(path)
-    return host, doc
+    return load(path) if path.is_file() else None

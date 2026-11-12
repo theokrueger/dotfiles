@@ -7,6 +7,7 @@ install = [
   'dev-python/black',
   'dev-python/numpy',
   'dev-python/uv',
+  'dev-util/ruff',
 
   # dotnet
   #'dev-dotnet/dotnet-sdk-bin:8.0',
