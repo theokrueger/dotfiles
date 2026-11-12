@@ -1,2 +1,0 @@
-# mirrors
-GENTOO_MIRRORS = '"https://us.mirrors.cicku.me/gentoo/ https://mirror.clarkson.edu/gentoo/ http://www.gtlib.gatech.edu/pub/gentoo https://mirrors.kernel.org/gentoo/ https://mirror.leaseweb.com/gentoo/ https://mirrors.mit.edu/gentoo-distfiles/ https://mirror.cs.odu.edu/gentoo-distfiles/ https://gentoo.osuosl.org/ https://mirror.planetunix.net/pub/gentoo/ https://mirror.rackspace.com/gentoo/ https://mirrors.rit.edu/gentoo/ https://mirror.servaxnet.com/gentoo/ https://mirror.umd.edu/gentoo/"'

@@ -52,6 +52,11 @@ def ini(sections: Mapping[str, Mapping[str, object]]) -> list[str]:
     return lines
 
 
+# toml table -> make.conf lines
+def lines(doc: Mapping[str, object]) -> list[str]:
+    return [f"{key}={scalar(value)}" for key, value in doc.items()]
+
+
 # every file under owned folder, nested ones included
 def scanned(root: Path, dirs: Iterable[str]) -> list[str]:
     return [
@@ -59,7 +64,7 @@ def scanned(root: Path, dirs: Iterable[str]) -> list[str]:
         for rel_dir in dirs
         if (root / rel_dir).is_dir()
         for path in sorted((root / rel_dir).rglob("*"))
-        if path.is_file()
+        if path.is_file() and not path.is_symlink()
     ]
 
 
@@ -73,10 +78,9 @@ def world_entries(names: set[str]) -> list[str]:
     entries: list[str] = []
     for entry in read(WORLD_SETS).split():
         if entry.startswith("@"):
-            if entry[1:] in names:
-                continue
-            # keep unowned sets there
-            if generated(PORTAGE / "sets" / entry[1:]):
+            path: Path = PORTAGE / "sets" / entry[1:]
+            # ours: planned, generated before, or gone
+            if entry[1:] in names or generated(path) or not path.is_file():
                 continue
         entries.append(entry)
     entries.extend(f"@{name}" for name in sorted(names))
