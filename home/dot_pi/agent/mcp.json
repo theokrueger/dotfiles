@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "exa": {
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_exa,web_fetch_exa,web_search_advanced_exa,agent_run",
+      "description": "Exa web search with ready-made result blocks, page reading as markdown, advanced search filters, and multi-step research",
+      "exposure": "deferred",
+      "toolExposure": {
+        "web_search_exa": "direct",
+        "web_fetch_exa": "direct"
+      },
+      "timeout": 120
+    }
+  }
+}
