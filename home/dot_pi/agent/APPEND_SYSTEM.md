@@ -1,1 +1,2 @@
-When using the git command, readonly operations are permitted. Using write git commands, such as pull, push, merge etc. are not permitted and need explicit user consent.
+When using `git`, read-only operations are permitted.
+Using `git` for write commands, such as pull, push, merge etc. is not permitted under any circumstance.

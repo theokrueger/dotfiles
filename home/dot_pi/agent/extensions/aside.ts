@@ -17,6 +17,9 @@ import { Box, Markdown, Text } from "@earendil-works/pi-tui";
 
 const ENTRY_TYPE = "aside";
 const STATUS_KEY = "20aside";
+/** Channel the TPS footer extension listens on for the session-wide rate. */
+const TPS_EVENT = "tps:tokens";
+const CHARS_PER_TOKEN = 4; // fallback estimate until usage is reported
 
 const ASK = (question: string) => `# Aside
 
@@ -36,14 +39,15 @@ interface AsideEntry {
 export default function (pi: ExtensionAPI) {
   const inflight = new Set<AbortController>();
 
-  // Bold while any aside runs. A ctx captured before a session switch is stale
-  // and throws, so a failed update must not escape.
+  // Bold while any aside runs, e.g. "2 aside(s)". A ctx captured before
+  // a session switch is stale and throws, so a failed update must not escape.
   const renderStatus = (ctx: ExtensionContext) => {
     try {
       if (!ctx.hasUI) return;
+      const count = inflight.size;
       ctx.ui.setStatus(
         STATUS_KEY,
-        inflight.size > 0 ? ctx.ui.theme.bold("aside running") : undefined,
+        count > 0 ? ctx.ui.theme.bold(`${count} aside(s)`) : undefined,
       );
     } catch {
       // Session replaced mid-flight: there is no footer left to update.
@@ -60,7 +64,7 @@ export default function (pi: ExtensionAPI) {
     const model = ctx.model;
     if (!model) throw new Error("/aside needs an active model");
 
-    const message = await ctx.modelRegistry.complete(
+    const stream = ctx.modelRegistry.streamSimple(
       model,
       {
         systemPrompt: ctx.getSystemPrompt(),
@@ -79,6 +83,34 @@ export default function (pi: ExtensionAPI) {
         signal,
       },
     );
+
+    // Feed the aggregate TPS footer as tokens arrive (windowed in tokens-per-sec.ts).
+    let chars = 0;
+    let counted = 0;
+    const contribute = (tokens: number) => {
+      if (tokens !== 0) pi.events.emit(TPS_EVENT, { tokens, source: "aside" });
+    };
+    for await (const event of stream) {
+      if (
+        event.type === "text_delta" ||
+        event.type === "thinking_delta" ||
+        event.type === "toolcall_delta"
+      ) {
+        chars += event.delta.length;
+        const total = Math.max(
+          event.partial.usage.output,
+          chars / CHARS_PER_TOKEN,
+        );
+        if (total > counted) {
+          contribute(total - counted);
+          counted = total;
+        }
+      }
+    }
+
+    const message = await stream.result();
+    // Swap the streaming estimate for the provider's reported output count.
+    if (message.usage.output > 0) contribute(message.usage.output - counted);
 
     const answer = message.content
       .flatMap((part) => (part.type === "text" ? [part.text] : []))

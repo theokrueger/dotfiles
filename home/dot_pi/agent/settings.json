@@ -1,8 +1,5 @@
 {
-  "packages": [
-    "npm:pi-subagents",
-    "npm:pi-lens"
-  ],
+  "packages": ["npm:pi-lens"],
   "hideThinkingBlock": true,
   "terminal": {
     "showTerminalProgress": false
@@ -20,5 +17,8 @@
   "fullscreenExitOutput": "resume-hint",
   "fullscreenCopyOnSelect": true,
   "theme": "system",
-  "treeFilterMode": "no-tools"
+  "treeFilterMode": "no-tools",
+  "markdown": {
+    "mermaid": "final"
+  }
 }

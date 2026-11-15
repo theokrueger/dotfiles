@@ -32,26 +32,16 @@ const QUESTION_TOOL = "ask_user";
 
 /** Tokens paid per stop attempt. Keep these short. */
 const CONTINUE = "Loop active. Do not stop. Take the next concrete step now.";
-const ASK = `Call ${TOOL_NAME} when the task is complete; if you need the user's input, ask them.`;
-const NO_ASK =
-  "Interactive is off: do not ask the user, and ask_user is disabled. Choose the most " +
-  "reasonable option, state the assumption, and keep working. If a decision genuinely " +
-  `requires the user, call ${TOOL_NAME} and name that decision.`;
-const CAP = `Loop iteration cap reached. Wrap up now, then call ${TOOL_NAME} if the task is complete.`;
-
-const description = (ask: boolean) =>
+const NO_ASK = `Call ${TOOL_NAME} if and only if the task is complete.`;
+const ASK = `${NO_ASK}. If you need the user's input, ask them via the question tool.`;
+const DESCRIPTION =
   "Declare that the loop is finished. Call this if either (1) the task is complete and verified, " +
-  "or (2) all options are exhausted. " +
-  (ask
-    ? "If you need user input/approval, ask the question and continue working after."
-    : "Do not ask the user: interactive mode is off. If a decision is genuinely theirs, " +
-      "name it in the reason.");
+  "or (2) all options are exhausted.";
 
 export default function (pi: ExtensionAPI) {
   let active = false;
   let iterations = 0;
   let maxIterations = DEFAULT_MAX;
-  let capAnnounced = false;
   let interactive = false;
 
   const progress = () => {
@@ -63,12 +53,7 @@ export default function (pi: ExtensionAPI) {
   };
 
   /** The message that keeps the turn going. */
-  const nudge = () => {
-    if (capAnnounced) {
-      return interactive ? CAP : `${CAP} Interactive is off: do not ask the user.`;
-    }
-    return `${CONTINUE} ${interactive ? ASK : NO_ASK}`;
-  };
+  const nudge = () => `${CONTINUE} ${interactive ? ASK : NO_ASK}`;
 
   const renderStatus = (ctx: ExtensionContext) =>
     ctx.ui.setStatus(STATUS_KEY, active ? progress() : undefined);
@@ -86,7 +71,6 @@ export default function (pi: ExtensionAPI) {
   const stop = (ctx: ExtensionContext, notice?: string) => {
     active = false;
     iterations = 0;
-    capAnnounced = false;
     setToolEnabled(false);
     renderStatus(ctx);
     if (notice) ctx.ui.notify(notice, "info");
@@ -95,7 +79,6 @@ export default function (pi: ExtensionAPI) {
   const start = (ctx: ExtensionContext, max: number) => {
     active = true;
     iterations = 0;
-    capAnnounced = false;
     maxIterations = max;
     setToolEnabled(true);
     renderStatus(ctx);
@@ -110,7 +93,7 @@ export default function (pi: ExtensionAPI) {
   pi.registerTool({
     name: TOOL_NAME,
     label: "Loop Done",
-    description: description(true),
+    description: DESCRIPTION,
     promptSnippet: "Declare the loop finished when the task is complete",
     promptGuidelines: [
       `Loop mode is active: keep working across turns until you call ${TOOL_NAME}.`,
@@ -126,10 +109,7 @@ export default function (pi: ExtensionAPI) {
     // `tool_call` guard below still blocks a direct or nested call by name.
     prepareLoadout: () =>
       active && !interactive
-        ? {
-            hiddenDeclarations: [QUESTION_TOOL],
-            descriptions: { [TOOL_NAME]: description(false) },
-          }
+        ? { hiddenDeclarations: [QUESTION_TOOL] }
         : undefined,
     parameters: Type.Object({
       reason: Type.Optional(
@@ -222,11 +202,8 @@ export default function (pi: ExtensionAPI) {
     // the assistant's — exactly the case we are here to handle. Pi re-checks
     // canContinue itself after committing our custom message.
 
-    // At the cap: announce it once with one last nudge, then stop on the next pass.
-    if (maxIterations > 0 && iterations >= maxIterations) {
-      if (capAnnounced) return stop(ctx);
-      capAnnounced = true;
-    }
+    // At the cap: stop silently.
+    if (maxIterations > 0 && iterations >= maxIterations) return stop(ctx);
 
     iterations += 1;
     renderStatus(ctx);
