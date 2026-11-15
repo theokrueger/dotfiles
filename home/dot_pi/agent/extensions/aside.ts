@@ -16,7 +16,7 @@ import {
 import { Box, Markdown, Text } from "@earendil-works/pi-tui";
 
 const ENTRY_TYPE = "aside";
-const STATUS_KEY = "20aside";
+const STATUS_KEY = "10aside";
 /** Channel the TPS footer extension listens on for the session-wide rate. */
 const TPS_EVENT = "tps:tokens";
 const CHARS_PER_TOKEN = 4; // fallback estimate until usage is reported
