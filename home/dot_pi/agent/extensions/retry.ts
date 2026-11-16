@@ -10,14 +10,20 @@
  * previous attempt — no nudge, no duplicate entries, just a plain retry.
  */
 
-import type { AgentMessage, ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type {
+  AgentMessage,
+  ExtensionAPI,
+} from "@earendil-works/pi-coding-agent";
 
 const CUSTOM_TYPE = "retry-continue";
 
 const TRIGGER = "/retry";
 
 function isRetryTrigger(message: AgentMessage): boolean {
-  return message.role === "custom" && (message as { customType?: string }).customType === CUSTOM_TYPE;
+  return (
+    message.role === "custom" &&
+    (message as { customType?: string }).customType === CUSTOM_TYPE
+  );
 }
 
 export default function (pi: ExtensionAPI) {
@@ -28,10 +34,13 @@ export default function (pi: ExtensionAPI) {
   }));
 
   pi.registerCommand("retry", {
-    description: "Retry the last model request without adding messages",
+    description: "Retry the last request.",
     handler: async (_args, ctx) => {
       if (!ctx.isIdle()) {
-        ctx.ui.notify("Still running: /retry only continues an idle session.", "warning");
+        ctx.ui.notify(
+          "Still running: /retry only continues an idle session.",
+          "warning",
+        );
         return;
       }
       pi.sendMessage(

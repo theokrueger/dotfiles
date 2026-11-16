@@ -1,18 +1,19 @@
 /**
  * Loop mode — keep working until the model is truly done, or a goal is met.
  *
- *   /loop [goal]      loop until the goal is met or the 25-loop cap hits
- *   /loop             current state
- *   /loop off         stop now
- *   /loop interactive toggle whether the agent may ask the user while looping
+ *   /loop on            plain loop: runs until `loop_done`, no judge
+ *   /loop goal <cond>   goal loop: runs until the judge sees the condition met
+ *   /loop               current state
+ *   /loop off           stop now
+ *   /loop interactive   toggle whether the agent may ask the user while looping
  *
- * A loop always runs toward a goal. `loop_done` is only a submission: after every
- * turn a fresh judge call (same model, no tools, transcript only) returns met /
- * not_yet / impossible, and "not yet" continues with its reason as the next
- * instruction. Completion rests on what the transcript proves, and the goal starts
- * a turn by itself like Claude Code's /goal:
+ * Both loops stop at the 25-loop cap. A goal loop adds a fresh judge call after
+ * every turn (same model, no tools, transcript only) returning met / not_yet /
+ * impossible, and "not yet" continues with its reason as the next instruction, so
+ * completion rests on what the transcript proves. Setting a goal starts a turn by
+ * itself, like Claude Code's /goal:
  *
- *   /loop all tests in test/auth pass and `npm test -- test/auth` exits 0
+ *   /loop goal all tests in test/auth pass and `npm test -- test/auth` exits 0
  */
 
 import type {
@@ -24,8 +25,13 @@ import { Type } from "typebox";
 
 const TOOL_NAME = "loop_done";
 const STATUS_KEY = "20loop";
-const ACTIONS = ["off", "interactive"];
+const ACTIONS = ["on", "goal", "off", "interactive"];
 const QUESTION_TOOL = "ask_user";
+
+// Tokens paid per stop attempt: keep these short.
+const CONTINUE = "Loop active. Do not stop. Take the next concrete step now.";
+const NO_ASK = `Call ${TOOL_NAME} if and only if the task is complete.`;
+const ASK = `${NO_ASK}. If you need input, ask via the question tool.`;
 
 // A task that needs more than this is not a task the loop can finish.
 const LOOP_CAP = 25;
@@ -106,14 +112,14 @@ export default function (pi: ExtensionAPI) {
     if (notice) ctx.ui.notify(notice, "info");
   };
 
-  const start = (ctx: ExtensionContext, goalText: string) => {
+  const start = (ctx: ExtensionContext, goalText = "") => {
     active = true;
     goal = goalText;
     reset();
     setToolEnabled(true);
     renderStatus(ctx);
     const tone = interactive ? "interactive" : "non-interactive";
-    const goalPart = `, goal: ${oneLine(goal, 80)}`;
+    const goalPart = goal ? `, goal: ${oneLine(goal, 80)}` : "";
     ctx.ui.notify(
       `Loop started (max ${LOOP_CAP} loops), ${tone}${goalPart}.`,
       "info",
@@ -125,7 +131,7 @@ export default function (pi: ExtensionAPI) {
     ctx: ExtensionContext,
     messages: readonly Message[],
   ): Promise<Judgment | undefined> => {
-    if (!ctx.model) return undefined;
+    if (!ctx.model || !goal) return undefined;
     try {
       const reply = await ctx.modelRegistry.complete(
         ctx.model,
@@ -158,6 +164,7 @@ export default function (pi: ExtensionAPI) {
 
   /** The message that keeps the turn going. */
   const nudge = (judgment?: Judgment) => {
+    if (!goal) return `${CONTINUE} ${interactive ? ASK : NO_ASK}`;
     const head = judgment ? `Goal not yet met — ${judgment.reason}\n\n` : "";
     const rules = interactive
       ? `Call ${TOOL_NAME} when you believe the goal is met; the evaluator confirms it. Ask the user if you need input.`
@@ -203,9 +210,9 @@ export default function (pi: ExtensionAPI) {
       claimed = true;
       const reason = params.reason?.trim();
       const why = reason ? `: ${reason}` : "";
-      const text =
-        `Completion submitted${why}. The evaluator checks the transcript against the goal; ` +
-        "if it disagrees you get its reason and keep working.";
+      const text = goal
+        ? `Completion submitted${why}. The evaluator checks the transcript against the goal; if it disagrees you get its reason and keep working.`
+        : `Loop ended${why}.`;
       return {
         content: [{ type: "text", text }],
         details: { reason },
@@ -215,9 +222,7 @@ export default function (pi: ExtensionAPI) {
   });
 
   pi.registerCommand("loop", {
-    description:
-      "Loop until a goal is met: /loop [goal] | /loop | " +
-      ACTIONS.map((action) => `/loop ${action}`).join(" | "),
+    description: "Loop until agent is done or some goal is met.",
     getArgumentCompletions: (prefix) =>
       ACTIONS.filter((value) => value.startsWith(prefix)).map((value) => ({
         value,
@@ -225,6 +230,7 @@ export default function (pi: ExtensionAPI) {
       })),
     handler: (args, ctx) => {
       const text = args.trim();
+      const condition = /^goal\s+([\s\S]*)$/.exec(text)?.[1].trim() ?? "";
 
       if (text === "off") {
         if (active)
@@ -244,28 +250,43 @@ export default function (pi: ExtensionAPI) {
         );
       }
 
-      // `/loop <goal>` starts, and like /goal the condition is the directive.
-      if (text) {
-        start(ctx, clip(text, GOAL_LIMIT));
+      if (text === "on") return start(ctx);
+
+      if (text === "goal")
+        return ctx.ui.notify(
+          "Use /loop goal <condition>, e.g. /loop goal all tests pass.",
+          "warning",
+        );
+
+      // `/loop goal <condition>` also starts the turn, like /goal.
+      if (condition) {
+        start(ctx, clip(condition, GOAL_LIMIT));
         if (!ctx.isIdle())
           return ctx.ui.notify(
             "Current turn is still running; the goal applies from the next turn.",
             "info",
           );
-        pi.sendUserMessage(text);
+        pi.sendUserMessage(condition);
         return;
       }
+
+      if (text)
+        return ctx.ui.notify(
+          "Unknown argument. Use /loop on, /loop goal <condition>, /loop off, or /loop interactive.",
+          "warning",
+        );
 
       // Bare /loop: the current state.
       if (!active)
         return ctx.ui.notify(
-          "Loop is off. Start it with /loop [goal].",
+          "Loop is off. Start it with /loop on or /loop goal <condition>.",
           "info",
         );
       const verdict = lastJudgment
         ? `\nLast verdict: ${lastJudgment.verdict.replace("_", " ")} — ${lastJudgment.reason}`
         : "";
-      ctx.ui.notify(`${progress()}\nGoal: ${goal}${verdict}`, "info");
+      const what = goal ? `\nGoal: ${goal}` : "";
+      ctx.ui.notify(`${progress()}${what}${verdict}`, "info");
     },
   });
 
@@ -345,8 +366,8 @@ export default function (pi: ExtensionAPI) {
 
     if (claimed) {
       claimed = false;
-      // Without a verdict to overrule it, the claim stands.
-      if (!judgment) return stop(ctx, "Loop stopped by agent.");
+      // A plain loop, or one whose judge failed, ends on the claim itself.
+      if (!goal || !judgment) return stop(ctx, "Loop stopped by agent.");
     }
 
     if (iterations >= LOOP_CAP)

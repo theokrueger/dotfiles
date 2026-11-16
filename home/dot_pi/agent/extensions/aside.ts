@@ -186,8 +186,7 @@ export default function (pi: ExtensionAPI) {
   );
 
   pi.registerCommand("aside", {
-    description:
-      "Ask a side question with the current context, without touching the main thread",
+    description: "Ask a side question in parallel.",
     handler: async (args, ctx) => {
       const question = args.trim();
       if (!question) {
