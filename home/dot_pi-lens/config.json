@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/apmantza/pi-lens/master/docs/schema/pi-lens-config-v1.json",
+  "ui": {
+    "hideLspStatus": true,
+    "issuesStatus": false,
+    "compactToolLine": true,
+    "compactLspStatus": true,
+    "compactWidget": true
+  },
+  "widget": {
+    "visible": false
+  }
+}
