@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # installer for cargo-distributed programs
 cd "$(dirname "$0")"
-set -euo pipefail
+set -euxo pipefail
 
 echo "Performing full cargo upgrade..."
 cargo install cargo-update

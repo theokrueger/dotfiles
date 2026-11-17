@@ -15,7 +15,7 @@ done
 
 # install required packages
 if [[ "$SKIP" != true ]]; then
-    for installer in ./package_installers/*.sh; do
+    for installer in ./pkg/*.sh; do
         [[ -f "$installer" ]] || continue
         echo "Running $installer"
         "$installer"

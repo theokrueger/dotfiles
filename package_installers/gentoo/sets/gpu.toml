@@ -1,9 +1,0 @@
-install = [
-  'dev-util/vulkan-headers',
-]
-
-"package.use" = [
-  '*/* VIDEO_CARDS: -* amdgpu radeonsi',
-  '*/* AMDGPU_TARGETS: -* gfx1031 gfx1030 gfx1152',
-  '*/* vulkan vaapi opencv opencl',
-]

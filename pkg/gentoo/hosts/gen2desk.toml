@@ -1,0 +1,22 @@
+disable = [
+  "laptop",
+]
+
+install = [
+  # media
+  'media-sound/soundconverter',
+]
+
+"package.use" = [  
+  '*/* AMDGPU_TARGETS: -* gfx1030 gfx1031',
+]
+
+"package.accept_keywords" = [
+]
+
+"kernel.config.disable" = [
+  #'25-no-nvidia.config',
+]
+
+["make.conf"]
+

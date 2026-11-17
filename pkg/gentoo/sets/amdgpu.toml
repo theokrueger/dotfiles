@@ -1,9 +1,6 @@
-disable = [
-  "laptop",
-]
-
 install = [
-  # amdgpu and rocm
+  'dev-util/vulkan-headers',
+  # rocm
   'dev-libs/rocm-opencl-runtime',
   'dev-util/clinfo',
   'dev-util/rocm-smi',
@@ -14,15 +11,17 @@ install = [
   'media-video/libva-utils',
   'sci-libs/hipBLAS',
   'sci-libs/miopen',
-
-  # media
-  'media-sound/soundconverter',
 ]
 
-"package.use" = []
+"package.use" = [
+  '*/* VIDEO_CARDS: -* amdgpu radeonsi',
+  '*/* vulkan vaapi opencv opencl',
+  # rocm provides ocl runtime
+  'media-libs/mesa -opencl',
+]
 
 "package.accept_keywords" = [
-  # amdgpu/rocm stack
+  # rocm
   'dev-util/roc* ~amd64',
   'sci-libs/roc* ~amd64',
   'sci-libs/hip* ~amd64',
@@ -38,11 +37,6 @@ install = [
   'llvm-core/* ~amd64',
   'llvm-runtimes/* ~amd64',
   'dev-util/spirv-llvm-translator ~amd64',
+  'dev-cpp/frugally-deep ~amd64',
+  'dev-cpp/functional-plus ~amd64',
 ]
-
-"kernel.config.disable" = [
-  '25-no-nvidia.config',
-]
-
-["make.conf"]
-

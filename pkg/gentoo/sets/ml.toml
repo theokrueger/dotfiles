@@ -1,0 +1,10 @@
+install = [
+  "sci-misc/llama-cpp",
+]
+
+"package.use" = [
+]
+
+"package.accept_keywords" = [
+  "sci-misc/llama.cpp ~amd64",
+]

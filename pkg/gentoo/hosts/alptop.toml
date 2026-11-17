@@ -6,7 +6,9 @@ disable = [
 
 install = []
 
-"package.use" = []
+"package.use" = [
+  '*/* AMDGPU_TARGETS: -* gfx1150 gfx1151 gfx1152',
+]
 
 "package.accept_keywords" = []
 

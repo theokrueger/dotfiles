@@ -149,6 +149,7 @@ install = [
   "net-dns/avahi abi_x86_32",
   "dev-libs/libevent abi_x86_32",
   "dev-util/google-perftools abi_x86_32",
+  "media-libs/dav1d abi_x86_32",
   # EAC
   "sys-libs/glibc hash-sysv-compat",
 ]
