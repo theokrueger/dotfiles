@@ -1,0 +1,17 @@
+disable = [
+  "laptop",
+]
+
+install = []
+
+"package.use" = [
+  # 1036 -> cpu integrated
+  # 1201 -> 9070xt
+  '*/* AMDGPU_TARGETS: -* gfx1201 gfx1036',
+]
+
+"package.accept_keywords" = []
+
+"kernel.config.disable" = []
+
+["make.conf"]
