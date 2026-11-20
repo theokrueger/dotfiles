@@ -6,5 +6,5 @@ install = [
 ]
 
 "package.use" = [
-  "*/* x265 x264 flac dav1d vpx webp",
+  "*/* x265 x264 flac dav1d vpx webp opus",
 ]
