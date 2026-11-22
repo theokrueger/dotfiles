@@ -15,6 +15,11 @@
 (global-display-line-numbers-mode t)
 (setopt display-line-numbers-width 3)
 
+;; column marker
+(setopt fill-column 100)
+(setopt display-fill-column-indicator-character ?|)
+(global-display-fill-column-indicator-mode 1)
+
 ;; dont display line numbers in these modes
 (let ((undisp (lambda ()
                 (display-line-numbers-mode -1)

@@ -5,7 +5,7 @@
 declare -A FILES=(
    # profile the .emasc file, run with
    # /usr/bin/emacs -Q -l ~/.emacs.d/extern/profile-dotemacs.el -f profile-dotemacs
-    [profile-dotemacs.el]="https://web.archive.org/web/20190904064127if_/http://www.randomsample.de:80/profile-dotemacs.el"
+   [profile-dotemacs.el]="https://web.archive.org/web/20190904064127if_/http://www.randomsample.de:80/profile-dotemacs.el"
    # c clang style for clang format
    [c-linux.clang-format]="https://raw.githubusercontent.com/torvalds/linux/refs/heads/master/.clang-format"
 )
