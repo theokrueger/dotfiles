@@ -3,9 +3,9 @@
  *
  *   /usage   last 24h, 7d, and 30d totals plus the top models over 30d
  *
- * Counts assistant messages, `usage` entries, and compaction/branch summaries.
- * Forking or cloning copies history into a new file, so records are
- * deduplicated by entry id before summing.
+ * Counts assistant messages, model calls made by tools, `usage` entries, and
+ * compaction/branch summaries. Forking or cloning copies history into a new
+ * file, so identical records are deduplicated before summing.
  */
 
 import { readdir, readFile } from "node:fs/promises";
@@ -19,6 +19,9 @@ const ENTRY_TYPE = "usage-report";
 const DAY = 24 * 60 * 60 * 1000;
 const WINDOWS = [["24h", 1], ["7d", 7], ["30d", 30]] as const;
 const TOP_MODELS = 5;
+/** Labels for usage no single model owns. */
+const TOOL_USAGE = "tools/summaries";
+const SUMMARY_USAGE = "compaction/summary";
 
 interface Total {
   tokens: number;
@@ -49,19 +52,27 @@ const record = (at: number, model: string, usage: Usage): UsageRecord => ({
 function recordOf(entry: SessionEntry, at: number): UsageRecord | undefined {
   if (entry.type === "message") {
     const { message } = entry;
-    if (message.role !== "assistant") return;
-    return record(at, `${message.provider}/${message.model}`, message.usage);
+    if (message.role === "assistant") {
+      // `responseModel` is the model that actually answered when a provider routes an alias.
+      const model = message.responseModel ?? message.model;
+      return record(at, `${message.provider}/${model}`, message.usage);
+    }
+    // Tools that call a model themselves (e.g. search summarisation) are billed too.
+    if (message.role === "toolResult" && message.usage) {
+      return record(at, TOOL_USAGE, message.usage);
+    }
+    return;
   }
   if (entry.type === "usage") return record(at, `${entry.provider}/${entry.model}`, entry.usage);
   if ((entry.type === "compaction" || entry.type === "branch_summary") && entry.usage) {
-    return record(at, "compaction/summary", entry.usage);
+    return record(at, SUMMARY_USAGE, entry.usage);
   }
 }
 
 async function collect(): Promise<UsageRecord[]> {
   const since = Date.now() - 30 * DAY;
   const dir = join(getAgentDir(), "sessions");
-  const byId = new Map<string, UsageRecord>();
+  const byKey = new Map<string, UsageRecord>();
 
   for (const name of await readdir(dir, { recursive: true }).catch(() => [])) {
     if (!name.endsWith(".jsonl")) continue;
@@ -74,13 +85,15 @@ async function collect(): Promise<UsageRecord[]> {
       const at = Date.parse(entry.timestamp);
       if (!(at >= since)) continue;
 
-      // Forks keep entry ids, so the same record never counts twice.
+      // Forks copy history and keep entry ids, so identical records must collapse.
+      // Ids are only unique within a session, so the key carries the record as
+      // well: two different records that happen to share an id still both count.
       const r = recordOf(entry, at);
-      if (r) byId.set(entry.id, r);
+      if (r) byKey.set(`${entry.id}|${r.at}|${r.model}|${r.tokens}|${r.cost}`, r);
     }
   }
 
-  return [...byId.values()];
+  return [...byKey.values()];
 }
 
 const num = (n: number) => Math.round(n).toLocaleString("en-US");
@@ -106,6 +119,8 @@ function report(records: UsageRecord[]): Report {
       ...total(records.filter((r) => r.at >= now - days * DAY)),
     })),
     models: [...byModel]
+      // Failed or aborted calls record a model with no usage at all; they cost nothing.
+      .filter(([, t]) => t.tokens > 0 || t.cost > 0)
       .sort((a, b) => b[1].tokens - a[1].tokens)
       .slice(0, TOP_MODELS)
       .map(([model, t]) => ({ model, ...t })),
@@ -116,9 +131,14 @@ function render(r: Report, dim: Style = (t) => t, bold: Style = (t) => t): strin
   const since = new Date(r.generatedAt - 30 * DAY).toLocaleDateString("sv-SE");
   const tokensW = Math.max(6, ...r.windows.map((w) => num(w.tokens).length));
   const costW = Math.max(4, ...r.windows.map((w) => money(w.cost).length));
-  const labelW = Math.max(4, ...r.models.map((m) => m.model.length));
+  // One label column for both tables, so their token and cost columns line up.
+  const labelW = Math.max(
+    4,
+    ...r.windows.map((w) => w.key.length),
+    ...r.models.map((m) => m.model.length),
+  );
   const row = (label: string, tokens: number, cost: number) =>
-    `${label.padEnd(4)}${dim(num(tokens).padStart(tokensW + 2))}${dim(
+    `${label.padEnd(labelW)}${dim(num(tokens).padStart(tokensW + 2))}${dim(
       money(cost).padStart(costW + 2),
     )}`;
 
@@ -127,7 +147,7 @@ function render(r: Report, dim: Style = (t) => t, bold: Style = (t) => t): strin
     ...r.windows.map((w) => row(w.key, w.tokens, w.cost)),
     "",
     bold("Top models"),
-    ...r.models.map((m) => row(m.model.padEnd(labelW), m.tokens, m.cost)),
+    ...r.models.map((m) => row(m.model, m.tokens, m.cost)),
   ].join("\n");
 }
 
